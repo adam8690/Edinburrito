@@ -3,10 +3,28 @@
 <head>
   <title>Edinburrito</title>
   <link rel="stylesheet" type="text/css" href="style.css" />
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <script src="bundle.js"></script>
 </head>
 
 <body>
-  <h1>Edinburrito</h1>
+  <header>
+    <h1>Edinburrito</h1>
+    <form>
+      <label for="location">Location:</label>
+      <input type="text" id="location" name="location">
+      <button>Find my current location</button>
+    </form>
+  </header>
+
+  <div id="map-and-list">
+    <ul id="list">
+      <li>Burrito Place 1</li>
+      <li>Burrito Place 2</li>
+      <li>Burrito Place 3</li>
+    </ul>
+    <div id="map" width=500 height=500></div>
+  </div>
+
 </body>
 </html>

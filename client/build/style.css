@@ -1,0 +1,37 @@
+* {
+    font-family: Lato;
+}
+
+body {
+    display: flex;
+    flex-flow: column nowrap;
+    margin: 0;
+}
+
+h1 {
+    text-transform: uppercase;
+    margin: 0;
+}
+
+header {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#map-and-list {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+#list {
+    flex-grow: 1;
+}
+
+#map {
+    width: 500px;
+    height: 500px;
+    border: 1px solid black;
+    flex-grow: 3;
+}
