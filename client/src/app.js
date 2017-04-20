@@ -9,6 +9,9 @@ var mainMap = new MapWrapper(mapDiv, center, 10);
 mainMap.addClickEvent();
 mainMap.addInfoWindow(center, "are we in edinburgh yet?!");
 
+
+
 }
 
 window.onload = initialize;
+
