@@ -9,7 +9,7 @@ var initialize = function () {
     var mainMap = new MapWrapper(mapDiv, center, 15)
     // mainMap.addMarker(center)
     // mainMap.addClickEvent()
-    mainMap.addInfoWindow(center, "are we in edinburgh yet?!")
+    // mainMap.addInfoWindow(center, "are we in edinburgh yet?!")
     
     // getting the burrito data
     var businesses = new Businesses()
