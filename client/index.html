@@ -10,22 +10,29 @@
 </head>
 
 <body>
-  <header>
-    <h1>Edinburrito</h1>
-    <form>
-      <label for="location">Location:</label>
-      <input type="text" id="location" name="location">
-      <button>Find my current location</button>
-    </form>
-  </header>
+  <div class="flex-grid">
 
-  <div id="map-and-list">
-    <table>
-      <thead><tr><th colspan="4">sort by: <span id="name" class="sort">name</span>, <span id="price" class="sort">price</span>, <span id="rating" class="sort">rating</span>, <span id="distance" class="sort">distance</span></th><tr><thead>
-      <tbody id="list"></tbody>
-    </table>
-    <div id="map" width=1 height=1></div>
+    <div id="left-col">
+      <h1 class="header-row">Edinburrito</h1>
+
+      <table>
+        <thead><tr><th colspan="4">sort by: <span id="name" class="sort">name</span>, <span id="price" class="sort">price</span>, <span id="rating" class="sort">rating</span>, <span id="distance" class="sort">distance</span></th><tr><thead>
+        <tbody id="list"></tbody>
+      </table>
+    </div>
+
+    <div id="right-col">
+      <div id="location">
+        <form>
+          <label for="location">Location:</label>
+          <input type="text" id="location" name="location">
+          <button>Find my current location</button>
+        </form>
+      </div>
+
+      <div id="map" width=1 height=1></div>
+    </div>
+
   </div>
-
 </body>
 </html>

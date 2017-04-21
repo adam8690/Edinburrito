@@ -1,7 +1,13 @@
+.flex-grid { display: flex; flex-direction: row; margin: 0.5em; align-content: stretch; }
+#left-col { flex: 0 }
+#right-col { flex: 1 }
+h1, #location { height: 2.5em; align-items: center;}
+
+
+
 body {
+    width: 100%;
     font-family: Lato;
-    display: flex;
-    flex-flow: column nowrap;
     margin: 0;
     background-color: blanchedalmond;
 }
@@ -13,28 +19,8 @@ h1 {
     letter-spacing: 0.05em;
 }
 
-header, #map, table {
-    margin: 0.5em;
-}
-
-header {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: space-between;
-}
-
-#map-and-list {
-    display: flex;
-    flex-flow: row nowrap;
-}
-
-table {
-    flex-grow: 1;
-    min-width: 200px;
-}
-
 td {
+    white-space: nowrap;
     padding-bottom: 0.25em;
     padding-right: 0.5em;
 }
@@ -71,7 +57,6 @@ p.boxed {
 }
 
 #map {
-    width: 500px;
     height: 500px;
     border: 1px solid black;
     flex-grow: 3;

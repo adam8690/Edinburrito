@@ -51,7 +51,9 @@ BusinessListView.prototype.sortedBy = function (array, key) {
         switch (key) {
             case "name":
                 return array.sort(function (a, b) {
-                    return a.details.name.toLowerCase() - b.details.name.toLowerCase()
+                    if (a.details.name < b.details.name) return -1;
+                    else if (a.details.name > b.details.name) return 1;
+                    else return 0;
                 })
                 break;
             case "price":
