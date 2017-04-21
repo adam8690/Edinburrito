@@ -1,10 +1,7 @@
 var Yelp = require('yelpv3');
+var apiCreds = require('../api_creds')
 
-
-var yelp = new Yelp({
-  app_id: '***REMOVED***',
-  app_secret: '***REMOVED***'
-});
+var yelp = new Yelp(apiCreds);
 
 
 
