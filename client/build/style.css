@@ -47,3 +47,8 @@ input, button {
 .selected {
     color: hotpink;
 }
+
+li:hover {
+    color: dodgerblue;
+    cursor: pointer;
+}
