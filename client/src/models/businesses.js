@@ -18,11 +18,6 @@ Businesses.prototype = {
             this.businesses = yelpBusinesses.map(function(business){
                 return new Business(business, this.mapWrapper)
             }.bind(this))
-            this.businesses.sort(function (a, b) {
-                return a.distance - b.distance
-            })
-            console.log(this.businesses)
-
             this.done(this.businesses)
         }.bind(this)
         request.send()

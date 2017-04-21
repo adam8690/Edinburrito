@@ -3,7 +3,7 @@ body {
     display: flex;
     flex-flow: column nowrap;
     margin: 0;
-    background-color: papayawhip;
+    background-color: blanchedalmond;
 }
 
 h1 {
@@ -13,7 +13,7 @@ h1 {
     letter-spacing: 0.05em;
 }
 
-header, #map-and-list {
+header, #map, #list {
     margin: 0.5em;
 }
 
@@ -31,6 +31,37 @@ header {
 
 #list {
     flex-grow: 1;
+    min-width: 200px;
+}
+
+td {
+    padding-bottom: 0.25em;
+    padding-left: 0.5em;
+}
+
+td.name {
+    text-align: left;
+    font-size: 1em;
+}
+
+td.price, td.rating {
+    text-align: center;
+}
+
+td.distance {
+    text-align: left;
+    font-size: 0.8em;
+}
+
+p.boxed {
+    font-size: 0.7em;
+}
+
+p.boxed {
+    border: 1px solid black;
+    border-radius: 2px;
+    padding: 0.2em;
+    background-color: cornsilk;
 }
 
 #map {
@@ -48,7 +79,7 @@ input, button {
     color: hotpink;
 }
 
-li:hover {
+tr:hover {
     color: dodgerblue;
     cursor: pointer;
 }
