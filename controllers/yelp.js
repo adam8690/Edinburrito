@@ -6,6 +6,8 @@ var yelp = new Yelp({
   app_secret: '***REMOVED***'
 });
 
+
+
 // https://www.yelp.com/developers/documentation/v3/business_search
 
 

@@ -43,3 +43,7 @@ header {
 input, button {
     height: 2em;
 }
+
+.selected {
+    color: hotpink;
+}
