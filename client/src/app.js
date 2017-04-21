@@ -8,7 +8,7 @@ var initialize = function () {
     var center = { lat: 55.953291, lng: -3.200000 }
     var mainMap = new MapWrapper(mapDiv, center, 15)
     // mainMap.addMarker(center)
-    mainMap.addClickEvent()
+    // mainMap.addClickEvent()
     mainMap.addInfoWindow(center, "are we in edinburgh yet?!")
     
     // getting the burrito data
