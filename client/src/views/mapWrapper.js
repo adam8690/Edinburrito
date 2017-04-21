@@ -30,7 +30,7 @@ MapWrapper.prototype = {
       });
       infoWindow.open(this.map, marker); 
     });
-   }//,
+   },
   
   // geoLocate: function(){
   //   navigator.geolocation.getCurrentPosition(function(position) {
