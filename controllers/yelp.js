@@ -10,6 +10,6 @@ var yelp = new Yelp(apiCreds);
 // };
 
 // https://www.yelp.com/developers/documentation/v3/business_search
-
+// https://github.com/danieljin/yelpv3
 
 module.exports = yelp;
