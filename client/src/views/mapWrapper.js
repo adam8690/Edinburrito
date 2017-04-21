@@ -6,12 +6,17 @@ var MapWrapper = function(container, coords, zoom){
 }
 
 MapWrapper.prototype = {
+
   addMarker: function(coords){
     var marker = new google.maps.Marker({
       position: coords,
       map: this.googleMap,
       animation: google.maps.Animation.DROP
     });
+   marker.addListener('click', function() {
+    this.openInfoWindow(this, 'hello')
+   }.bind(this))
+
     return marker;
   },
 
@@ -22,16 +27,17 @@ MapWrapper.prototype = {
   //   }.bind(this));
   // },
 
-  openInfoWindow: function(marker, text) {
+  addInfoWindow: function(text,marker) {
     // var marker = this.addMarker(coords);
-    // marker.addListener('click', function() {
-      var infoWindow = new google.maps.InfoWindow({
-        content: text
-      });
-      infoWindow.open(this.map, marker);
-      return infoWindow 
+    var infoWindow = new google.maps.InfoWindow({
+      content: text
+    });
+      // infoWindow.open(this.map, marker);
+     return infoWindow
   
    }
+
+  
   
   // geoLocate: function(){
   //   navigator.geolocation.getCurrentPosition(function(position) {

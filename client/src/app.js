@@ -12,7 +12,7 @@ var initialize = function () {
     // mainMap.addInfoWindow(center, "are we in edinburgh yet?!")
     
     // getting the burrito data
-    var businesses = new Businesses()
+    var businesses = new Businesses(mainMap)
     //setup views
     var list = document.querySelector("#list")
     var businessListView = new BusinessListView(list, mainMap)
