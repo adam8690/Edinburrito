@@ -13,9 +13,6 @@ MapWrapper.prototype = {
       map: this.googleMap,
       animation: google.maps.Animation.DROP
     });
-   // marker.addListener('click', function() {
-   //  this.openInfoWindow(this, 'hello')
-   // }.bind(this))
 
     return marker;
   },

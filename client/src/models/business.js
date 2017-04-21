@@ -4,6 +4,11 @@ var Business = function(details, mapWrapper){
   this.details = details
   this.marker = mapWrapper.addMarker(this.coords)
   this.infoWindow = mapWrapper.addInfoWindow(details.name, this.marker)
+
+  this.marker.addListener("click", function() {
+    this.openInfoWindow()
+  }.bind(this))
+
 }
 
 Business.prototype.openInfoWindow = function () {
