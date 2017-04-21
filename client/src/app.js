@@ -15,7 +15,7 @@ var initialize = function () {
     var businesses = new Businesses()
     //setup views
     var list = document.querySelector("#list")
-    var businessListView = new BusinessListView(list)
+    var businessListView = new BusinessListView(list, mainMap)
     //set callback for request
     businesses.done = businessListView.render.bind(businessListView)
     //get data from server

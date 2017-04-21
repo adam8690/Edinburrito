@@ -1,5 +1,6 @@
-var BusinessListView = function (container) {
+var BusinessListView = function (container, mapWrapper) {
     this.container = container
+    this.mapWrapper = mapWrapper
 }
 
 BusinessListView.prototype.render = function (businesses) {
@@ -12,7 +13,10 @@ BusinessListView.prototype.render = function (businesses) {
         var li = document.createElement("li")
         li.innerText = business.name
         this.container.appendChild(li)
+
+        this.mapWrapper.addMarker( { lat: business.coordinates.latitude, lng: business.coordinates.longitude })
     }.bind(this))
+
 }
 
 module.exports = BusinessListView
