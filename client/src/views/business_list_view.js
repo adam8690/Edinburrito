@@ -9,9 +9,13 @@ var BusinessListView = function (container, mapWrapper) {
 BusinessListView.prototype.highlightCurrentSort = function (sorts) {
     for (var sort of sorts) {
         if (sort.id === this.currentSort) {
-            if (!sort.classList.contains("selected-sort")) sort.classList.add("selected-sort")
+            if (!sort.classList.contains("selected-sort")) {
+                sort.classList.add("selected-sort")
+            }
         } else {
-            if (sort.classList.contains("selected-sort")) sort.classList.remove("selected-sort")
+            if (sort.classList.contains("selected-sort")) {
+                sort.classList.remove("selected-sort")
+            }
         }
     }
 }
@@ -73,7 +77,7 @@ BusinessListView.prototype.sortedBy = function (array, key) {
                     return a.details.distance - b.details.distance
                 })
                 break;
-            default:
+            default:  // in case some other search key is entered
                 return array
         }
     }
@@ -109,6 +113,8 @@ BusinessListView.prototype.makeTableRow = function (business) {
         this.mapWrapper.googleMap.setZoom(16)
     }.bind(this)
 
+    
+
     return tr
 }
 
@@ -122,12 +128,12 @@ BusinessListView.prototype.formatDistance = function (distance) {
     }
 }
 
-BusinessListView.prototype.select = function (li, business) {
+BusinessListView.prototype.select = function (tr, business) {
     if (this.currentlySelected) {
         this.currentlySelected.classList.remove("selected")
     }
-    li.classList.add("selected")
-    this.currentlySelected = li
+    tr.classList.add("selected")
+    this.currentlySelected = tr
     this.mapWrapper.openInfoWindow(business)
 }
 
