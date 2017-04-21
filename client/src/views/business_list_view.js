@@ -19,7 +19,7 @@ BusinessListView.prototype.render = function (businesses) {
         // var marker = this.mapWrapper.addMarker( coords )
         // var infoWindow = this.addInfoWindow(marker, business)
         li.onclick = function(){
-            this.highlight(li, marker, business)  
+            this.highlight(li, business)  
             // li.classList.add('selected')
             this.mapWrapper.googleMap.setCenter(business.coords)
             this.mapWrapper.googleMap.setZoom(16)
@@ -31,15 +31,19 @@ BusinessListView.prototype.render = function (businesses) {
 
 }
 
-BusinessListView.prototype.highlight = function (selected) {
+BusinessListView.prototype.highlight = function (li, business) {
     if (this.currentlySelected) {
         this.currentlySelected.classList.remove("selected")
     }
-    selected.classList.add("selected")
-    this.currentlySelected = selected
-    if(this.currentlyOpenInfoWindow){
-        this.currentlyOpenInfoWindow.close()
-    }
+    li.classList.add("selected")
+    this.currentlySelected = li
+    //business.infoWindow.open(this.mapWrapper, business.marker)
+    business.openInfoWindow()
+    console.log(business.infoWindow)
+    console.log(this.mapWrapper)
+    // if(this.currentlyOpenInfoWindow){
+    //     this.currentlyOpenInfoWindow.close()
+    // }
     // this.currentlyOpenInfoWindow = this.mapWrapper.openInfoWindow(marker, business.name)
 }
 
