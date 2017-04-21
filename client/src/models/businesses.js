@@ -1,5 +1,7 @@
-var Businesses = function (url) {
-    this.url = url
+var Business = require ('./business.js')
+
+var Businesses = function (mapWrapper) {
+    this.mapWrapper = mapWrapper 
     this.businesses = []
     this.done = null
 }
@@ -12,8 +14,10 @@ Businesses.prototype = {
         request.onload = function () {
             if (request.status !== 200) return
             var jsonString = request.responseText
-            this.businesses = JSON.parse(jsonString).businesses
-
+            var yelpBusinesses = JSON.parse(jsonString).businesses
+            this.businesses = yelpBusinesses.map(function(business){
+                return new Business(business, this.mapWrapper)
+            }.bind(this))
             this.businesses.sort(function (a, b) {
                 return a.distance - b.distance
             })
@@ -22,7 +26,7 @@ Businesses.prototype = {
             this.done(this.businesses)
         }.bind(this)
         request.send()
-    },
+    }
 
     // getBusiness: function (businessName) {
     //     return this.businesses.find(function (business) {

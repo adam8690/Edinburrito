@@ -12,15 +12,16 @@ BusinessListView.prototype.render = function (businesses) {
     }
 
     businesses.forEach(function (business) {
-        var coords = { lat: business.coordinates.latitude, lng: business.coordinates.longitude }
+        // var coords = { lat: business.coordinates.latitude, lng: business.coordinates.longitude }
         var li = document.createElement("li")
-        li.innerText = business.name
+        li.innerText = business.details.name
         this.container.appendChild(li)
-        var marker = this.mapWrapper.addMarker( coords )
+        // var marker = this.mapWrapper.addMarker( coords )
+        // var infoWindow = this.addInfoWindow(marker, business)
         li.onclick = function(){
             this.highlight(li, marker, business)  
             // li.classList.add('selected')
-            this.mapWrapper.googleMap.setCenter(coords)
+            this.mapWrapper.googleMap.setCenter(business.coords)
             this.mapWrapper.googleMap.setZoom(16)
             
         }.bind(this)
@@ -30,7 +31,7 @@ BusinessListView.prototype.render = function (businesses) {
 
 }
 
-BusinessListView.prototype.highlight = function (selected, marker, business) {
+BusinessListView.prototype.highlight = function (selected) {
     if (this.currentlySelected) {
         this.currentlySelected.classList.remove("selected")
     }
@@ -39,7 +40,7 @@ BusinessListView.prototype.highlight = function (selected, marker, business) {
     if(this.currentlyOpenInfoWindow){
         this.currentlyOpenInfoWindow.close()
     }
-    this.currentlyOpenInfoWindow = this.mapWrapper.openInfoWindow(marker, business.name)
+    // this.currentlyOpenInfoWindow = this.mapWrapper.openInfoWindow(marker, business.name)
 }
 
 module.exports = BusinessListView
