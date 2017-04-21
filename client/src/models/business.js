@@ -6,7 +6,7 @@ var Business = function(details, mapWrapper){
   this.infoWindow = mapWrapper.addInfoWindow(details.name, this.marker)
 
   this.marker.addListener("click", function() {
-    this.openInfoWindow()
+    this.mapWrapper.openInfoWindow(this)
   }.bind(this))
 
 }
