@@ -13,7 +13,12 @@ Businesses.prototype = {
             if (request.status !== 200) return
             var jsonString = request.responseText
             this.businesses = JSON.parse(jsonString).businesses
-            // console.log(businesses)
+
+            this.businesses.sort(function (a, b) {
+                return a.distance - b.distance
+            })
+            console.log(this.businesses)
+
             this.done(this.businesses)
         }.bind(this)
         request.send()
