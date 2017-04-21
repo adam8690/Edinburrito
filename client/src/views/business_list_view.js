@@ -26,9 +26,14 @@ BusinessListView.prototype.render = function (businesses) {
         sort.addEventListener("click", function () {
             blw.currentSort = this.id
             blw.highlightCurrentSort(sorts)
+            blw.buildTable(businesses)
         })
     }
 
+    this.buildTable(businesses)
+}
+
+BusinessListView.prototype.buildTable = function (businesses) {
     var th = document.querySelector("th")
 
     while (this.container.hasChildNodes()) {
