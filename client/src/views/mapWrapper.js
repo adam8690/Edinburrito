@@ -22,15 +22,16 @@ MapWrapper.prototype = {
   //   }.bind(this));
   // },
 
-  addInfoWindow: function(coords, text) {
-    var marker = this.addMarker(coords);
-    marker.addListener('click', function() {
+  openInfoWindow: function(marker, text) {
+    // var marker = this.addMarker(coords);
+    // marker.addListener('click', function() {
       var infoWindow = new google.maps.InfoWindow({
         content: text
       });
-      infoWindow.open(this.map, marker); 
-    });
-   },
+      infoWindow.open(this.map, marker);
+      return infoWindow 
+  
+   }
   
   // geoLocate: function(){
   //   navigator.geolocation.getCurrentPosition(function(position) {
