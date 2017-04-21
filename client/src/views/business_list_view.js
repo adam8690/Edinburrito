@@ -2,19 +2,31 @@ var BusinessListView = function (container, mapWrapper) {
     this.container = container  // is the <table id="list">
     this.mapWrapper = mapWrapper
     this.currentlySelected = null
-    this.currentSort = "price"
-    this.currentlyOpenInfoWindow = null 
+    this.currentSort = "distance"  // initial setting
+    this.currentlyOpenInfoWindow = null
 }
 
-BusinessListView.prototype.render = function (businesses) {
-
-    var sorts = document.querySelectorAll(".sort")
+BusinessListView.prototype.highlightCurrentSort = function (sorts) {
     for (var sort of sorts) {
         if (sort.id === this.currentSort) {
             if (!sort.classList.contains("selected-sort")) sort.classList.add("selected-sort")
         } else {
             if (sort.classList.contains("selected-sort")) sort.classList.remove("selected-sort")
         }
+    }
+}
+
+BusinessListView.prototype.render = function (businesses) {
+
+    var sorts = document.querySelectorAll(".sort")
+    this.highlightCurrentSort(sorts)
+
+    var blw = this
+    for (var sort of sorts) {
+        sort.addEventListener("click", function () {
+            blw.currentSort = this.id
+            blw.highlightCurrentSort(sorts)
+        })
     }
 
     var th = document.querySelector("th")
