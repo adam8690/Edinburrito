@@ -21,7 +21,7 @@ Businesses.prototype = {
             this.done(this.businesses)
         }.bind(this)
         request.send()
-    }
+    },
 
     // getBusiness: function (businessName) {
     //     return this.businesses.find(function (business) {

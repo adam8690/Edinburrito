@@ -2,19 +2,62 @@ var BusinessListView = function (container, mapWrapper) {
     this.container = container  // is the <table id="list">
     this.mapWrapper = mapWrapper
     this.currentlySelected = null
+    this.currentSort = "price"
     this.currentlyOpenInfoWindow = null 
 }
 
 BusinessListView.prototype.render = function (businesses) {
 
+    var sorts = document.querySelectorAll(".sort")
+    for (var sort of sorts) {
+        if (sort.id === this.currentSort) {
+            if (!sort.classList.contains("selected-sort")) sort.classList.add("selected-sort")
+        } else {
+            if (sort.classList.contains("selected-sort")) sort.classList.remove("selected-sort")
+        }
+    }
+
+    var th = document.querySelector("th")
+
     while (this.container.hasChildNodes()) {
         this.container.removeChild(this.container.lastChild)
     }
 
+    businesses = this.sortedBy(businesses, this.currentSort)
     businesses.forEach(function (business) {
         this.container.appendChild(this.makeTableRow(business))
     }.bind(this))
 }
+
+BusinessListView.prototype.sortedBy = function (array, key) {
+        // returns a new array
+        switch (key) {
+            case "name":
+                return array.sort(function (a, b) {
+                    return a.details.name.toLowerCase() - b.details.name.toLowerCase()
+                })
+                break;
+            case "price":
+                return array.sort(function (a, b) {
+                    var aPrice = a.details.price || "a long string"
+                    var bPrice = b.details.price || "a long string"
+                    return aPrice.length - bPrice.length
+                })
+                break;
+            case "rating":
+                return array.sort(function (a, b) {
+                    return parseFloat(b.details.rating) - parseFloat(a.details.rating)
+                })
+                break;
+            case "distance":
+                return array.sort(function (a, b) {
+                    return a.details.distance - b.details.distance
+                })
+                break;
+            default:
+                return array
+        }
+    }
 
 BusinessListView.prototype.makeTableRow = function (business) {
     var tr = document.createElement("tr")
@@ -59,7 +102,6 @@ BusinessListView.prototype.formatDistance = function (distance) {
         return result.toFixed(1) + "km"
     }
 }
-
 
 BusinessListView.prototype.select = function (li, business) {
     if (this.currentlySelected) {

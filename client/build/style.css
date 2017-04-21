@@ -13,7 +13,7 @@ h1 {
     letter-spacing: 0.05em;
 }
 
-header, #map, #list {
+header, #map, table {
     margin: 0.5em;
 }
 
@@ -29,7 +29,7 @@ header {
     flex-flow: row nowrap;
 }
 
-#list {
+table {
     flex-grow: 1;
     min-width: 200px;
 }
@@ -37,6 +37,12 @@ header {
 td {
     padding-bottom: 0.25em;
     padding-right: 0.5em;
+}
+
+th {
+    text-align: left;
+    font-size: 0.8em;
+    padding-bottom: 1em;
 }
 
 td.name {
@@ -79,7 +85,15 @@ input, button {
     color: hotpink;
 }
 
-tr:hover {
+.selected-sort {
+    border-bottom: 2px solid hotpink;
+}
+
+tbody tr:hover {
     color: dodgerblue;
     cursor: pointer;
+}
+
+span.sort:hover {
+    border-bottom: 2px solid dodgerblue;
 }
