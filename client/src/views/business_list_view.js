@@ -37,14 +37,7 @@ BusinessListView.prototype.highlight = function (li, business) {
     }
     li.classList.add("selected")
     this.currentlySelected = li
-    //business.infoWindow.open(this.mapWrapper, business.marker)
-    business.openInfoWindow()
-    console.log(business.infoWindow)
-    console.log(this.mapWrapper)
-    // if(this.currentlyOpenInfoWindow){
-    //     this.currentlyOpenInfoWindow.close()
-    // }
-    // this.currentlyOpenInfoWindow = this.mapWrapper.openInfoWindow(marker, business.name)
+    this.mapWrapper.openInfoWindow(business)
 }
 
 module.exports = BusinessListView

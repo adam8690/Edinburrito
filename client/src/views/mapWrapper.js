@@ -1,4 +1,5 @@
 var MapWrapper = function(container, coords, zoom){
+  this.currentlyOpenInfoWindow = null
   this.googleMap = new google.maps.Map(container, {
     center: coords,
     zoom: zoom
@@ -31,11 +32,14 @@ MapWrapper.prototype = {
     });
       // infoWindow.open(this.map, marker);
      return infoWindow
-  
+   },
+
+   openInfoWindow: function (business) {
+     if (this.currentlyOpenInfoWindow) this.currentlyOpenInfoWindow.close()
+     business.openInfoWindow()
+     this.currentlyOpenInfoWindow = business.infoWindow
    }
 
-  
-  
   // geoLocate: function(){
   //   navigator.geolocation.getCurrentPosition(function(position) {
   //     var center = {lat: position.coords.latitude, lng: position.coords.longitude}; 
