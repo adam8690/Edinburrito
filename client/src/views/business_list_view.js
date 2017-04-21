@@ -2,6 +2,7 @@ var BusinessListView = function (container, mapWrapper) {
     this.container = container
     this.mapWrapper = mapWrapper
     this.currentlySelected = null
+    this.currentlyOpenInfoWindow = null 
 }
 
 BusinessListView.prototype.render = function (businesses) {
@@ -15,24 +16,30 @@ BusinessListView.prototype.render = function (businesses) {
         var li = document.createElement("li")
         li.innerText = business.name
         this.container.appendChild(li)
+        var marker = this.mapWrapper.addMarker( coords )
         li.onclick = function(){
-            this.highlight(li)
+            this.highlight(li, marker, business)  
             // li.classList.add('selected')
             this.mapWrapper.googleMap.setCenter(coords)
             this.mapWrapper.googleMap.setZoom(16)
             
         }.bind(this)
-        this.mapWrapper.addMarker( coords )
+      
+
     }.bind(this))
 
 }
 
-BusinessListView.prototype.highlight = function (selected) {
+BusinessListView.prototype.highlight = function (selected, marker, business) {
     if (this.currentlySelected) {
         this.currentlySelected.classList.remove("selected")
     }
     selected.classList.add("selected")
     this.currentlySelected = selected
+    if(this.currentlyOpenInfoWindow){
+        this.currentlyOpenInfoWindow.close()
+    }
+    this.currentlyOpenInfoWindow = this.mapWrapper.openInfoWindow(marker, business.name)
 }
 
 module.exports = BusinessListView
