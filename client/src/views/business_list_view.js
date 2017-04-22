@@ -29,23 +29,15 @@ BusinessListView.prototype.render = function (businesses) {
         sort.addEventListener("click", function () {
             blw.currentSort = this.id
             blw.highlightCurrentSort(sorts)
-            blw.buildTable(businesses)
+            blw.buildTable(blw.sortedBy(businesses, this.id))
         })
     }
 
-    var tableRows = this.buildTableRows(businesses)
-    var sortedRows = this.sortedBy(tableRows, currentSort)
-    this.displayTableRows(tableRows)
+    businesses = this.sortedBy(businesses, this.currentSort)
+    this.buildTable(businesses)
 }
 
-BusinessListView.prototype.displayTableRows = function (tableRows) {
-    // businesses = this.sortedBy(businesses, this.currentSort)
-    tableRows.forEach(function (row) {
-        this.container.appendChild(row)
-    }.bind(this))
-}
-
-BusinessListView.prototype.buildTableRows = function (businesses) {
+BusinessListView.prototype.buildTable = function (businesses) {
     var th = document.querySelector("th")
 
     while (this.container.hasChildNodes()) {
@@ -56,7 +48,9 @@ BusinessListView.prototype.buildTableRows = function (businesses) {
         return this.makeTableRow(business)
     }.bind(this))
 
-    return tableRows
+    tableRows.forEach(function (row) {
+        this.container.appendChild(row)
+    }.bind(this))
 }
 
 BusinessListView.prototype.sortedBy = function (array, key) {
@@ -122,8 +116,6 @@ BusinessListView.prototype.makeTableRow = function (business) {
         this.mapWrapper.googleMap.setZoom(16)
     }.bind(this)
 
-    
-
     return tr
 }
 
@@ -131,7 +123,7 @@ BusinessListView.prototype.formatDistance = function (distance) {
     result = Math.round(distance)
     if (result < 1000) {
         return result + "m"
-    } else {
+    } else { 
         result /= 1000
         return result.toFixed(1) + "km"
     }
