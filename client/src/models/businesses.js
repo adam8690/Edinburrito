@@ -10,7 +10,7 @@ Businesses.prototype = {
 
     populate: function () {
         var request = new XMLHttpRequest()
-        request.open("GET", "http://localhost:3000/api/burrito/")
+        request.open("GET", "http://localhost:3000/api/businesses/")
         request.onload = function () {
             if (request.status !== 200) return
             var jsonString = request.responseText
