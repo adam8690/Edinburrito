@@ -19,7 +19,7 @@ var initialize = function () {
         var currentPosition = {
           lat: position.coords.latitude,
           lng: position.coords.longitude}
-          mainMap.setCenter(currentPosition)
+          // mainMap.setCenter(currentPosition)
           mainMap.addMarker(currentPosition)
     })
 
