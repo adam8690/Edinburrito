@@ -18,12 +18,12 @@ MapWrapper.prototype = {
     return marker;
   },
 
-  // addClickEvent: function(){
-  //   google.maps.event.addListener(this.googleMap, 'click', function(event){
-  //     var position = { lat: event.latLng.lat(), lng: event.latLng.lng() }  
-  //     this.addMarker(position);
-  //   }.bind(this));
-  // },
+  addClickEvent: function(){
+    google.maps.event.addListener(this.googleMap, 'click', function(event){
+      var position = { lat: event.latLng.lat(), lng: event.latLng.lng() }  
+      this.addMarker(position);
+    }.bind(this));
+  },
 
   addInfoWindow: function(text,marker) {
     // var marker = this.addMarker(coords);
@@ -38,7 +38,7 @@ MapWrapper.prototype = {
      if (this.currentlyOpenInfoWindow) this.currentlyOpenInfoWindow.close()
      business.openInfoWindow()
      this.currentlyOpenInfoWindow = business.infoWindow
-   }
+    }
 
   // geoLocate: function(){
   //   navigator.geolocation.getCurrentPosition(function(position) {
