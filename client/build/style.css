@@ -1,15 +1,15 @@
-.flex-grid { display: flex; flex-direction: row; margin: 0.5em; align-content: stretch; }
-#left-col { flex: 0 }
-#right-col { flex: 1 }
-h1, #location { height: 2.5em; align-items: center;}
-
-
+.flex-grid { display: flex; flex-direction: row; margin: 0.5em; align-content: stretch; height: 100vh; }
+#left-col { flex: 0; padding-right: 1em; height: 100%; }
+#right-col { flex: 1; height: 100%; }
+h1, #location { height: 2.5em; align-items: center; }
+table, #map { height: calc(100vh - 3.5em); }
 
 body {
     width: 100%;
+    height: 100%;
     font-family: Lato;
     margin: 0;
-    background-color: blanchedalmond;
+    background-color: powderblue;
 }
 
 h1 {
@@ -17,6 +17,7 @@ h1 {
     font-size: 2em;
     margin: 0;
     letter-spacing: 0.05em;
+    font-weight: bold;
 }
 
 td {
@@ -53,17 +54,11 @@ p.boxed {
     border: 1px solid black;
     border-radius: 2px;
     padding: 0.2em;
-    background-color: cornsilk;
+    background-color: aliceblue;
 }
 
 #map {
-    height: 500px;
-    border: 1px solid black;
-    flex-grow: 3;
-}
-
-input, button {
-    height: 2em;
+    border: 1px solid steelblue;
 }
 
 .selected {
@@ -74,11 +69,23 @@ input, button {
     border-bottom: 2px solid hotpink;
 }
 
-tbody tr:hover {
+tbody tr:hover:not(.selected) {
     color: dodgerblue;
     cursor: pointer;
 }
 
-span.sort:hover {
+span.sort:hover:not(.selected-sort) {
     border-bottom: 2px solid dodgerblue;
+}
+
+input, button {
+    border: 0;
+}
+
+button {
+    border: 0;
+    background-color: steelblue;
+    color: aliceblue;
+    font-family: Lato;
+    font-size: 0.8em;
 }
