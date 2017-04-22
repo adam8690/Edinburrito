@@ -9,15 +9,18 @@ var BusinessListView = function (container, mapWrapper) {
 BusinessListView.prototype.highlightCurrentSort = function (sorts) {
     for (var sort of sorts) {
         if (sort.id === this.currentSort) {
-            if (!sort.classList.contains("selected-sort")) sort.classList.add("selected-sort")
+            if (!sort.classList.contains("selected-sort")) {
+                sort.classList.add("selected-sort")
+            }
         } else {
-            if (sort.classList.contains("selected-sort")) sort.classList.remove("selected-sort")
+            if (sort.classList.contains("selected-sort")) {
+                sort.classList.remove("selected-sort")
+            }
         }
     }
 }
 
 BusinessListView.prototype.render = function (businesses) {
-
     var sorts = document.querySelectorAll(".sort")
     this.highlightCurrentSort(sorts)
 
@@ -30,20 +33,30 @@ BusinessListView.prototype.render = function (businesses) {
         })
     }
 
-    this.buildTable(businesses)
+    var tableRows = this.buildTableRows(businesses)
+    var sortedRows = this.sortedBy(tableRows, currentSort)
+    this.displayTableRows(tableRows)
 }
 
-BusinessListView.prototype.buildTable = function (businesses) {
+BusinessListView.prototype.displayTableRows = function (tableRows) {
+    // businesses = this.sortedBy(businesses, this.currentSort)
+    tableRows.forEach(function (row) {
+        this.container.appendChild(row)
+    }.bind(this))
+}
+
+BusinessListView.prototype.buildTableRows = function (businesses) {
     var th = document.querySelector("th")
 
     while (this.container.hasChildNodes()) {
         this.container.removeChild(this.container.lastChild)
     }
 
-    businesses = this.sortedBy(businesses, this.currentSort)
-    businesses.forEach(function (business) {
-        this.container.appendChild(this.makeTableRow(business))
+    var tableRows = businesses.map(function (business) {
+        return this.makeTableRow(business)
     }.bind(this))
+
+    return tableRows
 }
 
 BusinessListView.prototype.sortedBy = function (array, key) {
@@ -73,7 +86,7 @@ BusinessListView.prototype.sortedBy = function (array, key) {
                     return a.details.distance - b.details.distance
                 })
                 break;
-            default:
+            default:  // in case some other search key is entered
                 return array
         }
     }
@@ -109,6 +122,8 @@ BusinessListView.prototype.makeTableRow = function (business) {
         this.mapWrapper.googleMap.setZoom(16)
     }.bind(this)
 
+    
+
     return tr
 }
 
@@ -122,12 +137,12 @@ BusinessListView.prototype.formatDistance = function (distance) {
     }
 }
 
-BusinessListView.prototype.select = function (li, business) {
+BusinessListView.prototype.select = function (tr, business) {
     if (this.currentlySelected) {
         this.currentlySelected.classList.remove("selected")
     }
-    li.classList.add("selected")
-    this.currentlySelected = li
+    tr.classList.add("selected")
+    this.currentlySelected = tr
     this.mapWrapper.openInfoWindow(business)
 }
 
