@@ -119,7 +119,22 @@ BusinessListView.prototype.makeTableRow = function (business) {
         this.select(tr, business)  
         this.mapWrapper.googleMap.setCenter(business.coords)
         this.mapWrapper.googleMap.setZoom(16)
+
+        var infoTr = document.createElement("tr")
+        var infoTd = document.createElement("td")
+        infoTd.setAttribute("colspan", "4")
+        var textarea = document.createElement("textarea")
+        textarea.id = "notes"
+        textarea.setAttribute("placeholder", "your notes here")
+        // textarea.innerText = "extra info here"
+        infoTd.appendChild(textarea)
+        infoTr.appendChild(infoTd)
+        tr.parentNode.insertBefore(infoTr, tr.nextSibling) // !
     }.bind(this)
+
+    if (business.details.closed) {
+        tr.classList.add("currently-closed")
+    }
 
     return tr
 }

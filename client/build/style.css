@@ -46,6 +46,14 @@ td.distance {
     font-size: 0.8em;
 }
 
+#notes {
+    border: 0;
+    font-size: 0.8em;
+    background-color: aliceblue;
+    width: 100%;
+    resize: none;
+}
+
 p.boxed {
     font-size: 0.7em;
 }
@@ -63,6 +71,10 @@ p.boxed {
 
 .selected {
     color: hotpink;
+}
+
+.currently-closed {
+    color: grey;
 }
 
 .selected-sort {
