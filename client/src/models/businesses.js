@@ -21,18 +21,13 @@ Businesses.prototype = {
             this.businesses.sort(function (a, b) {
                 return a.distance - b.distance
             })
-            console.log(this.businesses)
+            console.log('Businesses Object: ',this.businesses)
+            this.businesses[0].getDetails()
 
             this.done(this.businesses)
         }.bind(this)
         request.send()
-    }
-
-    // getBusiness: function (businessName) {
-    //     return this.businesses.find(function (business) {
-    //         return business.name === businessName
-    //     })
-    // }
+    },
 
 }
 
