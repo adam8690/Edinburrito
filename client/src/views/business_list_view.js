@@ -29,59 +29,64 @@ BusinessListView.prototype.render = function (businesses) {
         sort.addEventListener("click", function () {
             blw.currentSort = this.id
             blw.highlightCurrentSort(sorts)
-            blw.buildTable(blw.sortedBy(businesses, this.id))
+            blw.buildTable(blw.sortedBy(businessRows, this.id))
         })
     }
 
-    businesses = this.sortedBy(businesses, this.currentSort)
-    this.buildTable(businesses)
+    // make an array of objects with the business details and the
+    // complete <tr> for displaying it
+    businessRows = businesses.map(function (business) {
+        return {
+            details: business.details,
+            row: this.makeTableRow(business),
+        }
+    }.bind(this))
+
+    businessRows = this.sortedBy(businessRows, this.currentSort)
+    this.buildTable(businessRows)
 }
 
-BusinessListView.prototype.buildTable = function (businesses) {
+BusinessListView.prototype.buildTable = function (businessRows) {
     var th = document.querySelector("th")
 
     while (this.container.hasChildNodes()) {
         this.container.removeChild(this.container.lastChild)
     }
 
-    var tableRows = businesses.map(function (business) {
-        return this.makeTableRow(business)
-    }.bind(this))
-
-    tableRows.forEach(function (row) {
-        this.container.appendChild(row)
+    businessRows.forEach(function (businessRow) {
+        this.container.appendChild(businessRow.row)
     }.bind(this))
 }
 
-BusinessListView.prototype.sortedBy = function (array, key) {
+BusinessListView.prototype.sortedBy = function (rows, key) {
         // returns a new array
         switch (key) {
             case "name":
-                return array.sort(function (a, b) {
+                return rows.sort(function (a, b) {
                     if (a.details.name < b.details.name) return -1;
                     else if (a.details.name > b.details.name) return 1;
                     else return 0;
                 })
                 break;
             case "price":
-                return array.sort(function (a, b) {
+                return rows.sort(function (a, b) {
                     var aPrice = a.details.price || "a long string"
                     var bPrice = b.details.price || "a long string"
                     return aPrice.length - bPrice.length
                 })
                 break;
             case "rating":
-                return array.sort(function (a, b) {
+                return rows.sort(function (a, b) {
                     return parseFloat(b.details.rating) - parseFloat(a.details.rating)
                 })
                 break;
             case "distance":
-                return array.sort(function (a, b) {
+                return rows.sort(function (a, b) {
                     return a.details.distance - b.details.distance
                 })
                 break;
             default:  // in case some other search key is entered
-                return array
+                return rows
         }
     }
 
