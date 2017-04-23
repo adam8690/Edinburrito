@@ -5,6 +5,7 @@ var BusinessListView = function (container, mapWrapper) {
     this.currentSort = "distance"  // initial setting
     this.currentlyOpenInfoWindow = null
     this.currentlyOpenInfoRow = null
+    this.notes = localStorage.getItem("edinburrito") || {}
 }
 
 BusinessListView.prototype.highlightCurrentSort = function (sorts) {
@@ -125,7 +126,7 @@ BusinessListView.prototype.makeTableRow = function (business) {
         this.mapWrapper.googleMap.setZoom(16)
 
         var infoTr = document.createElement("tr")
-        this.currentlyOpenInfoRow = infoTr  // so can be closed later
+        this.currentlyOpenInfoRow = infoTr  // so it can be closed later
         var infoTd = document.createElement("td")
         infoTd.setAttribute("colspan", "4")
         var textarea = document.createElement("textarea")
@@ -138,9 +139,11 @@ BusinessListView.prototype.makeTableRow = function (business) {
         this.currentlyOpenTextArea = infoTr
     }.bind(this)
 
-    if (business.details.closed) {
+    if (business.details.is_closed === "true") {
         tr.classList.add("currently-closed")
     }
+
+    console.log(business.details)
 
     return tr
 }
