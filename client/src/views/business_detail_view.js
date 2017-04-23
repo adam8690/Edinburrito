@@ -1,4 +1,5 @@
 var BusinessDetailView = function(business){
+this.business = business;
 this.details = business.details;
 }
 
@@ -43,10 +44,14 @@ BusinessDetailView.prototype.createDetailView = function(){
 
   var moreInfo = document.createElement('p');
   moreInfo.classList.add("moreInfo")
-  moreInfo.innerText = 'get more details';
+  moreInfo.innerText = 'See opening hours...';
   moreInfo.addEventListener('click', function(){
-    console.log('more Info Clicked')
-  })
+    this.business.getMoreDetails(function(){
+      // create the expanded view in here.
+      div.removeChild(moreInfo);
+      this.createMoreInfoView(div)
+    }.bind(this));
+  }.bind(this));
 
   div.appendChild(nameH1);
   div.appendChild(image);
@@ -59,6 +64,35 @@ BusinessDetailView.prototype.createDetailView = function(){
 
   return div;
 } 
+
+BusinessDetailView.prototype.createMoreInfoView = function(div){
+
+  if(this.business.moreDetails.hours){
+    var daysMap = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    
+    console.log(this.business.moreDetails.hours["0"].open[0])
+
+    var openingHoursTitle = document.createElement('p');
+    openingHoursTitle.classList.add('openingHoursTitle');
+    openingHoursTitle.innerText = "Opening Hours:"
+    div.appendChild(openingHoursTitle);
+
+    var days = this.business.moreDetails.hours["0"].open 
+      for(i = 0; i < days.length; i++){
+        console.log(daysMap[i],days[i].start);
+        console.log(daysMap[i], days[i].end);
+        var openingHours = document.createElement('p');
+        openingHours.innerText = daysMap[i] + ": " + days[i].start + " to " + days[i].end;
+        div.appendChild(openingHours);
+      }
+  }
+  else {
+    var noHours = document.createElement('p');
+    noHours.innerText = "Sorry, no opening hours information available :(";
+    noHours.classList.add('openingHoursTitle')
+    div.appendChild(noHours);
+  }
+}
 
 
 module.exports = BusinessDetailView

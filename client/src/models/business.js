@@ -14,7 +14,7 @@ var Business = function(details, mapWrapper){
 Business.prototype.openInfoWindow = function () {
   
   this.infoWindow.open(this.mapWrapper, this.marker)
-  console.log(this.details)
+  console.log(this)
 },
 
 
@@ -27,7 +27,7 @@ Business.prototype.getMoreDetails = function (callback) {
             var jsonString = request.responseText
             var businessDetails = JSON.parse(jsonString)
             this.moreDetails = businessDetails;
-            callback();
+            callback()
     }.bind(this)
     request.send()
   }
