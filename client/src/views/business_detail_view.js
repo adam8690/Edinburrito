@@ -81,8 +81,6 @@ BusinessDetailView.prototype.createMoreInfoView = function(div){
 
   if(this.business.moreDetails.hours){
     var daysMap = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-    
-    console.log(this.business.moreDetails.hours["0"].open[0])
 
     var openingHoursTitle = document.createElement('p');
     openingHoursTitle.classList.add('openingHoursTitle');
@@ -91,8 +89,6 @@ BusinessDetailView.prototype.createMoreInfoView = function(div){
 
     var days = this.business.moreDetails.hours["0"].open 
       for(i = 0; i < days.length; i++){
-        console.log(daysMap[i],days[i].start);
-        console.log(daysMap[i], days[i].end);
         var openingHours = document.createElement('p');
         openingHours.innerText = daysMap[i] + ": " + days[i].start + " to " + days[i].end;
         div.appendChild(openingHours);

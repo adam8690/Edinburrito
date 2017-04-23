@@ -12,9 +12,7 @@ var Business = function(details, mapWrapper){
 }
 
 Business.prototype.openInfoWindow = function () {
-  
   this.infoWindow.open(this.mapWrapper, this.marker)
-  console.log(this)
 },
 
 
