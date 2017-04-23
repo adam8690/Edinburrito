@@ -10,7 +10,7 @@ Businesses.prototype = {
 
     populate: function () {
         var request = new XMLHttpRequest()
-        request.open("GET", "http://localhost:3000/api/burrito/")
+        request.open("GET", "http://localhost:3000/api/businesses/")
         request.onload = function () {
             if (request.status !== 200) return
             var jsonString = request.responseText
@@ -18,16 +18,12 @@ Businesses.prototype = {
             this.businesses = yelpBusinesses.map(function(business){
                 return new Business(business, this.mapWrapper)
             }.bind(this))
+
             this.done(this.businesses)
         }.bind(this)
         request.send()
     },
 
-    // getBusiness: function (businessName) {
-    //     return this.businesses.find(function (business) {
-    //         return business.name === businessName
-    //     })
-    // }
 
 }
 
