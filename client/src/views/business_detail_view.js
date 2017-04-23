@@ -5,14 +5,16 @@ this.details = business.details;
 
 BusinessDetailView.prototype.createDetailView = function(){
   
-  var div = document.createElement('div')
-  div.classList.add('infoWindow');
+    var div = document.createElement('div')
+    div.classList.add('infoWindow');
 
-  var nameH1 = document.createElement('p');
-  nameH1.classList.add('name');
-  nameH1.innerText = this.details.name;
+    var nameH1 = document.createElement('p');
+    nameH1.classList.add('name');
+    nameH1.innerText = this.details.name;
 
-  
+    var address = document.createElement('p');
+    address.innerText = this.details.location.address1;
+
     var image = document.createElement('img');
     image.classList.add("businessImage")
     if (this.details.image_url){
@@ -32,6 +34,15 @@ BusinessDetailView.prototype.createDetailView = function(){
 
   var distance = document.createElement('p');
   distance.innerText = "Distance: " + Math.floor(this.details.distance) + "m"
+
+  
+  var telephone = document.createElement('p');
+  if(this.details.display_phone !== "" && this.details.display_phone){
+  telephone.innerText = "Telephone: " + this.details.display_phone;
+  }
+  else {
+    telephone.innerText = "";
+  }
 
   var open = document.createElement('p');
   if(this.details.is_closed){
@@ -54,13 +65,14 @@ BusinessDetailView.prototype.createDetailView = function(){
   }.bind(this));
 
   div.appendChild(nameH1);
+  div.appendChild(address);
   div.appendChild(image);
   div.appendChild(rating);
   div.appendChild(price);
   div.appendChild(distance);
+  div.appendChild(telephone);
   div.appendChild(open);
   div.appendChild(moreInfo);
-
 
   return div;
 } 
