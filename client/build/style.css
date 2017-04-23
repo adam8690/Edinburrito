@@ -104,3 +104,23 @@ button {
     font-size: 0.8em;
     height: 2.2em;
 }
+.infoWindow {
+    font-family: Lato;
+}
+.infoWindow .name {
+    font-weight: bold;
+    font-size: 1.5em;
+    border-bottom: 2px solid hotpink;
+}
+.moreInfo {
+    padding-top: 10px;
+}
+.moreInfo:hover {
+    color: dodgerblue;
+    cursor: pointer;
+}
+.businessImage {
+    width: 200px;
+    padding-top: 10px;
+    padding-bottom: : 10px;
+}
