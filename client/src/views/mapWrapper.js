@@ -16,9 +16,7 @@ MapWrapper.prototype = {
       position: coords,
       map: this.googleMap,
       animation: google.maps.Animation.DROP,
-      icon: 'http://localhost:3000/images/267881.png'
-      //'https://image.flaticon.com/icons/png/128/267/267881.png'
-      
+      icon: 'http://localhost:3000/images/267881.png'      
     });
 
     return marker;
@@ -30,8 +28,6 @@ MapWrapper.prototype = {
       map: this.googleMap,
       animation: google.maps.Animation.DROP,
       icon: 'http://localhost:3000/images/Daveault1.png'
-
-      //'http://vignette3.wikia.nocookie.net/despicableme/images/4/4d/Daveault1.png/revision/latest?cb=20130911160355'
     })
     return marker
   },
@@ -44,11 +40,9 @@ MapWrapper.prototype = {
   },
 
   addInfoWindow: function(text,marker) {
-    // var marker = this.addMarker(coords);
     var infoWindow = new google.maps.InfoWindow({
       content: text
     });
-      // infoWindow.open(this.map, marker);
      return infoWindow
    },
 
@@ -58,13 +52,6 @@ MapWrapper.prototype = {
      this.currentlyOpenInfoWindow = business.infoWindow
     },
 
-  // geoLocate: function(){
-  //   navigator.geolocation.getCurrentPosition(function(position) {
-  //     var center = {lat: position.coords.latitude, lng: position.coords.longitude}; 
-  //     this.googleMap.setCenter(center); 
-  //     this.addMarker(center);
-  //   }.bind(this)); 
-  // }
 }
 
 module.exports = MapWrapper 
