@@ -22,9 +22,7 @@ Businesses.prototype = {
             this.done(this.businesses)
         }.bind(this)
         request.send()
-    },
-
-
+    }
 }
 
 module.exports = Businesses

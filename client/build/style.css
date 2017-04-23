@@ -1,8 +1,8 @@
-.flex-grid { display: flex; flex-direction: row; margin: 0.5em; align-content: stretch; height: 100vh; }
+.flex-grid { display: inline-flex; flex-direction: row; margin: 0.5em; align-content: stretch; height: 100vh; width: calc(100vw - 1em); }
 #left-col { flex: 0; padding-right: 1em; height: 100%; }
 #right-col { flex: 1; height: 100%; }
 h1, form, nav { height: 2.5em; align-items: center; }  /* nav contains location stuff and credits link */
-nav { justify-content: space-between; }
+nav { display: inline-flex; width: 100%; }
 table, #map { height: calc(100vh - 3.5em); }
 
 body {
@@ -92,8 +92,10 @@ span.sort:hover:not(.selected-sort) {
 }
 
 input {
-    margin-left: 0.25em;
-    margin-right: 0.75em;
+    margin-left: 0.5em;
+    margin-right: 1.5em;
+    line-height: 2em;
+    width: 20em;
 }
 
 button {
@@ -103,4 +105,13 @@ button {
     font-family: Lato;
     font-size: 0.8em;
     height: 2.2em;
+}
+
+p#credits {
+    text-transform: uppercase;
+    font-variant: small-caps;
+    font-size: 0.8em;
+    text-align: right;
+    flex: 1;
+    color: grey;
 }
