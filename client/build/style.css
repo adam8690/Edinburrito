@@ -124,3 +124,17 @@ button {
     padding-top: 10px;
     padding-bottom: : 10px;
 }
+.currentlyOpen {
+    color: black;
+    border: 1px solid black;
+    border-radius: 2px;
+    padding: 0.2em;
+    background-color: palegreen;
+}
+.currentlyClosed {
+    color: black;
+        border: 1px solid black;
+        border-radius: 2px;
+        padding: 0.2em;
+        background-color: salmon;
+}

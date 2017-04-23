@@ -32,6 +32,14 @@ BusinessDetailView.prototype.createDetailView = function(){
   var distance = document.createElement('p');
   distance.innerText = "Distance: " + Math.floor(this.details.distance) + "m"
 
+  var open = document.createElement('p');
+  if(this.details.is_closed){
+    open.innerText = "Closed"
+    open.classList.add("currentlyClosed")
+  }
+  else {open.innerText = "Open"
+    open.classList.add("currentlyOpen");
+}
 
   var moreInfo = document.createElement('p');
   moreInfo.classList.add("moreInfo")
@@ -45,6 +53,7 @@ BusinessDetailView.prototype.createDetailView = function(){
   div.appendChild(rating);
   div.appendChild(price);
   div.appendChild(distance);
+  div.appendChild(open);
   div.appendChild(moreInfo);
 
 
