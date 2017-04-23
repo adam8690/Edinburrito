@@ -11,7 +11,7 @@ burritoRouter.get("/businesses", function (req, res) {
 burritoRouter.get('/businesses/:business', function(req, res) {
   yelp.business(req.params.business)
   .then(function (data) { res.json(JSON.parse(data)) })
-  .catch(function (err) { res.json(err);});
+  .catch(function (err) { res.json(err) })
 })
 
 

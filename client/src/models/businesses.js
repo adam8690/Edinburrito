@@ -7,7 +7,7 @@ var Businesses = function (mapWrapper) {
 }
 
 Businesses.prototype = {
-
+    
     populate: function () {
         var request = new XMLHttpRequest()
         request.open("GET", "http://localhost:3000/api/businesses/")
