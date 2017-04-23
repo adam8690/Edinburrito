@@ -1,13 +1,21 @@
-.flex-grid { display: inline-flex; flex-direction: row; margin: 0.5em; align-content: stretch; height: 100vh; width: calc(100vw - 1em); }
-#left-col { flex: 0; padding-right: 1em; height: 100%; }
-#right-col { flex: 1; height: 100%; }
-h1, form, nav { height: 2.5em; align-items: center; }  /* nav contains location stuff and credits link */
+html, body, .flex-grid { height: 100%; }
+.flex-grid {
+    display: flex;
+    flex-direction: row;
+    margin: 0.5em;
+    align-items: flex-start;
+    align-content: stretch;
+    width: calc(100vw - 1em);
+}
+
+#left-col { flex: 0; padding-right: 0.5em; height: 100vh; }
+#right-col { flex: 1; padding-left: 0.5em; height: 100vh; }
+header, nav { height: 2.5em; align-items: center; }  /* nav contains location stuff and credits link */
 nav { display: inline-flex; width: 100%; }
 table, #map { height: calc(100vh - 3.5em); }
 
 body {
     width: 100%;
-    height: 100%;
     font-family: Lato;
     margin: 0;
     background-color: powderblue;
@@ -19,6 +27,10 @@ h1 {
     margin: 0;
     letter-spacing: 0.05em;
     font-weight: bold;
+}
+
+table {
+    overflow-y: scroll;
 }
 
 td {
