@@ -3,7 +3,7 @@ var burritoRouter = express.Router()
 var yelp = require('./yelp')
 
 burritoRouter.get("/", function (req, res) {
-    yelpResults = yelp.search({ term: 'burrito', location: 'edinburgh', limit: 20 })
+    yelpResults = yelp.search({ term: 'burrtio', location: 'edinburgh', limit: 20 })
       .then(function (data) { res.send(data) })
       .catch(function (err) { console.error(err) })
 })
