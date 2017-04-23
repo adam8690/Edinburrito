@@ -4,8 +4,8 @@ var BusinessListView = function (container, mapWrapper) {
     this.currentlySelected = null
     this.currentSort = "distance"  // initial setting
     this.currentlyOpenInfoWindow = null
-    this.currentlyOpenInfoRow = null
-    this.notes = localStorage.getItem("edinburrito") || {}
+    this.currentlyOpenTextArea = null
+    this.notes = JSON.parse(localStorage.getItem("edinburrito")) || {}
 }
 
 BusinessListView.prototype.highlightCurrentSort = function (sorts) {
@@ -118,32 +118,44 @@ BusinessListView.prototype.makeTableRow = function (business) {
     tr.appendChild(distanceTd)
 
     tr.onclick = function () {
-        if (this.currentlyOpenInfoRow) this.currentlyOpenInfoRow.remove()
         // closing previously opened one
-        // also save the info at this point (?)
+        // also save the info at this point (? - there's probably a better way) USE ONBLUR!
+        if (this.currentlyOpenTextArea) {
+            this.notes[this.currentlyOpenTextArea.id] = this.currentlyOpenTextArea.textarea.value
+            localStorage.setItem("edinburrito", JSON.stringify(this.notes))
+            this.currentlyOpenTextArea.row.remove()
+        }
+
         this.select(tr, business)  
         this.mapWrapper.googleMap.setCenter(business.coords)
         this.mapWrapper.googleMap.setZoom(16)
 
+        // create elements
         var infoTr = document.createElement("tr")
-        this.currentlyOpenInfoRow = infoTr  // so it can be closed later
+
         var infoTd = document.createElement("td")
         infoTd.setAttribute("colspan", "4")
         var textarea = document.createElement("textarea")
         textarea.id = "notes"
-        textarea.setAttribute("placeholder", "your notes here")
-        // textarea.innerText = "extra info here"
+
+        // add review from localStorage if there is one
+        // (set placeholder text if not)
+        if (this.notes[business.details.id]) {
+            textarea.innerText = this.notes[business.details.id]
+        } else {
+            textarea.setAttribute("placeholder", "your notes here")
+        }
+
+        // now add the elements
         infoTd.appendChild(textarea)
         infoTr.appendChild(infoTd)
         tr.parentNode.insertBefore(infoTr, tr.nextSibling) // !
-        this.currentlyOpenTextArea = infoTr
+        this.currentlyOpenTextArea = { row: infoTr, textarea: textarea, id: business.details.id }  // so it can be closed later
     }.bind(this)
 
     if (business.details.is_closed === "true") {
-        tr.classList.add("currently-closed")
+        tr.classList.add("currently-closed")  // TODO: see why this isn't working
     }
-
-    console.log(business.details)
 
     return tr
 }
