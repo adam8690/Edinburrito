@@ -59,6 +59,7 @@ var initialize = function () {
                     lat: results[0].geometry.location.lat(),
                     lng: results[0].geometry.location.lng()
                 }
+                businessListView.currentLocation = coords
                 reposition(coords)
             }
         })
