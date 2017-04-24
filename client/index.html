@@ -5,22 +5,28 @@
   <link rel="stylesheet" type="text/css" href="reset.css" />
   <link rel="stylesheet" type="text/css" href="style.css" />
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js" ></script>
-  <script src="bundle.js"></script>
- <!--  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHMLyyqVk7a0mX9bIUiMkjgwJ9B07OLek&libraries=places"></script> -->
-  
+
+<!--   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js" ></script>
+ --> <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+ <script src="bundle.js"></script>
+
 </head>
 
 <!-- <input id="pac-input" class="controls" type="text" placeholder="Search Box"> -->
 
 
 <body>
+
+<div>
+  Enter an address <input type="text" id="address-input">
+  <button id='moist' >Search</button>
+</div>   
   <div class="flex-grid">
     <div id="left-col">
       <header>
         <h1 class="header-row">Edinburrito</h1>
       </header>
-
+  
       <table>
         <thead><tr><th colspan="4">sort by: <span id="name" class="sort">name</span>, <span id="price" class="sort">price</span>, <span id="rating" class="sort">rating</span>, <span id="distance" class="sort">distance</span></th><tr><thead>
         <tbody id="list"></tbody>
