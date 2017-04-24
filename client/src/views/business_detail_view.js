@@ -82,12 +82,6 @@ BusinessDetailView.prototype.createMoreInfoView = function (div) {
 
     var daysMap = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
-    // var openingHoursTitle = document.createElement('p');
-    // openingHoursTitle.classList.add('openingHoursTitle');
-    // openingHoursTitle.innerText = "Opening Hours:"
-    // div.appendChild(openingHoursTitle);
-
-
     var openingHoursTable = document.createElement('table');
     var openingHoursTableHeading = document.createElement('th');
     openingHoursTableHeading.classList.add('openingHoursTableTitle')
@@ -114,15 +108,6 @@ BusinessDetailView.prototype.createMoreInfoView = function (div) {
         tableRow.appendChild(tableDataStart);
         tableRow.appendChild(tableDataTo);
         tableRow.appendChild(tableDataEnd);
-
-
-
-
-
-
-        // var openingHours = document.createElement('p');
-        // openingHours.innerText = daysMap[i] + ": " + days[i].start + " to " + days[i].end;
-        // div.appendChild(openingHours);
       }
   }
   else {
