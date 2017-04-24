@@ -115,6 +115,7 @@ button {
     font-size: 0.8em;
     height: 2.2em;
 }
+<<<<<<< HEAD
 
 p#credits {
     text-transform: uppercase;
@@ -123,4 +124,43 @@ p#credits {
     text-align: right;
     flex: 1;
     color: grey;
+}
+.infoWindow {
+    font-family: Lato;
+}
+.infoWindow .name {
+    font-weight: bold;
+    font-size: 1.5em;
+    border-bottom: 2px solid hotpink;
+}
+.moreInfo {
+    padding-top: 10px;
+}
+.moreInfo:hover {
+    color: dodgerblue;
+    cursor: pointer;
+}
+.businessImage {
+    width: 200px;
+    padding-top: 10px;
+    padding-bottom: : 10px;
+}
+.currentlyOpen {
+    color: black;
+    border: 1px solid black;
+    border-radius: 2px;
+    padding: 0.2em;
+    background-color: palegreen;
+}
+.currentlyClosed {
+    color: black;
+        border: 1px solid black;
+        border-radius: 2px;
+        padding: 0.2em;
+        background-color: salmon;
+}
+.openingHoursTitle {
+    font-weight: bold;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
 }

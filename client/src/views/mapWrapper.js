@@ -1,3 +1,4 @@
+var BusinessDetailView = require('./business_detail_view.js');
 
 var MapWrapper = function(container, coords, zoom){
   this.currentlyOpenInfoWindow = null
@@ -97,10 +98,15 @@ MapWrapper.prototype = {
     }.bind(this));
   },
 
-  addInfoWindow: function(text,marker) {
-    var infoWindow = new google.maps.InfoWindow({
-      content: text
-    });
+
+  addInfoWindow: function(business, marker) {
+    // var marker = this.addMarker(coords);
+    detailsView = new BusinessDetailView(business);
+    content = detailsView.createDetailView()    
+
+    var infoWindow = new google.maps.InfoWindow();
+    infoWindow.setContent(content);
+      // infoWindow.open(this.map, marker);
      return infoWindow
    },
 
@@ -108,8 +114,26 @@ MapWrapper.prototype = {
      if (this.currentlyOpenInfoWindow) this.currentlyOpenInfoWindow.close()
      business.openInfoWindow()
      this.currentlyOpenInfoWindow = business.infoWindow
-    }
+    },
 
+    // updateInfoWindow: function (business) {
+    //   oldContent = business.infoWindow.content
+    //   newContent = business.moreDetails.phone
+    //   // if (this.currentlyOpenInfoWindow) this.currentlyOpenInfoWindow.close()
+    //   business.infoWindow = new google.maps.InfoWindow({
+    //   content: oldContent + newContent
+    // });
+    //   // this.openInfoWindow(business)
+    //   // this.currentlyOpenInfoWindow = business.infoWindow
+    //  },
+
+  // geoLocate: function(){
+  //   navigator.geolocation.getCurrentPosition(function(position) {
+  //     var center = {lat: position.coords.latitude, lng: position.coords.longitude}; 
+  //     this.googleMap.setCenter(center); 
+  //     this.addMarker(center);
+  //   }.bind(this)); 
+  // }
 }
 
 module.exports = MapWrapper 
