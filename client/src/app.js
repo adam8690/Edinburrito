@@ -1,6 +1,5 @@
 var MapWrapper = require('./views/mapWrapper.js')
 var BusinessListView = require('./views/business_list_view.js')
-var ModeSelectView = require('./views/mode_select_view.js')
 var Businesses = require('./models/businesses.js')
 var map;
 var marker;
@@ -32,20 +31,12 @@ var initialize = function () {
     var credits = document.querySelector("#credits")
     credits.onclick = showCredits
 
-    //var modeSelectView = new ModeSelectView(document.querySelector('#mode'));
-    var modeSelectView = document.querySelector('#mode')
-    modeSelectView.onchange =  function () {
-        mainMap.calculateAndDisplayRoute(mainMap.directionsService, mainMap.directionsDisplay, modeSelectView.value);
-    }
-
     var search = document.querySelector('#location')
     search.onkeydown = function (e) {
         if (e.keyCode === 13) {        // 13 = Enter
             searchAddress(this.value)
         }
     }
-
-
 
     function reposition(coords) {
         mainMap.removeMarkers()
@@ -67,25 +58,6 @@ var initialize = function () {
             }
         })
     }
-
-    // function initMap() {
-    //         var directionsDisplay = new google.maps.DirectionsRenderer;
-    //         var directionsService = new google.maps.DirectionsService;
-    //         var map = new google.maps.Map(document.getElementById(mapDiv), {
-    //           zoom: 14,
-    //           center: coords
-    //         });
-    //         directionsDisplay.setMap(map);
-
-    //         calculateAndDisplayRoute(directionsService, directionsDisplay);
-    //         document.getElementById('#mode').addEventListener('change', function() {
-    //           calculateAndDisplayRoute(directionsService, directionsDisplay);
-    //         });
-    //       }
-
-   
-
-
 
     var whereAmI = document.querySelector('#my-location') //added this initialize function 
     whereAmI.onclick = function () {
