@@ -69,6 +69,7 @@ BusinessDetailView.prototype.createDetailView = function(){
 
 BusinessDetailView.prototype.createMoreInfoView = function (div) {
   if (this.business.moreDetails.hours) {
+    console.log(this.business.moreDetails.hours["0"])
     var open = document.createElement('p')
     if (this.business.moreDetails.hours["0"].is_open_now) {
       open.innerText = "Open"
