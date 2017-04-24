@@ -18,8 +18,13 @@ BusinessDetailView.prototype.createDetailView = function(){
     var address = document.createElement('p');
     address.innerText = this.details.location.address1;
 
+    var imageDiv = document.createElement('div');
+    imageDiv.id = "image_div"
+    
     var image = document.createElement('img');
+    image.id = "image"
     image.classList.add("businessImage")
+    imageDiv.appendChild(image);
     if (this.details.image_url){
       image.src = this.details.image_url;
     }
@@ -61,7 +66,7 @@ BusinessDetailView.prototype.createDetailView = function(){
 
   div.appendChild(nameH1);
   div.appendChild(address);
-  div.appendChild(image);
+  if(this.details.image_url) {div.appendChild(imageDiv);}
   div.appendChild(rating);
   div.appendChild(price);
   div.appendChild(distance);
@@ -99,7 +104,7 @@ BusinessDetailView.prototype.createMoreInfoView = function (div) {
         var tableRow = document.createElement('tr');
         tableRow.classList.add('openingHoursTableRows');
         var tableDataDay = document.createElement('td');
-        tableDataDay.innerText = daysMap[i];
+        tableDataDay.innerText = daysMap[days[i].day];
         var tableDataStart = document.createElement('td');
         tableDataStart.innerText = days[i].start;
         var tableDataTo = document.createElement('td');
