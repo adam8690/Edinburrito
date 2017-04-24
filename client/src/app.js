@@ -12,7 +12,6 @@ var initialize = function () {
     var search = document.querySelector('#location')
     search.onkeydown = function (e) {
         if (e.keyCode === 13) {        // 13 = Enter
-            console.log(this.value)
             searchAddress(this.value)
         }
     }
