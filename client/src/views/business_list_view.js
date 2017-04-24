@@ -1,3 +1,6 @@
+var Utils = require('../models/utils');
+var utils = new Utils();
+
 var BusinessListView = function (container, mapWrapper) {
     this.container = container  // is the <table id="list">
     this.mapWrapper = mapWrapper
@@ -115,7 +118,7 @@ BusinessListView.prototype.makeTableRow = function (business) {
 
     var distanceTd = document.createElement("td")
     distanceTd.classList.add("distance")
-    distanceTd.innerHTML = '<p>' + this.formatDistance(business.details.distance) + '</p>'
+    distanceTd.innerHTML = '<p>' + utils.formatDistance(business.details.distance) + '</p>'
     tr.appendChild(distanceTd)
 
     tr.onclick = function () {
@@ -162,16 +165,6 @@ BusinessListView.prototype.makeTableRow = function (business) {
     }
 
     return tr
-}
-
-BusinessListView.prototype.formatDistance = function (distance) {
-    result = Math.round(distance)
-    if (result < 1000) {
-        return result + "m"
-    } else { 
-        result /= 1000
-        return result.toFixed(1) + "km"
-    }
 }
 
 BusinessListView.prototype.select = function (tr, business) {
