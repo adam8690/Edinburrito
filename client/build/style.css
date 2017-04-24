@@ -98,13 +98,19 @@ tbody tr:hover:not(.selected) {
 
 span.sort:hover:not(.selected-sort) {
     border-bottom: 2px solid dodgerblue;
+    cursor: pointer;
 }
 
 input {
     margin-left: 0.5em;
-    margin-right: 1.5em;
+    margin-right: 1.5;
     line-height: 2em;
     width: 20em;
+}
+
+p {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
 }
 
 button {
@@ -115,7 +121,6 @@ button {
     font-size: 0.8em;
     height: 2.2em;
 }
-<<<<<<< HEAD
 
 p#credits {
     text-transform: uppercase;
@@ -143,7 +148,7 @@ p#credits {
 .businessImage {
     width: 200px;
     padding-top: 10px;
-    padding-bottom: : 10px;
+    padding-bottom: 10px;
 }
 .currentlyOpen {
     color: black;

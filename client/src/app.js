@@ -25,10 +25,6 @@ var initialize = function () {
     }
 
     function searchAddress(searchString) {
-        // var addressInput = document.getElementById('address-input').value;
-    
-
-       
         var geocoder = new google.maps.Geocoder();
         geocoder.geocode({ address: searchString }, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
