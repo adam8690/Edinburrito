@@ -18,6 +18,7 @@ var initialize = function () {
     }
 
     function reposition(coords) {
+        mainMap.removeMarkers()
         mainMap.googleMap.setCenter(coords);
         mainMap.googleMap.setZoom(16);
         mainMap.addMyLocationMarker(coords)

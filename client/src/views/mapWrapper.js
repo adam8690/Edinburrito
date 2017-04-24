@@ -2,6 +2,7 @@ var BusinessDetailView = require('./business_detail_view.js');
 
 var MapWrapper = function(container, coords, zoom){
   this.currentlyOpenInfoWindow = null
+  this.markers = []
   this.googleMap = new google.maps.Map(container, {
     center: coords,
     zoom: zoom
@@ -15,9 +16,9 @@ MapWrapper.prototype = {
       position: coords,
       map: this.googleMap,
       animation: google.maps.Animation.DROP,
-      icon: 'http://localhost:3000/images/267881.png'      
+      icon: 'http://localhost:3000/images/267881.png'    
     });
-
+    this.markers.push(marker)
     return marker;
   },
 
@@ -28,7 +29,14 @@ MapWrapper.prototype = {
       animation: google.maps.Animation.DROP,
       icon: 'http://localhost:3000/images/Daveault1.png'
     })
+    this.markers.push(marker)
     return marker
+  },
+
+   removeMarkers: function(){
+      for(i=0; i< this.markers.length; i++){
+          this.markers[i].setMap(null);
+      }
   },
 
   addClickEvent: function(){
