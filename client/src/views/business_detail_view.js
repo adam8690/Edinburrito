@@ -1,3 +1,6 @@
+var Utils = require('../models/utils');
+var utils = new Utils();
+
 var BusinessDetailView = function(business){
 this.business = business;
 this.details = business.details;
@@ -33,7 +36,7 @@ BusinessDetailView.prototype.createDetailView = function(){
 
 
   var distance = document.createElement('p');
-  distance.innerText = "Distance: " + Math.floor(this.details.distance) + "m"
+  distance.innerText = "Distance: " + utils.formatDistance(this.details.distance)
 
   
   var telephone = document.createElement('p');
