@@ -6,74 +6,29 @@ var marker;
 
 var initialize = function () {
     var mapDiv = document.getElementById('map')
-
     var defaultLocation = { lat: 55.953291, lng: -3.200000 } // Edinburgh (George St)
     var mainMap = new MapWrapper(mapDiv, defaultLocation, 15)
+    var search = document.querySelector('#location')
 
- 
-    var button = document.querySelector('#moist')
-
-    button.onclick = searchAddress
-
-    //     var mapOptions = {
-    //         center: new google.maps.LatLng(40.680898,-8.684059),
-    //         zoom: 11,
-    //         mapTypeId: google.maps.MapTypeId.ROADMAP
-    //     };
-
-    //     map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-    // }
-
-
-     // google.maps.event.addDomListener(window, 'load', initialize);
-
-
-    function searchAddress() {
-
-        var addressInput = document.getElementById('address-input').value;
-
-        var geocoder = new google.maps.Geocoder();
-
-        geocoder.geocode({address: addressInput}, function(results, status) {
-
-            if (status == google.maps.GeocoderStatus.OK) {
-
-          var myResult = results[0].geometry.location;
-
-          // createMarker(myResult);
-
-          mainMap.googleMap.setCenter(myResult);
-
-          mainMap.googleMap.setZoom(17);
-
-          mainMap.addMyLocationMarker(myResult)
-
-
-            }
-        });
-
+    search.onkeydown = function (e) {
+        if (e.keyCode === 13) {        // 13 = Enter
+            console.log(this.value)
+            searchAddress(this.value)
+        }
     }
 
-    // function createMarker(latlng) {
-
-    //   if(marker != undefined && marker != ''){
-    //     marker.setMap(null);
-    //     marker = '';
-    //   }
-
-    //   marker = new google.maps.Marker({
-    //     map: map,
-    //     position: latlng
-    //   });
-    // }
-   
-    // mainMap.addMarker()
-    // mainMap.addClickEvent()
-    // mainMap.addInfoWindow(center, "are we in edinburgh yet?!")
-
-
-
+    function searchAddress(searchString) {
+        // var addressInput = document.getElementById('address-input').value;
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({ address: searchString }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                var myResult = results[0].geometry.location;
+                mainMap.googleMap.setCenter(myResult);
+                mainMap.googleMap.setZoom(17);
+                mainMap.addMyLocationMarker(myResult)
+            }
+        })
+    }
 
     var whereAmI = document.querySelector('#my-location') //added this initialize function 
     whereAmI.onclick = function () {
