@@ -18,9 +18,13 @@ BusinessDetailView.prototype.createDetailView = function(){
     var address = document.createElement('p');
     address.innerText = this.details.location.address1;
 
-  
+    var imageDiv = document.createElement('div');
+    imageDiv.id = "image_div"
+    
     var image = document.createElement('img');
+    image.id = "image"
     image.classList.add("businessImage")
+    imageDiv.appendChild(image);
     if (this.details.image_url){
       image.src = this.details.image_url;
     }
@@ -62,7 +66,7 @@ BusinessDetailView.prototype.createDetailView = function(){
 
   div.appendChild(nameH1);
   div.appendChild(address);
-  div.appendChild(image);
+  div.appendChild(imageDiv);
   div.appendChild(rating);
   div.appendChild(price);
   div.appendChild(distance);

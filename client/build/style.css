@@ -150,8 +150,9 @@ p#credits {
 }
 .infoWindow {
     font-family: Lato;
-    width: 300px;
-    /*overflow: auto;*/
+    max-width: 200px;
+    /*overflow-y: hidden;*/
+    overflow-x: hidden;
 }
 .infoWindow .name {
     font-weight: bold;
@@ -165,11 +166,31 @@ p#credits {
     color: dodgerblue;
     cursor: pointer;
 }
-div img.businessImage {
-    padding-top: 10px;
-    padding-bottom: 10px;
+
+#image_div { 
+    /*max-width: 200px;
+    overflow-y: hidden;
+    overflow-x: hidden;*/
+    position: relative;
+      width: 200px;
+      height: 200px;
+      overflow: hidden;
+}
+
+/*div img.businessImage {*/
+#image {
+    /*padding-top: 10px;*/
+    /*padding-bottom: 10px;*/
     max-width: 100%;
-    max-height: 300px;
+    /*max-height: 200px;*/
+    /*overflow-y: hidden;*/
+    /*overflow-x: hidden;*/
+    position: absolute;
+      top: -4000px;
+      left: -4000px;
+      right: -4000px;
+      bottom: -4000px;
+      margin: auto;
 }
 .currentlyOpen {
     color: black;
