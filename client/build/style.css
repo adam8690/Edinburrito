@@ -23,6 +23,7 @@ body {
     background-color: #A9CCE3;
 }
 
+
 header {
     border-bottom: 1px solid #2874A6;
 }
@@ -184,8 +185,9 @@ p#credits {
         padding: 0.2em;
         background-color: salmon;
 }
-.openingHoursTitle {
+.openingHoursTableTitle {
     font-weight: bold;
+    font-size: 1em;
     padding-top: 0.2em;
     padding-bottom: 0.2em;
 }
@@ -206,4 +208,8 @@ p#credits {
     height: 384px;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
+}
+
+.openingHoursTable {
+    height: auto;
 }

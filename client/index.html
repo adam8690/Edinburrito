@@ -6,7 +6,8 @@
   <link rel="stylesheet" type="text/css" href="style.css" />
   <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+     
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHMLyyqVk7a0mX9bIUiMkjgwJ9B07OLek"></script>
   <script src="bundle.js"></script>
 </head>
 
@@ -25,11 +26,21 @@
 
     <div id="right-col">
       <nav>
+      <div id="floating-panel">
+         <b>Mode of Travel: </b>
+         <select id="mode">
+           <option value="DRIVING">Driving</option>
+           <option value="WALKING">Walking</option>
+           <option value="BICYCLING">Bicycling</option>
+           <option value="TRANSIT">Transit</option>
+         </select>
+         </div>
         <label for="location">Location</label>
         <input type="text" id="location" name="location" placeholder="Street name or postcode">
         <p id="or">or,</p>
         <button id='my-location'>find my current location</button>
         <p id="credits">Credits</p>
+
       </nav>
 
       <div id="map" width=1 height=1></div>

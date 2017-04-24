@@ -1,3 +1,6 @@
+var Utils = require('../models/utils');
+var utils = new Utils();
+
 var BusinessListView = function (container, mapWrapper) {
     this.container = container  // is the <table id="list">
     this.mapWrapper = mapWrapper
@@ -5,6 +8,7 @@ var BusinessListView = function (container, mapWrapper) {
     this.currentSort = "distance"  // initial setting
     this.currentlyOpenInfoWindow = null
     this.currentlyOpenTextArea = null
+    this.currentLocation = null 
     this.notes = JSON.parse(localStorage.getItem("edinburrito")) || {}
 }
 
@@ -21,7 +25,7 @@ BusinessListView.prototype.highlightCurrentSort = function (sorts) {
         }
     }
 }
-
+    
 BusinessListView.prototype.render = function (businesses) {
     var sorts = document.querySelectorAll(".sort")
     this.highlightCurrentSort(sorts)
@@ -114,7 +118,7 @@ BusinessListView.prototype.makeTableRow = function (business) {
 
     var distanceTd = document.createElement("td")
     distanceTd.classList.add("distance")
-    distanceTd.innerHTML = '<p>' + this.formatDistance(business.details.distance) + '</p>'
+    distanceTd.innerHTML = '<p>' + utils.formatDistance(business.details.distance) + '</p>'
     tr.appendChild(distanceTd)
 
     tr.onclick = function () {
@@ -129,6 +133,9 @@ BusinessListView.prototype.makeTableRow = function (business) {
         this.select(tr, business)  
         this.mapWrapper.googleMap.setCenter(business.coords)
         this.mapWrapper.googleMap.setZoom(16)
+        if (this.currentLocation) { // you need to have geolocated first
+            this.mapWrapper.calculateAndDisplayRoute(this.mapWrapper.directionsService, this.mapWrapper.directionsDisplay, this.currentLocation, business.coords, 'WALKING');         
+        }
 
         // create elements
         var infoTr = document.createElement("tr")
@@ -158,16 +165,6 @@ BusinessListView.prototype.makeTableRow = function (business) {
     }
 
     return tr
-}
-
-BusinessListView.prototype.formatDistance = function (distance) {
-    result = Math.round(distance)
-    if (result < 1000) {
-        return result + "m"
-    } else { 
-        result /= 1000
-        return result.toFixed(1) + "km"
-    }
 }
 
 BusinessListView.prototype.select = function (tr, business) {

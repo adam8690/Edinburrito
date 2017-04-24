@@ -1,3 +1,6 @@
+var Utils = require('../models/utils');
+var utils = new Utils();
+
 var BusinessDetailView = function(business){
 this.business = business;
 this.details = business.details;
@@ -33,7 +36,7 @@ BusinessDetailView.prototype.createDetailView = function(){
 
 
   var distance = document.createElement('p');
-  distance.innerText = "Distance: " + Math.floor(this.details.distance) + "m"
+  distance.innerText = "Distance: " + utils.formatDistance(this.details.distance)
 
   
   var telephone = document.createElement('p');
@@ -82,18 +85,33 @@ BusinessDetailView.prototype.createMoreInfoView = function (div) {
     div.appendChild(open)
 
     var daysMap = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-    console.log(this.business.moreDetails.hours)
 
-    var openingHoursTitle = document.createElement('p');
-    openingHoursTitle.classList.add('openingHoursTitle');
-    openingHoursTitle.innerText = "Opening Hours:"
-    div.appendChild(openingHoursTitle);
+    var openingHoursTable = document.createElement('table');
+    var openingHoursTableHeading = document.createElement('th');
+    openingHoursTableHeading.classList.add('openingHoursTableTitle')
+    openingHoursTableHeading.innerText = "Opening Hours";
+    div.appendChild(openingHoursTable);
+    openingHoursTable.appendChild(openingHoursTableHeading);
+    openingHoursTable.classList.add('openingHoursTable');
 
     var days = this.business.moreDetails.hours["0"].open 
       for(i = 0; i < days.length; i++){
-        var openingHours = document.createElement('p');
-        openingHours.innerText = daysMap[i] + ": " + days[i].start + " to " + days[i].end;
-        div.appendChild(openingHours);
+        var tableRow = document.createElement('tr');
+        tableRow.classList.add('openingHoursTableRows');
+        var tableDataDay = document.createElement('td');
+        tableDataDay.innerText = daysMap[i];
+        var tableDataStart = document.createElement('td');
+        tableDataStart.innerText = days[i].start;
+        var tableDataTo = document.createElement('td');
+        tableDataTo.innerText = "to";
+        var tableDataEnd = document.createElement('td');
+        tableDataEnd.innerText = days[i].end;
+        
+        openingHoursTable.appendChild(tableRow);
+        tableRow.appendChild(tableDataDay);
+        tableRow.appendChild(tableDataStart);
+        tableRow.appendChild(tableDataTo);
+        tableRow.appendChild(tableDataEnd);
       }
   }
   else {
