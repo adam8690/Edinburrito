@@ -37,9 +37,7 @@ MapWrapper.prototype = {
          }, function(response, status) {
            if (status == 'OK') {
              directionsDisplay.setDirections(response);
-           } else {
-             window.alert('Directions request failed due to ' + status);
-           }
+           } // no route will be shown if no available results (ZERO_RESULTS etc)
          });
        },
 

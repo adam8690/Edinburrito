@@ -31,7 +31,6 @@ var initialize = function () {
     var credits = document.querySelector("#credits")
     credits.onclick = showCredits
 
-
     var search = document.querySelector('#location')
     search.onkeydown = function (e) {
         if (e.keyCode === 13) {        // 13 = Enter
@@ -55,7 +54,6 @@ var initialize = function () {
                     lat: results[0].geometry.location.lat(),
                     lng: results[0].geometry.location.lng()
                 }
-                businessListView.currentLocation = coords
                 reposition(coords)
             }
         })
