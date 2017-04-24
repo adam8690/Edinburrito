@@ -103,7 +103,7 @@ BusinessDetailView.prototype.createMoreInfoView = function (div) {
         var tableRow = document.createElement('tr');
         tableRow.classList.add('openingHoursTableRows');
         var tableDataDay = document.createElement('td');
-        tableDataDay.innerText = daysMap[i];
+        tableDataDay.innerText = daysMap[days[i].day];
         var tableDataStart = document.createElement('td');
         tableDataStart.innerText = days[i].start;
         var tableDataTo = document.createElement('td');
