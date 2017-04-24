@@ -44,20 +44,12 @@ BusinessDetailView.prototype.createDetailView = function(){
     telephone.innerText = "";
   }
 
-  var open = document.createElement('p');
-  if(this.details.is_closed){
-    open.innerText = "Closed"
-    open.classList.add("currentlyClosed")
-  }
-  else {open.innerText = "Open"
-    open.classList.add("currentlyOpen");
-}
 
   var moreInfo = document.createElement('p');
   moreInfo.classList.add("moreInfo")
   moreInfo.innerText = 'See opening hours...';
-  moreInfo.addEventListener('click', function(){
-    this.business.getMoreDetails(function(){
+  moreInfo.addEventListener('click', function () {
+    this.business.getMoreDetails(function () {
       // create the expanded view in here.
       div.removeChild(moreInfo);
       this.createMoreInfoView(div)
@@ -71,16 +63,25 @@ BusinessDetailView.prototype.createDetailView = function(){
   div.appendChild(price);
   div.appendChild(distance);
   div.appendChild(telephone);
-  div.appendChild(open);
   div.appendChild(moreInfo);
-
   return div;
 } 
 
-BusinessDetailView.prototype.createMoreInfoView = function(div){
+BusinessDetailView.prototype.createMoreInfoView = function (div) {
+  if (this.business.moreDetails.hours) {
+    var open = document.createElement('p')
+    if (this.business.moreDetails.hours["0"].is_open_now) {
+      open.innerText = "Open"
+      open.classList.add("currentlyOpen")
+    }
+    else {
+      open.innerText = "Closed"
+      open.classList.add("currentlyClosed")
+    }
+    div.appendChild(open)
 
-  if(this.business.moreDetails.hours){
     var daysMap = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    console.log(this.business.moreDetails.hours)
 
     var openingHoursTitle = document.createElement('p');
     openingHoursTitle.classList.add('openingHoursTitle');
