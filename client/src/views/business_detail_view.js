@@ -38,7 +38,7 @@ BusinessDetailView.prototype.createDetailView = function(){
   
   var telephone = document.createElement('p');
   if(this.details.display_phone !== "" && this.details.display_phone){
-  telephone.innerText = "Telephone: " + this.details.display_phone;
+    telephone.innerText = "Telephone: " + this.details.display_phone;
   }
   else {
     telephone.innerText = "";

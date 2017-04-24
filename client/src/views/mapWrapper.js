@@ -116,17 +116,6 @@ MapWrapper.prototype = {
      this.currentlyOpenInfoWindow = business.infoWindow
     },
 
-    // updateInfoWindow: function (business) {
-    //   oldContent = business.infoWindow.content
-    //   newContent = business.moreDetails.phone
-    //   // if (this.currentlyOpenInfoWindow) this.currentlyOpenInfoWindow.close()
-    //   business.infoWindow = new google.maps.InfoWindow({
-    //   content: oldContent + newContent
-    // });
-    //   // this.openInfoWindow(business)
-    //   // this.currentlyOpenInfoWindow = business.infoWindow
-    //  },
-
   // geoLocate: function(){
   //   navigator.geolocation.getCurrentPosition(function(position) {
   //     var center = {lat: position.coords.latitude, lng: position.coords.longitude}; 

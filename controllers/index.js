@@ -5,8 +5,6 @@ var path = require("path")
 router.use("/api", require("./burrito_router.js"))
 
 router.get("/", function (req, res) {
-    // before you have index.html set up, you can just send this for testing:
-    // res.json({ data: "Hello from my API" })
     res.sendFile(path.join(__dirname + "/../client/index.html"))
 })
 
