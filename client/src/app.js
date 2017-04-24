@@ -28,7 +28,7 @@ var initialize = function () {
     var flexGrid = document.querySelector(".flex-grid")
     var creditsPopup = document.querySelector("#credits-popup")
     creditsPopup.onclick = hideCredits
-    var credits = document.querySelector("#credits")
+    var credits = document.querySelector("#credits-text")
     credits.onclick = showCredits
 
     var search = document.querySelector('#location')

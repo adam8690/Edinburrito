@@ -46,7 +46,7 @@ MapWrapper.prototype = {
       position: coords,
       map: this.googleMap,
       animation: google.maps.Animation.DROP,
-      icon: 'http://localhost:3000/images/267881.png'    
+      icon: '/images/267881.png' 
     });
     this.markers.push(marker)
     return marker;
@@ -57,7 +57,7 @@ MapWrapper.prototype = {
       position: coords,
       map: this.googleMap,
       animation: google.maps.Animation.DROP,
-      icon: 'http://localhost:3000/images/Daveault1.png'
+      icon: '/images/Daveault1.png'
     })
     this.markers.push(marker)
     return marker

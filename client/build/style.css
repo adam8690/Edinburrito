@@ -141,7 +141,7 @@ button {
     height: 2em;
 }
 
-p#credits {
+#credits {
     text-transform: uppercase;
     font-variant: small-caps;
     font-size: 0.8em;
@@ -149,8 +149,11 @@ p#credits {
     flex: 1;
     color: grey;
     padding-right: 0.1em;
-        cursor: pointer;
 }
+#credits-text {
+    cursor: pointer;
+}
+
 .infoWindow {
     font-family: Lato;
 }
