@@ -31,12 +31,7 @@ var initialize = function () {
     var credits = document.querySelector("#credits")
     credits.onclick = showCredits
 
-<<<<<<< HEAD
-=======
-   
 
-
->>>>>>> 2a5411ca95bdddbc72e19edb911ffd927d523164
     var search = document.querySelector('#location')
     search.onkeydown = function (e) {
         if (e.keyCode === 13) {        // 13 = Enter
