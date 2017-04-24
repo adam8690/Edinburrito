@@ -150,6 +150,8 @@ p#credits {
 }
 .infoWindow {
     font-family: Lato;
+    width: 300px;
+    /*overflow: auto;*/
 }
 .infoWindow .name {
     font-weight: bold;
@@ -163,10 +165,11 @@ p#credits {
     color: dodgerblue;
     cursor: pointer;
 }
-.businessImage {
-    width: 200px;
+div img.businessImage {
     padding-top: 10px;
     padding-bottom: 10px;
+    max-width: 100%;
+    max-height: 300px;
 }
 .currentlyOpen {
     color: black;

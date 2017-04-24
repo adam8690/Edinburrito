@@ -18,6 +18,7 @@ BusinessDetailView.prototype.createDetailView = function(){
     var address = document.createElement('p');
     address.innerText = this.details.location.address1;
 
+  
     var image = document.createElement('img');
     image.classList.add("businessImage")
     if (this.details.image_url){
