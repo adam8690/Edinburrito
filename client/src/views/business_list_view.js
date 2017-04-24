@@ -5,6 +5,7 @@ var BusinessListView = function (container, mapWrapper) {
     this.currentSort = "distance"  // initial setting
     this.currentlyOpenInfoWindow = null
     this.currentlyOpenTextArea = null
+    this.currentLocation = null 
     this.notes = JSON.parse(localStorage.getItem("edinburrito")) || {}
 }
 
@@ -21,7 +22,7 @@ BusinessListView.prototype.highlightCurrentSort = function (sorts) {
         }
     }
 }
-
+    
 BusinessListView.prototype.render = function (businesses) {
     var sorts = document.querySelectorAll(".sort")
     this.highlightCurrentSort(sorts)
@@ -129,6 +130,9 @@ BusinessListView.prototype.makeTableRow = function (business) {
         this.select(tr, business)  
         this.mapWrapper.googleMap.setCenter(business.coords)
         this.mapWrapper.googleMap.setZoom(16)
+        if (this.currentLocation) { // you need to have geolocated first
+            this.mapWrapper.calculateAndDisplayRoute(this.mapWrapper.directionsService, this.mapWrapper.directionsDisplay, this.currentLocation, business.coords, 'WALKING');         
+        }
 
         // create elements
         var infoTr = document.createElement("tr")

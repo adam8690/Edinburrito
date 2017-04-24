@@ -7,9 +7,41 @@ var MapWrapper = function(container, coords, zoom){
     center: coords,
     zoom: zoom
   });
+  this.directionsDisplay = new google.maps.DirectionsRenderer;
+  this.directionsService = new google.maps.DirectionsService;
+  this.directionsDisplay.setMap(this.googleMap);
+
+  // calculateAndDisplayRoute(directionsDisplayionsService, directionsDisplay);
+  // document.getElementById('#mode').addEventListener('change', function() {
+  //   calculateAndDisplayRoute();
+  // });
+
+
 }
 
+
+
+
 MapWrapper.prototype = {
+
+
+  calculateAndDisplayRoute: function(directionsService, directionsDisplay,origin, destination, selectedMode) {
+         // var selectedMode = document.getElementById('#mode').value;
+         directionsService.route({
+           origin: origin,  // Haight.
+           destination: destination,  // Ocean Beach.
+           // Note that Javascript allows us to access the constant
+           // using square brackets and a string value as its
+           // "property."
+           travelMode: google.maps.TravelMode[selectedMode]
+         }, function(response, status) {
+           if (status == 'OK') {
+             directionsDisplay.setDirections(response);
+           } else {
+             window.alert('Directions request failed due to ' + status);
+           }
+         });
+       },
 
   addMarker: function (coords) {
     var marker = new google.maps.Marker({
