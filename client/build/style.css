@@ -172,8 +172,8 @@ p#credits {
     overflow-y: hidden;
     overflow-x: hidden;*/
     position: relative;
-      width: 200px;
-      height: 200px;
+      width: 225px;
+      height: 150px;
       overflow: hidden;
 }
 
@@ -186,10 +186,10 @@ p#credits {
     /*overflow-y: hidden;*/
     /*overflow-x: hidden;*/
     position: absolute;
-      top: -4000px;
-      left: -4000px;
-      right: -4000px;
-      bottom: -4000px;
+      top: -9999px;
+      left: -9999px;
+      right: -9999px;
+      bottom: -9999px;
       margin: auto;
 }
 .currentlyOpen {
