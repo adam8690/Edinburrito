@@ -7,6 +7,11 @@ html, body { height: 100%; }
     align-content: stretch;
     width: calc(100vw - 1em);
     height: 100vh;
+    cursor:url('http://localhost:3000/images/food-truck-reduced-e1438624125901.png'), auto;
+}
+
+div {
+    cursor:url('http://localhost:3000/images/food-truck-reduced-e1438624125901.png'), auto;
 }
 
 #left-col { flex: 0; padding-right: 0.5em; }
@@ -20,6 +25,7 @@ body {
     font-family: Lato;
     margin: 0;
     background-color: powderblue;
+
 }
 
 h1 {
@@ -34,6 +40,7 @@ td {
     white-space: nowrap;
     padding-bottom: 0.25em;
     padding-right: 0.5em;
+    cursor:url('http://localhost:3000/images/food-truck-reduced-e1438624125901.png'), auto;
 }
 
 th {
