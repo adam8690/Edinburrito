@@ -100,6 +100,13 @@ span.sort:hover:not(.selected-sort) {
     border-bottom: 2px solid dodgerblue;
     cursor: pointer;
 }
+thead, tbody { display: block; }
+
+tbody {
+    height: 95%;       /* 95% to bring it in line with bottom of map  */
+    overflow-y: auto;    
+    overflow-x: hidden;  
+}
 
 input {
     margin-left: 0.5em;
