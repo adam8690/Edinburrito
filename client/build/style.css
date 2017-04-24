@@ -182,8 +182,12 @@ p#credits {
         padding: 0.2em;
         background-color: salmon;
 }
-.openingHoursTitle {
+.openingHoursTableTitle {
     font-weight: bold;
+    font-size: 1em;
     padding-top: 0.2em;
     padding-bottom: 0.2em;
+}
+.openingHoursTable {
+    height: auto;
 }
