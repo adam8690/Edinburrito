@@ -1,5 +1,6 @@
 html, body { height: 100%; }
 .flex-grid {
+    opacity: 1;
     display: flex;
     flex-direction: row;
     margin: 0.5em;
@@ -147,6 +148,7 @@ p#credits {
     flex: 1;
     color: grey;
     padding-right: 0.1em;
+        cursor: pointer;
 }
 .infoWindow {
     font-family: Lato;
@@ -186,4 +188,22 @@ p#credits {
     font-weight: bold;
     padding-top: 0.2em;
     padding-bottom: 0.2em;
+}
+
+#credits-popup {
+    margin: 0 auto;
+    position: absolute;
+    left: calc(50vw - 1em - 256px);
+    top: calc(50vh - 2em - 192px);
+    display: none;
+    background-color: #EAF2F8;
+    border: 1px solid steelblue;
+    padding: 1em;
+}
+
+#credits-popup img {
+    width: 512px;
+    height: 384px;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
 }

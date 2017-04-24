@@ -5,9 +5,30 @@ var map;
 var marker;
 
 var initialize = function () {
-    var mapDiv = document.getElementById('map')
+    var mapDiv = document.querySelector("#map")
     var defaultLocation = { lat: 55.953291, lng: -3.200000 } // Edinburgh (George St)
     var mainMap = new MapWrapper(mapDiv, defaultLocation, 15)
+    var body = document.querySelector("body")
+    
+    var showCredits = function () {
+        flexGrid.style.opacity = 0.3
+        creditsPopup.style.display = "block"
+        credits.onclick = hideCredits
+        body.onmouseup = hideCredits // a click anywhere will hide the popup
+    }
+
+    var hideCredits = function () {
+        flexGrid.style.opacity = 1
+        creditsPopup.style.display = "none"
+        credits.onclick = showCredits
+        body.onmouseup = null
+    }
+
+    var flexGrid = document.querySelector(".flex-grid")
+    var creditsPopup = document.querySelector("#credits-popup")
+    creditsPopup.onclick = hideCredits
+    var credits = document.querySelector("#credits")
+    credits.onclick = showCredits
 
     var search = document.querySelector('#location')
     search.onkeydown = function (e) {
