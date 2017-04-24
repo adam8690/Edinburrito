@@ -66,7 +66,7 @@ BusinessDetailView.prototype.createDetailView = function(){
 
   div.appendChild(nameH1);
   div.appendChild(address);
-  div.appendChild(imageDiv);
+  if(this.details.image_url) {div.appendChild(imageDiv);}
   div.appendChild(rating);
   div.appendChild(price);
   div.appendChild(distance);
