@@ -5,6 +5,8 @@ body {
     background-color: white;
 }
 
+
+
 #flex-container {
     opacity: 1;
     display: flex;
@@ -41,7 +43,9 @@ nav {
 
 footer {
     flex: 0 0 auto;
-    height: 3em;
+    margin-left: -9em;
+    height: 5em;
+    padding-top:0.5em;
 }
 
 h1 {
@@ -249,15 +253,10 @@ button {
     height: auto;
 }
 
-#container {
-  width: 400px;
-  height: 400px;
-  position: relative;
-  background: white;
-}
+
 #animate {
-  width: 450px;
-  height: 220px;
+  width: 150px;
+  height: 75px;
   position: absolute;
-  background: url('/images/food-truck-reduced-e1438624125901.png');
+  background: url('/images/food-truck-reduced-e1438624125901 (1).png');
 }

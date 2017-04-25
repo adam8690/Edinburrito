@@ -60,9 +60,9 @@ var initialize = function () {
     function myMove() {
       var elem = document.getElementById("animate");   
       var pos = 0;
-      var id = setInterval(frame, 3);
+      var id = setInterval(frame, 5);
       function frame() {
-        if (pos == 300) {
+        if (pos == 2000) {
           clearInterval(id);
         } else {
           pos++; 
@@ -70,13 +70,16 @@ var initialize = function () {
           elem.style.left = pos + 'px'; 
         }
       }
+  }
 
     var whereAmI = document.querySelector('#my-location')
     whereAmI.onclick = function () { 
+        myMove()
         navigator.geolocation.getCurrentPosition(function (position) {
             var coords = {
                 lat: position.coords.latitude,
-                lng: position.coords.longitude }
+                lng: position.coords.longitude
+            }
             redraw(coords)
         })
     }
