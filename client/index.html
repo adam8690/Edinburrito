@@ -12,28 +12,32 @@
 </head>
 
 <body>
-  <div class="flex-grid">
-    <div id="left-col">
+  <div id="flex-container">
+
       <header>
         <h1 class="header-row">Edinburrito</h1>
+
+        <nav>
+          <label for="location">Location</label>
+          <input type="text" id="location" name="location" placeholder="Street name or postcode">
+          <p id="or">or,</p>
+          <button id='my-location'>find my current location</button>
+          <p id="credits"><span id="credits-text">Credits</span></p>
+        </nav>
       </header>
   
-      <table>
-        <thead><tr><th colspan="4">sort by: <span id="name" class="sort">name</span>, <span id="price" class="sort">price</span>, <span id="rating" class="sort">rating</span>, <span id="distance" class="sort">distance</span></th><tr><thead>
-        <tbody id="list"></tbody>
-      </table>
-    </div>
+      <main>
+        <table>
+          <thead><tr><th colspan="4">sort by: <span id="name" class="sort">name</span>, <span id="price" class="sort">price</span>, <span id="rating" class="sort">rating</span>, <span id="distance" class="sort">distance</span></th><tr><thead>
+          <tbody id="list"></tbody>
+        </table>
 
-    <div id="right-col">
-      <nav>
-        <label for="location">Location</label>
-        <input type="text" id="location" name="location" placeholder="Street name or postcode">
-        <p id="or">or,</p>
-        <button id='my-location'>find my current location</button>
-        <p id="credits"><span id="credits-text">Credits</span></p>
-      </nav>
+        <div id="map"></div>
+      </main>
 
-      <div id="map" width=1 height=1></div>
+      <footer>
+        <div id="animation"></div>
+      </footer>
     </div>
 
   </div>

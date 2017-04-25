@@ -1,52 +1,67 @@
-html, body { height: 100%; }
-.flex-grid {
-    opacity: 1;
-    display: flex;
-    flex-direction: row;
-    margin: 0.5em;
-    align-items: stretch;
-    align-content: stretch;
-    width: calc(100vw - 1em);
-    height: 100vh;
-}
-
-#left-col { flex: 0; padding-right: 1em; }
-#right-col { flex: 1; }
-header, nav { height: 2.5em; align-items: center; }  /* nav contains location stuff and credits link */
-nav { display: inline-flex; width: 100%; }
-table, #map { height: calc(100vh - 3.5em); }
-
+html, body { height: 100%; width: 100%; }
 body {
-    width: 100%;
     font-family: Lato;
     margin: 0;
+    background-color: white;
+}
+
+#flex-container {
+    opacity: 1;
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
     background-color: #A9CCE3;
 }
 
+header, nav, main, footer { display: flex; }
+header, main { flex-wrap: nowrap; }
+h1, table { width: 350px; }
+nav, #map { flex: 1 0 auto; }
 
 header {
+    flex: 0 0 auto;
     border-bottom: 1px solid #2874A6;
+    padding: 0.5em;
+    background-color: #D4E6F1;
 }
+
+main {
+    height: 100%;
+}
+
+table {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+
+nav {
+    align-items: center;
+    padding-left: 0.5em;
+}
+
+footer {
+    flex: 0 0 auto;
+    height: 3em;
+}
+
 h1 {
-    width: 100%;
     text-transform: uppercase;
     font-size: 2em;
     letter-spacing: 0.05em;
     font-weight: bold;
-    margin: 0;
 }
 
 td {
     white-space: nowrap;
     padding-bottom: 0.25em;
-    padding-right: 0.5em;
+    padding-right: 0.5em; /* DO NOT PUT THIS BACK IN */
 }
 
 th {
     padding-top: 0.5em;
+    padding-bottom: 1em;
     text-align: left;
     font-size: 0.8em;
-    padding-bottom: 1em;
 }
 
 td.name {
@@ -75,7 +90,8 @@ p.boxed {
 }
 
 #map {
-    border: 1px solid steelblue;
+    border-left: 1px solid steelblue;
+    border-bottom: 1px solid steelblue;
 }
 
 .selected {
@@ -99,12 +115,11 @@ span.sort:hover:not(.selected-sort) {
     border-bottom: 2px solid dodgerblue;
     cursor: pointer;
 }
-thead, tbody { display: block; }
 
 tbody {
-    height: 95%;       /* 95% to bring it in line with bottom of map  */
-    overflow-y: auto;    
-    overflow-x: hidden;  
+    display: block;
+    height: 500px;
+    overflow-y: scroll;
 }
 
 input, #notes {
@@ -113,6 +128,7 @@ input, #notes {
     border: 0;
     background-color: #EAF2F8;
 }
+
 input:focus, #notes:focus { background-color: white; }
 
 input {
