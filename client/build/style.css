@@ -5,8 +5,6 @@ body {
     background-color: black;
 }
 
-
-
 #flex-container {
     opacity: 1;
     display: flex;
@@ -17,14 +15,16 @@ body {
 
 header, nav, main, footer { display: flex; }
 header, main { flex-wrap: nowrap; }
-nav, #map { flex: 1 0 auto; }
+#map { flex: 1 0 auto; }
+nav { flex: 0 0 auto; color: #D4E6F1 }
 
 header {
     flex: 0 0 auto;
     border-bottom: 1px solid #2874A6;
     justify-content: space-between;
     padding: 0.5em;
-    background-color: #D4E6F1;
+    background-color: #154360;
+    /*background-color: #D4E6F1;*/
 }
 
 main {
@@ -52,17 +52,18 @@ h1 {
     font-size: 2em;
     letter-spacing: 0.05em;
     font-weight: bold;
-    width: 350px;
+    padding: 0.1em 0.15em;
+    border: 3px solid hotpink;
 }
 
 #home-link {
     text-decoration: none;
 }
 
-#home-link:link { color: black; }
-#home-link:visited { color: black; }
-#home-link:hover { color: black; }
-#home-link:active { color: hotpink; }
+#home-link:link { color: hotpink; }
+#home-link:visited { color: hotpink; }
+#home-link:hover { color: hotpink; }
+#home-link:active { color: black; }
 
 td {
     white-space: nowrap;
@@ -104,8 +105,8 @@ p.boxed {
 }
 
 #map {
-    border-left: 1px solid steelblue;
-    border-bottom: 1px solid steelblue;
+    border-left: 1px solid #2980B9;
+    border-bottom: 1px solid #2980B9;
 }
 
 .selected {
@@ -130,10 +131,7 @@ span.sort:hover:not(.selected-sort) {
     cursor: pointer;
 }
 
-main { overflow: hidden; }
-tbody {
-    overflow-y: scroll; /* !? */
-}
+#tablediv { overflow: scroll; }
 
 input, #notes {
     padding-left: 0.35em;
@@ -176,8 +174,7 @@ button {
     font-variant: small-caps;
     font-size: 0.8em;
     text-align: right;
-    flex: 1;
-    color: grey;
+    color: #BDC3C7;
     padding-right: 0.1em;
 }
 #credits-text {
