@@ -126,10 +126,9 @@ span.sort:hover:not(.selected-sort) {
     cursor: pointer;
 }
 
+main { overflow: hidden; }
 tbody {
-    display: block;
-    height: 500px;
-    overflow-y: scroll;
+    overflow-y: scroll; /* !? */
 }
 
 input, #notes {
@@ -165,6 +164,7 @@ button {
     font-family: Lato;
     font-size: 0.8em;
     height: 2em;
+    cursor: pointer;
 }
 
 #credits {
