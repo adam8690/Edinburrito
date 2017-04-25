@@ -69,14 +69,20 @@
 /******/ ({
 
 /***/ 7:
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
+var WhatIsView = __webpack_require__(8);
+var BurritoInfoList = __webpack_require__(9);
 
 var initialize = function(){
-  console.log('burrito js lives!!')
 
-  var body = document.querySelector("body")
-  var flexGrid = document.querySelector(".flex-grid")
+  var whatIsView = new WhatIsView();
+  var burritoInfoList = new BurritoInfoList();
+
+  burritoInfoList.render();  
+  whatIsView.render();
+
+
 
 
 }
@@ -85,6 +91,55 @@ var initialize = function(){
 
 
 window.onload = initialize
+
+/***/ },
+
+/***/ 8:
+/***/ function(module, exports) {
+
+var WhatIsView = function(){
+
+}
+
+WhatIsView.prototype.render = function(){
+  div = document.querySelector('#top-right');
+  var h2 = document.createElement('h2');
+  h2.innerText = "What is a Burriiiiiito anyway?"
+  div.appendChild(h2);
+
+  var descriptionP = document.createElement('p');
+  var br = document.createElement('br');
+  descriptionP.innerText = "A burrito is a type of Mexican and Tex-Mex food, consisting of a large wheat flour tortilla with a filling, wrapped into a closed-ended cylinder, in contrast to a taco, where the tortilla is simply folded around the filling. The flour tortilla is sometimes lightly grilled or steamed to soften it, make it more pliable and allow it to adhere to itself when wrapped. In Mexico, meat and refried beans are sometimes the only fillings. In the United States, burrito fillings may include a combination of ingredients such as Mexican-style rice or plain rice, beans or refried beans, lettuce, salsa, meat, guacamole, cheese, sour cream and various vegetables. Burrito size varies."
+
+  div.appendChild(br);
+  div.appendChild(descriptionP);
+
+
+}
+
+module.exports = WhatIsView;
+
+/***/ },
+
+/***/ 9:
+/***/ function(module, exports) {
+
+var BurritoInfoList = function(){
+
+}
+
+BurritoInfoList.prototype.render = function(){
+  table = document.querySelector('#table');
+  trWhat = document.createElement('tr');
+  tdWhat = document.createElement('td');
+  tdWhat.innerText = "What is a Burrito?"
+  h2 = document.createElement('h2');
+  h2.appendChild(tdWhat);
+  trWhat.appendChild(tdWhat);
+
+}
+
+module.exports = BurritoInfoList;
 
 /***/ }
 
