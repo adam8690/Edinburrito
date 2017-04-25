@@ -1,8 +1,8 @@
 var MapWrapper = require('./views/mapWrapper.js')
 var BusinessListView = require('./views/business_list_view.js')
 var Businesses = require('./models/businesses.js')
-var map;
-var marker;
+var map
+var marker
 
 var initialize = function () {
     var mapDiv = document.querySelector("#map")
@@ -38,41 +38,40 @@ var initialize = function () {
         }
     }
 
+    function redraw(coords) {
+        businessListView.currentLocation = coords
+        mainMap.reposition(coords)
+        businesses.populate(coords)
+    }
+
     function searchAddress(searchString) {
-        var geocoder = new google.maps.Geocoder();
+        var geocoder = new google.maps.Geocoder()
         geocoder.geocode({ address: searchString }, function (results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
                 var coords = {
                     lat: results[0].geometry.location.lat(),
                     lng: results[0].geometry.location.lng()
                 }
-                mainMap.reposition(coords)
-                businesses.populate(coords)
+                redraw(coords)
             }
         })
     }
 
-    var whereAmI = document.querySelector('#my-location') //added this initialize function 
+    var whereAmI = document.querySelector('#my-location')
     whereAmI.onclick = function () {
         navigator.geolocation.getCurrentPosition(function (position) {
             var coords = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude }
-            businessListView.currentLocation = coords
-            mainMap.reposition(coords)
-            businesses.populate(coords)
+            redraw(coords)
         })
     }
 
-    // getting the burrito data
-    var businesses = new Businesses(mainMap)
-    //setup views
-    var list = document.querySelector("#list")
+    var businesses = new Businesses(mainMap)    // getting the burrito data
+    var list = document.querySelector("#list")  // setup views
     var businessListView = new BusinessListView(list, mainMap)
-    //set callback for request
-    businesses.done = businessListView.render.bind(businessListView)
-    //get data from server
-    businesses.populate(defaultLocation)
+    businesses.done = businessListView.render.bind(businessListView)  //set callback for request
+    businesses.populate(defaultLocation)        // get data from server
 }
 
 window.onload = initialize
