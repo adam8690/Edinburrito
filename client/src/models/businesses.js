@@ -29,19 +29,6 @@ Businesses.prototype = {
             limit: 50
         })
         request.send(payload)
-
-        // request.open("GET", "http://localhost:3000/api/businesses")
-        // request.onload = function () {
-        //     if (request.status !== 200) return
-        //     var jsonString = request.responseText
-        //     var yelpBusinesses = JSON.parse(jsonString).businesses
-        //     this.businesses = yelpBusinesses.map(function(business){
-        //         return new Business(business, this.mapWrapper)
-        //     }.bind(this))
-
-        //     this.done(this.businesses)
-        // }.bind(this)
-        // request.send()
     }
 }
 
