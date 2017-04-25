@@ -57,6 +57,21 @@ var initialize = function () {
         })
     }
 
+    function myMove() {
+      var elem = document.getElementById("animate");   
+      var pos = 0;
+      var id = setInterval(frame, 3);
+      function frame() {
+        if (pos == 300) {
+          clearInterval(id);
+        } else {
+          pos++; 
+          elem.style.top = pos - 'px'; 
+          elem.style.left = pos + 'px'; 
+        }
+      }
+    }
+
     var whereAmI = document.querySelector('#my-location')
     whereAmI.onclick = function () {
         navigator.geolocation.getCurrentPosition(function (position) {
@@ -72,6 +87,10 @@ var initialize = function () {
     var businessListView = new BusinessListView(list, mainMap)
     businesses.done = businessListView.render.bind(businessListView)  //set callback for request
     businesses.populate(defaultLocation)        // get data from server
+
+
 }
+
+
 
 window.onload = initialize
