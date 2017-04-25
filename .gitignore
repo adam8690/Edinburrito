@@ -1,5 +1,7 @@
 node_modules
 bundle.*
+app-bundle.*
+burrito-bundle.*
 npm-debug.log
 api_creds.js
 bfg-1.12.15.jar
