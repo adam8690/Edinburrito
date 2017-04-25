@@ -10,8 +10,7 @@ body {
     display: flex;
     height: 100vh;
     flex-direction: column;
-    /*background-color: #A9CCE3;*/
-    background: linear-gradient(#A9CCE3,#D4E6F1);
+    background: linear-gradient(#A9CCE3, #D4E6F1);
 }
 
 header, nav, main, footer { display: flex; }
@@ -25,7 +24,6 @@ header {
     justify-content: space-between;
     padding: 0.5em;
     background-color: #154360;
-    /*background-color: #D4E6F1;*/
 }
 
 main {
@@ -45,7 +43,7 @@ footer {
     flex: 0 0 auto;
     margin-left: -9em;
     height: 5em;
-    padding-top:0.5em;
+    padding-top: 0.5em;
 }   
 
 h1 {
@@ -70,6 +68,7 @@ td {
     white-space: nowrap;
     padding-bottom: 0.25em;
     padding-right: 0.5em;
+    vertical-align: middle;
 }
 
 th {
@@ -169,6 +168,7 @@ button {
     border: 0;
     background-color: #2874A6;
     border: 1px solid #2874A6;
+    outline-width: 0;
     color: #EAF2F8;
     font-family: Lato;
     font-size: 0.8em;
@@ -264,7 +264,6 @@ button {
 .openingHoursTable {
     height: auto;
 }
-
 
 #animate {
   width: 150px;
