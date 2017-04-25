@@ -3,7 +3,10 @@ var WhatIsView = function(){
 }
 
 WhatIsView.prototype.render = function(){
+
   div = document.querySelector('#top-right');
+  div.innerHTML = ""
+  
   var h2 = document.createElement('h2');
   h2.innerText = "What is a Burriiiiiito anyway?"
   div.appendChild(h2);

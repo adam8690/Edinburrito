@@ -43,7 +43,7 @@ html, body {
             max-width: 100%;
             /*border-bottom: 1px solid #2874A6;*/
             padding: .5em;
-            overflow: hidden;
+            overflow: scroll;
         }
 
         header {
@@ -66,4 +66,8 @@ html, body {
             letter-spacing: 0.05em;
             font-weight: bold;
             margin: 0;
+        }
+        .listItem:hover {
+            cursor: pointer;
+            color: hotpink;
         }
