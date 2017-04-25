@@ -38,14 +38,6 @@ var initialize = function () {
         }
     }
 
-    function reposition(coords) {
-        mainMap.removeMarkers()
-        mainMap.googleMap.setCenter(coords);
-        mainMap.googleMap.setZoom(16);
-        mainMap.addMyLocationMarker(coords)
-        businesses.populate(coords)
-    }
-
     function searchAddress(searchString) {
         var geocoder = new google.maps.Geocoder();
         geocoder.geocode({ address: searchString }, function (results, status) {
@@ -54,7 +46,8 @@ var initialize = function () {
                     lat: results[0].geometry.location.lat(),
                     lng: results[0].geometry.location.lng()
                 }
-                reposition(coords)
+                mainMap.reposition(coords)
+                businesses.populate(coords)
             }
         })
     }
@@ -62,12 +55,12 @@ var initialize = function () {
     var whereAmI = document.querySelector('#my-location') //added this initialize function 
     whereAmI.onclick = function () {
         navigator.geolocation.getCurrentPosition(function (position) {
-        var coords = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude }
+            var coords = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude }
             businessListView.currentLocation = coords
-            reposition(coords)
-
+            mainMap.reposition(coords)
+            businesses.populate(coords)
         })
     }
 

@@ -10,29 +10,15 @@ var MapWrapper = function(container, coords, zoom){
   this.directionsDisplay = new google.maps.DirectionsRenderer;
   this.directionsService = new google.maps.DirectionsService;
   this.directionsDisplay.setMap(this.googleMap);
-
-  // calculateAndDisplayRoute(directionsDisplayionsService, directionsDisplay);
-  // document.getElementById('#mode').addEventListener('change', function() {
-  //   calculateAndDisplayRoute();
-  // });
-
-
 }
 
-
-
-
 MapWrapper.prototype = {
-
 
   calculateAndDisplayRoute: function(directionsService, directionsDisplay,origin, destination, selectedMode) {
          // var selectedMode = document.getElementById('#mode').value;
          directionsService.route({
            origin: origin,  // Haight.
            destination: destination,  // Ocean Beach.
-           // Note that Javascript allows us to access the constant
-           // using square brackets and a string value as its
-           // "property."
            travelMode: google.maps.TravelMode[selectedMode]
          }, function(response, status) {
            if (status == 'OK') {
@@ -93,6 +79,13 @@ MapWrapper.prototype = {
      business.openInfoWindow()
      this.currentlyOpenInfoWindow = business.infoWindow
     },
+
+    reposition: function(coords) {
+        this.removeMarkers()
+        this.googleMap.setCenter(coords);
+        this.googleMap.setZoom(16);
+        this.addMyLocationMarker(coords)
+    }
 
 }
 
