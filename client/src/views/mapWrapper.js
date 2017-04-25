@@ -32,7 +32,7 @@ MapWrapper.prototype = {
       position: coords,
       map: this.googleMap,
       animation: google.maps.Animation.DROP,
-      icon: '/images/267881.png' 
+      icon: '/images/burrito.png' 
     });
     this.markers.push(marker)
     return marker;
@@ -43,7 +43,7 @@ MapWrapper.prototype = {
       position: coords,
       map: this.googleMap,
       animation: google.maps.Animation.DROP,
-      icon: '/images/Daveault1.png'
+      icon: '/images/minion.png'
     })
     this.markers.push(marker)
     return marker

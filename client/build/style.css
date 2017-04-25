@@ -7,6 +7,7 @@ body {
 
 #flex-container {
     opacity: 1;
+    transition: opacity 0.5s;
     display: flex;
     height: 100vh;
     flex-direction: column;
@@ -41,9 +42,9 @@ header, nav {
 
 footer {
     flex: 0 0 auto;
-    margin-left: -9em;
-    height: 5em;
+    height: 50px;
     padding-top: 0.5em;
+    width: 100vw;
 }   
 
 h1 {
@@ -62,7 +63,7 @@ h1 {
 #home-link:link { color: hotpink; }
 #home-link:visited { color: hotpink; }
 #home-link:hover { color: hotpink; }
-#home-link:active { color: black; }
+#home-link:active { color: white; }
 
 td {
     white-space: nowrap;
@@ -265,9 +266,21 @@ button {
     height: auto;
 }
 
+@keyframes van-progress {
+    0%   { left: -100px; opacity: 0; }
+    40%  { opacity: 1; }
+    100% { left: 100vw; }
+}  /* the JS will apply this animation to #animate on the geolocation button-click */
+
 #animate {
-  width: 150px;
-  height: 75px;
-  position: absolute;
-  background: url('/images/food-truck-reduced-e1438624125901 (1).png');
+    position: relative;
+    overflow: hidden;
+}
+
+#van {
+    width: 100px;
+    height: 49px;  /* 150 x 74 in file */
+    position: absolute;
+    left: -100px;
+    bottom: 0px;
 }

@@ -57,24 +57,12 @@ var initialize = function () {
         })
     }
 
-    function myMove() {
-      var elem = document.getElementById("animate");   
-      var pos = 0;
-      var id = setInterval(frame, 5);
-      function frame() {
-        if (pos == window.innerWidth) {
-          clearInterval(id);
-        } else {
-          pos++; 
-          elem.style.top = pos - 'px'; 
-          elem.style.left = pos + 'px'; 
-        }
-      }
-  }
-
     var whereAmI = document.querySelector('#my-location')
-    whereAmI.onclick = function () { 
-        myMove()
+    var van = document.querySelector("#van")
+    // must reset the animation once it's completed, otherwise cannot be retriggered
+    van.addEventListener("animationend", function () { van.style.animation = "" })
+    whereAmI.onclick = function () {
+        van.style.animation = "van-progress 5s ease-in 0s 1"
         navigator.geolocation.getCurrentPosition(function (position) {
             var coords = {
                 lat: position.coords.latitude,

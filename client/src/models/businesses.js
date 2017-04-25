@@ -24,6 +24,7 @@ Businesses.prototype = {
         }.bind(this)
         var payload = JSON.stringify({
             term: "burrito",
+            locale: "en_GB",
             latitude: latLng.lat,
             longitude: latLng.lng,
             limit: 50
