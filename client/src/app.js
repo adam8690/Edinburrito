@@ -12,20 +12,20 @@ var initialize = function () {
     var calculateAndDisplayRoute = document.querySelector('#floating-panel')
     
     var showCredits = function () {
-        flexGrid.style.opacity = 0.3
+        flexContainer.style.opacity = 0.3
         creditsPopup.style.display = "block"
         credits.onclick = hideCredits
         body.onmouseup = hideCredits // a click anywhere will hide the popup
     }
 
     var hideCredits = function () {
-        flexGrid.style.opacity = 1
+        flexContainer.style.opacity = 1
         creditsPopup.style.display = "none"
         credits.onclick = showCredits
         body.onmouseup = null
     }
 
-    var flexGrid = document.querySelector(".flex-grid")
+    var flexContainer = document.querySelector("#flex-container")
     var creditsPopup = document.querySelector("#credits-popup")
     creditsPopup.onclick = hideCredits
     var credits = document.querySelector("#credits-text")
@@ -87,10 +87,6 @@ var initialize = function () {
     var businessListView = new BusinessListView(list, mainMap)
     businesses.done = businessListView.render.bind(businessListView)  //set callback for request
     businesses.populate(defaultLocation)        // get data from server
-
-
 }
-
-
 
 window.onload = initialize

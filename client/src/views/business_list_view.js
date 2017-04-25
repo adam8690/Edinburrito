@@ -163,7 +163,7 @@ BusinessListView.prototype.makeTableRow = function (business) {
     if (business.details.is_closed === "true") {
         tr.classList.add("currently-closed")  // TODO: see why this isn't working
     }
-
+    
     return tr
 }
 
