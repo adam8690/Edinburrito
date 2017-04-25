@@ -10,6 +10,8 @@ var BusinessListView = function (container, mapWrapper) {
     this.currentlyOpenTextArea = null
     this.currentLocation = null 
     this.notes = JSON.parse(localStorage.getItem("edinburrito")) || {}
+   
+    
 }
 
 BusinessListView.prototype.highlightCurrentSort = function (sorts) {
@@ -120,6 +122,9 @@ BusinessListView.prototype.makeTableRow = function (business) {
     distanceTd.classList.add("distance")
     distanceTd.innerHTML = '<p>' + utils.formatDistance(business.details.distance) + '</p>'
     tr.appendChild(distanceTd)
+
+
+
 
     tr.onclick = function () {
         // closing previously opened one

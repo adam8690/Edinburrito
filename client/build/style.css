@@ -233,3 +233,16 @@ button {
 .openingHoursTable {
     height: auto;
 }
+
+#container {
+  width: 400px;
+  height: 400px;
+  position: relative;
+  background: white;
+}
+#animate {
+  width: 450px;
+  height: 220px;
+  position: absolute;
+  background: url('/images/food-truck-reduced-e1438624125901.png');
+}
