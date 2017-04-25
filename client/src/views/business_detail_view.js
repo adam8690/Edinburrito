@@ -31,7 +31,7 @@ BusinessDetailView.prototype.createDetailView = function(){
     else image.innerHTML = "" 
   
   var rating = document.createElement('p');
-  rating.innerText = "Rating: " + this.details.rating + "★"
+  rating.innerHTML = "Rating: " + this.details.rating + "&#8201;&#9733;"
 
   var price = document.createElement('p');
   if(this.details.price){
@@ -121,7 +121,7 @@ BusinessDetailView.prototype.createMoreInfoView = function (div) {
   }
   else {
     var noHours = document.createElement('p');
-    noHours.innerText = "Sorry, no opening hours information available :(";
+    noHours.innerText = "Sorry, no information available :(";
     noHours.classList.add('openingHoursTitle')
     div.appendChild(noHours);
   }
