@@ -70,10 +70,9 @@ var initialize = function () {
           elem.style.left = pos + 'px'; 
         }
       }
-    }
 
     var whereAmI = document.querySelector('#my-location')
-    whereAmI.onclick = function () {
+    whereAmI.onclick = function () { 
         navigator.geolocation.getCurrentPosition(function (position) {
             var coords = {
                 lat: position.coords.latitude,
