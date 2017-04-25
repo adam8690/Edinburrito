@@ -85,6 +85,7 @@ MapWrapper.prototype = {
         this.googleMap.setCenter(coords);
         this.googleMap.setZoom(16);
         this.addMyLocationMarker(coords)
+       
     }
 
 }

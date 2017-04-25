@@ -5,6 +5,8 @@ body {
     background-color: black;
 }
 
+
+
 #flex-container {
     opacity: 1;
     display: flex;
@@ -40,7 +42,9 @@ header, nav {
 
 footer {
     flex: 0 0 auto;
-    height: 3em;
+    margin-left: -9em;
+    height: 5em;
+    padding-top:0.5em;
 }
 
 h1 {
@@ -256,4 +260,12 @@ button {
 
 .openingHoursTable {
     height: auto;
+}
+
+
+#animate {
+  width: 150px;
+  height: 75px;
+  position: absolute;
+  background: url('/images/food-truck-reduced-e1438624125901 (1).png');
 }
