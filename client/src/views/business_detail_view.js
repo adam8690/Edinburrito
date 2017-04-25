@@ -1,131 +1,129 @@
-var Utils = require('../models/utils');
-var utils = new Utils();
+var Utils = require('../models/utils')
+var utils = new Utils()
 
-var BusinessDetailView = function(business){
-this.business = business;
-this.details = business.details;
+var BusinessDetailView = function (business) {
+    this.business = business
+    this.details = business.details
 }
 
-BusinessDetailView.prototype.createDetailView = function(){
-  
+BusinessDetailView.prototype.createDetailView = function () {
     var div = document.createElement('div')
-    div.classList.add('infoWindow');
+    div.classList.add('info-window')
 
-    var nameH1 = document.createElement('p');
-    nameH1.classList.add('name');
-    nameH1.innerText = this.details.name;
+    var name = document.createElement('p')
+    name.classList.add('name') 
+    name.classList.add('underline')
+    name.innerText = this.details.name
+    div.appendChild(name)
 
-    var address = document.createElement('p');
-    address.innerText = this.details.location.address1;
+    var address = document.createElement('p')
+    address.innerText = this.details.location.address1
+    div.appendChild(address)
 
-    var imageDiv = document.createElement('div');
-    imageDiv.id = "image_div"
+    if (this.details.image_url) {
+        var imageDiv = document.createElement('div')
+        imageDiv.id = "image-div"
     
-    var image = document.createElement('img');
-    image.id = "image"
-    image.classList.add("businessImage")
-    imageDiv.appendChild(image);
-    if (this.details.image_url){
-      image.src = this.details.image_url;
+        var image = document.createElement('img')
+        image.id = "business-image"
+        imageDiv.appendChild(image)
+        image.src = this.details.image_url
+        div.appendChild(imageDiv)
     }
-    else image.innerHTML = "" 
-  
-  var rating = document.createElement('p');
-  rating.innerHTML = "Rating: " + this.details.rating + "&#8201;&#9733;"
 
-  var price = document.createElement('p');
-  if(this.details.price){
-    price.innerText = "Price: " + this.details.price
+    var detailsDiv = document.createElement('div')
+    detailsDiv.style.display = "flex"
+    detailsDiv.style.flexDirection = "row"
+    detailsDiv.style.verticalAlign = "middle"
+
+    if (this.details.price) {
+        var price = document.createElement('p')
+        price.innerText = this.details.price
+        price.classList.add("boxed")
+        detailsDiv.appendChild(price)
     }
-  else price.innerText = "";
+  
+    var rating = document.createElement('p')
+    rating.innerHTML = this.details.rating + "&#8201;&#9733;"
+    rating.classList.add("boxed")
+    detailsDiv.appendChild(rating)
 
+    var distance = document.createElement('p')
+    distance.innerText = utils.formatDistance(this.details.distance)
+    detailsDiv.appendChild(distance)
 
-  var distance = document.createElement('p');
-  distance.innerText = "Distance: " + utils.formatDistance(this.details.distance)
+    div.appendChild(detailsDiv)
 
   
-  var telephone = document.createElement('p');
-  if(this.details.display_phone !== "" && this.details.display_phone){
-    telephone.innerText = "Telephone: " + this.details.display_phone;
-  }
-  else {
-    telephone.innerText = "";
-  }
+    var telephone = document.createElement('p')
+    if (this.details.display_phone !== "" && this.details.display_phone) {
+        telephone.innerText = "Phone: " + this.details.display_phone
+        div.appendChild(telephone)
+    }
 
+    var moreInfo = document.createElement('p')
+    moreInfo.id = "more-info"
+    moreInfo.innerText = 'See opening hours...'
+    moreInfo.addEventListener('click', function () {
+        this.business.getMoreDetails(function () {
+            // create the expanded view in here
+            this.createMoreInfoView(div)
+        }.bind(this))
+    }.bind(this))
+    div.appendChild(moreInfo)
 
-  var moreInfo = document.createElement('p');
-  moreInfo.classList.add("moreInfo")
-  moreInfo.innerText = 'See opening hours...';
-  moreInfo.addEventListener('click', function () {
-    this.business.getMoreDetails(function () {
-      // create the expanded view in here.
-      div.removeChild(moreInfo);
-      this.createMoreInfoView(div)
-    }.bind(this));
-  }.bind(this));
-
-  div.appendChild(nameH1);
-  div.appendChild(address);
-  if(this.details.image_url) {div.appendChild(imageDiv);}
-  div.appendChild(rating);
-  div.appendChild(price);
-  div.appendChild(distance);
-  div.appendChild(telephone);
-  div.appendChild(moreInfo);
-  return div;
+  return div
 } 
 
 BusinessDetailView.prototype.createMoreInfoView = function (div) {
-  if (this.business.moreDetails.hours) {
-    console.log(this.business.moreDetails.hours["0"])
-    var open = document.createElement('p')
-    if (this.business.moreDetails.hours["0"].is_open_now) {
-      open.innerText = "Open"
-      open.classList.add("currentlyOpen")
-    }
-    else {
-      open.innerText = "Closed"
-      open.classList.add("currentlyClosed")
-    }
-    div.appendChild(open)
+    moreInfo = document.querySelector("#more-info")
+    if (this.business.moreDetails.hours) {
+        div.removeChild(moreInfo)
+        var open = document.createElement('p')
+        if (this.business.moreDetails.hours["0"].is_open_now) {
+            open.innerText = "currently open"
+            open.classList.add("currently-open")
+        } else {
+            open.innerText = "currently closed"
+            open.classList.add("currently-closed")
+        }
+        div.appendChild(open)
 
-    var daysMap = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+        var daysMap = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
-    var openingHoursTable = document.createElement('table');
-    var openingHoursTableHeading = document.createElement('th');
-    openingHoursTableHeading.classList.add('openingHoursTableTitle')
-    openingHoursTableHeading.innerText = "Opening Hours";
-    div.appendChild(openingHoursTable);
-    openingHoursTable.appendChild(openingHoursTableHeading);
-    openingHoursTable.classList.add('openingHoursTable');
+        var table = document.createElement('table')
+        table.id = "opening-hours-table"
 
-    var days = this.business.moreDetails.hours["0"].open 
-      for(i = 0; i < days.length; i++){
-        var tableRow = document.createElement('tr');
-        tableRow.classList.add('openingHoursTableRows');
-        var tableDataDay = document.createElement('td');
-        tableDataDay.innerText = daysMap[days[i].day];
-        var tableDataStart = document.createElement('td');
-        tableDataStart.innerText = days[i].start;
-        var tableDataTo = document.createElement('td');
-        tableDataTo.innerText = "to";
-        var tableDataEnd = document.createElement('td');
-        tableDataEnd.innerText = days[i].end;
-        
-        openingHoursTable.appendChild(tableRow);
-        tableRow.appendChild(tableDataDay);
-        tableRow.appendChild(tableDataStart);
-        tableRow.appendChild(tableDataTo);
-        tableRow.appendChild(tableDataEnd);
-      }
-  }
-  else {
-    var noHours = document.createElement('p');
-    noHours.innerText = "Sorry, no information available :(";
-    noHours.classList.add('openingHoursTitle')
-    div.appendChild(noHours);
-  }
+        var days = this.business.moreDetails.hours["0"].open 
+            for (i = 0; i < days.length; i++) {
+                var tr = document.createElement('tr')
+                tr.classList.add('openingHoursTableRows')
+
+                var dayTd = document.createElement('td')
+                dayTd.innerText = daysMap[days[i].day]
+                dayTd.classList.add("day-column")
+                tr.appendChild(dayTd)
+
+                var startTd = document.createElement('td')
+                startTd.innerText = days[i].start
+                tr.appendChild(startTd)
+
+                var toTd = document.createElement('td')
+                toTd.innerHTML = "&ndash;"
+                tr.appendChild(toTd)
+
+                var endTd = document.createElement('td')
+                endTd.innerText = days[i].end
+                tr.appendChild(endTd)
+            
+                table.appendChild(tr)
+            }
+            div.appendChild(table)
+        } else {
+            // var noHours = document.createElement('p')
+            // div.appendChild(noHours)
+            moreInfo.innerText = "Sorry, no information available :("
+        }
 }
-
 
 module.exports = BusinessDetailView
