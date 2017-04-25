@@ -62,7 +62,7 @@ var initialize = function () {
       var pos = 0;
       var id = setInterval(frame, 5);
       function frame() {
-        if (pos == 2000) {
+        if (pos == window.innerWidth) {
           clearInterval(id);
         } else {
           pos++; 
