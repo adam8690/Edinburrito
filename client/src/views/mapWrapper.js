@@ -66,7 +66,7 @@ MapWrapper.prototype = {
   addInfoWindow: function(business, marker) {
     // var marker = this.addMarker(coords);
     detailsView = new BusinessDetailView(business);
-    content = detailsView.createDetailView()    
+    content = detailsView.createDetailView()
 
     var infoWindow = new google.maps.InfoWindow();
     infoWindow.setContent(content);

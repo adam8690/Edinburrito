@@ -68,7 +68,7 @@ h1 {
     text-shadow: 0px 0px 2px yellow;
 }
 
-td {
+#business-list td {
     white-space: nowrap;
     padding-bottom: 0.25em;
     padding-right: 0.5em;
@@ -96,12 +96,8 @@ td.distance {
     font-size: 0.8em;
 }
 
-
-p.boxed {
+.boxed {
     font-size: 0.7em;
-}
-
-p.boxed {
     border: 1px solid black;
     border-radius: 2px;
     padding: 0.2em;
@@ -121,7 +117,7 @@ tr.currently-closed td {
     color: grey;
 }
 
-.selected-sort {
+.selected-sort, .underline {
     border-bottom: 2px solid hotpink;
 }
 
@@ -191,61 +187,7 @@ button {
     cursor: pointer;
 }
 
-.infoWindow {
-    font-family: Lato;
-    width: 200px;
-}
-.infoWindow .name {
-    font-weight: bold;
-    font-size: 1.5em;
-    border-bottom: 2px solid hotpink;
-}
-.moreInfo {
-    padding-top: 10px;
-}
-.moreInfo:hover {
-    color: dodgerblue;
-    cursor: pointer;
-}
-
-#image_div { 
-    position: relative;
-      width: 100%;
-      height: 150px;
-      overflow: hidden;
-}
-
-#image {
-    padding-bottom: 10px;
-    max-width: 100%;
-    /*max-height: 200px;*/
-    position: absolute;
-      top: -9999px;
-      left: -9999px;
-      right: -9999px;
-      bottom: -9999px;
-      margin: auto;
-}
-.currentlyOpen {
-    color: black;
-    border: 1px solid black;
-    border-radius: 2px;
-    padding: 0.2em;
-    background-color: palegreen;
-}
-.currentlyClosed {
-    color: black;
-        border: 1px solid black;
-        border-radius: 2px;
-        padding: 0.2em;
-        background-color: salmon;
-}
-.openingHoursTableTitle {
-    font-weight: bold;
-    font-size: 1em;
-    padding-top: 0.2em;
-    padding-bottom: 0.2em;
-}
+/* CREDITS POP-UP WINDOW */
 
 #credits-popup {
     margin: 0 auto;
@@ -263,10 +205,6 @@ button {
     height: 384px;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
-}
-
-.openingHoursTable {
-    height: auto;
 }
 
 @keyframes van-progress {

@@ -1,8 +1,11 @@
 var config = {
-    entry: "./src/app.js",  // the entry point for the app, path relative to this one
+    entry: {
+      app: "./src/app.js",
+      burrito: "./src/burrito.js"
+    },  // the entry point for the app, path relative to this one
     output: {
         path: "./build",
-        filename: "bundle.js"
+        filename: "[name]-bundle.js"
     },
     devtool: "source-map"
 }
