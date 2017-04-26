@@ -121,6 +121,16 @@ BusinessListView.prototype.makeTableRow = function (business) {
     distanceTd.innerHTML = '<p>' + utils.formatDistance(business.details.distance) + '</p>'
     tr.appendChild(distanceTd)
 
+    var setStar = function (faved) {
+        if (faved) {
+            faveTd.classList.add("star-on")
+            faveTd.classList.remove("star-off")
+        } else {
+            faveTd.classList.remove("star-on")
+            faveTd.classList.add("star-off")
+        }
+    }
+
     var faveTd = document.createElement("td")
     faveTd.classList.add("fave")
     var faved = false
@@ -129,25 +139,13 @@ BusinessListView.prototype.makeTableRow = function (business) {
             faved = this.savedInfo[business.details.id].favourite
         }
     }
-    if (faved) {
-        faveTd.classList.add("star-on")
-        faveTd.classList.remove("star-off")
-    } else {
-        faveTd.classList.remove("star-on")
-        faveTd.classList.add("star-off")
-    }
+    setStar(faved)
 
     faveTd.innerHTML = "&#9733;"
     tr.appendChild(faveTd)
     faveTd.onclick = function () {
         faved = !faved
-        if (faved) {
-            faveTd.classList.add("star-on")
-            faveTd.classList.remove("star-off")
-        } else {
-            faveTd.classList.remove("star-on")
-            faveTd.classList.add("star-off")
-        }
+        setStar(faved)
         if (business.details.id in this.savedInfo === false) {
             this.savedInfo[business.details.id] = {}
         }
@@ -211,7 +209,8 @@ BusinessListView.prototype.select = function (td, business) {
     }
     td.classList.add("selected")
     this.currentlySelected = td
-    this.mapWrapper.openInfoWindow(business)
+    business.infoWindow.open()
+    // this.mapWrapper.openInfoWindow(business)
 }
 
 module.exports = BusinessListView
