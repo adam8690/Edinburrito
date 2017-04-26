@@ -20,14 +20,9 @@
     font-size: 0.7em;
 }
 
-#more-info {
-    padding-top: 1em;
-}
-
-#more-info:hover {
-    color: dodgerblue;
-    cursor: pointer;
-}
+#opening-hours { padding-top: 1em; }
+.greyed-out { color: grey; }
+.opening-hours-link { color: steelblue; cursor: pointer; }
 
 #image-div {
     position: relative;

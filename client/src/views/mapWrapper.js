@@ -60,9 +60,10 @@ MapWrapper.prototype = {
   },
 
   openInfoWindow: function (business) {
-     if (this.currentlyOpenInfoWindow) this.currentlyOpenInfoWindow.close()
-     business.infoWindow.infoWindow.open() // not very nice
-     this.currentlyOpenInfoWindow = business.infoWindow.infoWindow
+    if (this.currentlyOpenInfoWindow) this.currentlyOpenInfoWindow.close()
+    // this next line is brutal:
+    business.infoWindow.infoWindow.open(business.mapWrapper.googleMap, business.marker)
+    this.currentlyOpenInfoWindow = business.infoWindow.infoWindow
   },
 
     reposition: function(coords) {
@@ -70,7 +71,6 @@ MapWrapper.prototype = {
         this.googleMap.setCenter(coords);
         this.googleMap.setZoom(16);
         this.addMyLocationMarker(coords)
-       
     }
 
 }

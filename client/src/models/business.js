@@ -12,19 +12,4 @@ var Business = function (details, mapWrapper) {
     }.bind(this))
 }
 
-Business.prototype.getMoreDetails = function (callback) {
-    if (!this.moreDetails){
-        var request = new XMLHttpRequest();
-        request.open("GET", "http://localhost:3000/api/businesses/"+ this.details.id);
-        request.onload = function(){
-            if ( request.status !== 200 ) return 
-                var jsonString = request.responseText
-                var businessDetails = JSON.parse(jsonString)
-                this.moreDetails = businessDetails;
-                callback()
-        }.bind(this)
-        request.send()
-    }
-}
-
 module.exports = Business
