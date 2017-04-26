@@ -256,6 +256,10 @@ BusinessListView.prototype.makeTableRow = function (business) {
     distanceTd.innerHTML = '<p>' + utils.formatDistance(business.details.distance) + '</p>'
     tr.appendChild(distanceTd)
 
+    var faveTd = document.createElement("td")
+    faveTd.claddList.add("fave")
+    rating
+
 
 
 
