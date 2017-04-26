@@ -72,6 +72,8 @@ var initialize = function () {
         })
     }
 
+
+
     var businesses = new Businesses(mainMap)    // getting the burrito data
     var list = document.querySelector("#list")  // setup views
     var businessListView = new BusinessListView(list, mainMap)
