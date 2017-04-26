@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 13);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -102,9 +102,9 @@ module.exports = DefaultView;
 /***/ function(module, exports, __webpack_require__) {
 
 var DefaultView = __webpack_require__(0)
-var WhatIsView = __webpack_require__(10)
+var WhatIsView = __webpack_require__(11)
 var HistoryView = __webpack_require__(7)
-var SourcesView = __webpack_require__(9)
+var SourcesView = __webpack_require__(10)
 
 var BurritoInfoList = function(){
   this.whatIsView = new WhatIsView();
@@ -179,7 +179,8 @@ module.exports = HistoryView;
 
 /***/ },
 /* 8 */,
-/* 9 */
+/* 9 */,
+/* 10 */
 /***/ function(module, exports) {
 
 var Sources = function(){
@@ -216,7 +217,7 @@ Sources.prototype.render = function(){
 module.exports = Sources;
 
 /***/ },
-/* 10 */
+/* 11 */
 /***/ function(module, exports) {
 
 var WhatIsView = function(){
@@ -245,8 +246,8 @@ WhatIsView.prototype.render = function(){
 module.exports = WhatIsView;
 
 /***/ },
-/* 11 */,
-/* 12 */
+/* 12 */,
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 var DefaultView = __webpack_require__(0);
