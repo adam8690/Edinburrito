@@ -99,8 +99,6 @@ BusinessListView.prototype.sortedBy = function (rows, key) {
 BusinessListView.prototype.makeTableRow = function (business) {
     var tr = document.createElement("tr")
 
-  
-
     var nameTd = document.createElement("td")
     nameTd.classList.add("name")
     nameTd.innerHTML = '<p>' + business.details.name + '</p>'
@@ -125,27 +123,47 @@ BusinessListView.prototype.makeTableRow = function (business) {
 
     var faveTd = document.createElement("td")
     faveTd.classList.add("fave")
-    faveTd.innerHTML = '<p class="boxed">' + "HELLO"  + '</p>'
-    faveTd.addEventListener('click', function(event){
-        console.log(event)
-    })
-    tr.appendChild(faveTd)
-    
-        faveTd.onclick = function (){
-            console.log('has been clicked')
-            faveTd.innerHTML = 'Favourited'
-            
+    var faved = false
+    if (business.details.id in this.savedInfo === true) {
+        if ("favourite" in this.savedInfo[business.details.id] === true) {
+            faved = this.savedInfo[business.details.id].favourite
         }
+    }
+    if (faved) {
+        faveTd.classList.add("star-on")
+        faveTd.classList.remove("star-off")
+    } else {
+        faveTd.classList.remove("star-on")
+        faveTd.classList.add("star-off")
+    }
 
-
-
+    faveTd.innerHTML = "&#9733;"
+    tr.appendChild(faveTd)
+    faveTd.onclick = function () {
+        faved = !faved
+        if (faved) {
+            faveTd.classList.add("star-on")
+            faveTd.classList.remove("star-off")
+        } else {
+            faveTd.classList.remove("star-on")
+            faveTd.classList.add("star-off")
+        }
+        if (business.details.id in this.savedInfo === false) {
+            this.savedInfo[business.details.id] = {}
+        }
+        this.savedInfo[business.details.id].favourite = faved
+        localStorage.setItem("edinburrito", JSON.stringify(this.savedInfo))
+    }.bind(this) 
 
     nameTd.onclick = function () {
         // closing previously opened one
         // also save the info at this point (? - there's probably a better way) USE ONBLUR!
         if (this.currentlyOpenTextArea) {
-            this.notes[this.currentlyOpenTextArea.id] = this.currentlyOpenTextArea.textarea.value
-            localStorage.setItem("edinburrito", JSON.stringify(this.notes))
+            if (this.currentlyOpenTextArea.id in this.savedInfo === false) {
+                this.savedInfo[this.currentlyOpenTextArea.id] = {}
+            } 
+            this.savedInfo[this.currentlyOpenTextArea.id]["notes"] = this.currentlyOpenTextArea.textarea.value
+            localStorage.setItem("edinburrito", JSON.stringify(this.savedInfo))
             this.currentlyOpenTextArea.row.remove()
         }
 
@@ -166,8 +184,8 @@ BusinessListView.prototype.makeTableRow = function (business) {
 
         // add review from localStorage if there is one
         // (set placeholder text if not)
-        if (this.notes[business.details.id]) {
-            textarea.innerText = this.notes[business.details.id]
+        if (this.savedInfo[business.details.id] && this.savedInfo[business.details.id].notes) {
+            textarea.innerText = this.savedInfo[business.details.id].notes
         } else {
             textarea.setAttribute("placeholder", "your notes here")
         }
