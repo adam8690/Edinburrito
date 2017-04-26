@@ -1,5 +1,3 @@
-var BusinessDetailView = require('./business_detail_view.js');
-
 var MapWrapper = function(container, coords, zoom){
   this.currentlyOpenInfoWindow = null
   this.markers = []
@@ -15,10 +13,9 @@ var MapWrapper = function(container, coords, zoom){
 MapWrapper.prototype = {
 
   calculateAndDisplayRoute: function(directionsService, directionsDisplay,origin, destination, selectedMode) {
-         // var selectedMode = document.getElementById('#mode').value;
          directionsService.route({
-           origin: origin,  // Haight.
-           destination: destination,  // Ocean Beach.
+           origin: origin,
+           destination: destination,
            travelMode: google.maps.TravelMode[selectedMode]
          }, function(response, status) {
            if (status == 'OK') {
@@ -62,30 +59,18 @@ MapWrapper.prototype = {
     }.bind(this));
   },
 
-
-  addInfoWindow: function(business, marker) {
-    // var marker = this.addMarker(coords);
-    detailsView = new BusinessDetailView(business);
-    content = detailsView.createDetailView()
-
-    var infoWindow = new google.maps.InfoWindow();
-    infoWindow.setContent(content);
-      // infoWindow.open(this.map, marker);
-     return infoWindow
-   },
-
-   openInfoWindow: function (business) {
-     if (this.currentlyOpenInfoWindow) this.currentlyOpenInfoWindow.close()
-     business.openInfoWindow()
-     this.currentlyOpenInfoWindow = business.infoWindow
-    },
+  openInfoWindow: function (business) {
+    if (this.currentlyOpenInfoWindow) this.currentlyOpenInfoWindow.close()
+    // this next line is brutal:
+    business.infoWindow.infoWindow.open(business.mapWrapper.googleMap, business.marker)
+    this.currentlyOpenInfoWindow = business.infoWindow.infoWindow
+  },
 
     reposition: function(coords) {
         this.removeMarkers()
         this.googleMap.setCenter(coords);
         this.googleMap.setZoom(16);
         this.addMyLocationMarker(coords)
-       
     }
 
 }
