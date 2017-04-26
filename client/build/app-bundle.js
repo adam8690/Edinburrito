@@ -318,9 +318,7 @@ module.exports = BusinessListView
 
 /***/ },
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-var BusinessDetailView = __webpack_require__(8);
+/***/ function(module, exports) {
 
 var MapWrapper = function(container, coords, zoom){
   this.currentlyOpenInfoWindow = null
@@ -337,10 +335,9 @@ var MapWrapper = function(container, coords, zoom){
 MapWrapper.prototype = {
 
   calculateAndDisplayRoute: function(directionsService, directionsDisplay,origin, destination, selectedMode) {
-         // var selectedMode = document.getElementById('#mode').value;
          directionsService.route({
-           origin: origin,  // Haight.
-           destination: destination,  // Ocean Beach.
+           origin: origin,
+           destination: destination,
            travelMode: google.maps.TravelMode[selectedMode]
          }, function(response, status) {
            if (status == 'OK') {
@@ -384,30 +381,18 @@ MapWrapper.prototype = {
     }.bind(this));
   },
 
-
-  addInfoWindow: function(business, marker) {
-    // var marker = this.addMarker(coords);
-    detailsView = new BusinessDetailView(business);
-    content = detailsView.createDetailView()
-
-    var infoWindow = new google.maps.InfoWindow();
-    infoWindow.setContent(content);
-      // infoWindow.open(this.map, marker);
-     return infoWindow
-   },
-
-   openInfoWindow: function (business) {
-     if (this.currentlyOpenInfoWindow) this.currentlyOpenInfoWindow.close()
-     business.openInfoWindow()
-     this.currentlyOpenInfoWindow = business.infoWindow
-    },
+  openInfoWindow: function (business) {
+    if (this.currentlyOpenInfoWindow) this.currentlyOpenInfoWindow.close()
+    // this next line is brutal:
+    business.infoWindow.infoWindow.open(business.mapWrapper.googleMap, business.marker)
+    this.currentlyOpenInfoWindow = business.infoWindow.infoWindow
+  },
 
     reposition: function(coords) {
         this.removeMarkers()
         this.googleMap.setCenter(coords);
         this.googleMap.setZoom(16);
         this.addMyLocationMarker(coords)
-       
     }
 
 }
@@ -416,181 +401,27 @@ module.exports = MapWrapper
 
 /***/ },
 /* 6 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-var Business = function(details, mapWrapper){
-  this.mapWrapper = mapWrapper
-  this.coords = { lat: details.coordinates.latitude, lng: details.coordinates.longitude }
-  this.details = details
-  this.moreDetails = null;
-  this.marker = mapWrapper.addMarker(this.coords)
-  this.infoWindow = mapWrapper.addInfoWindow(this, this.marker)
-  this.marker.addListener("click", function() {
-  this.mapWrapper.openInfoWindow(this)
-  }.bind(this))
+var BusinessInfoWindow = __webpack_require__(13)
 
-}
-
-Business.prototype.openInfoWindow = function () {
-  this.infoWindow.open(this.mapWrapper, this.marker)
-},
-
-
-Business.prototype.getMoreDetails = function (callback) {
-    if (!this.moreDetails){
-    var request = new XMLHttpRequest();
-    request.open("GET", "http://localhost:3000/api/businesses/"+ this.details.id);
-    request.onload = function(){
-        if ( request.status !== 200 ) return 
-            var jsonString = request.responseText
-            var businessDetails = JSON.parse(jsonString)
-            this.moreDetails = businessDetails;
-            callback()
-    }.bind(this)
-    request.send()
-  }
+var Business = function (details, mapWrapper) {
+    this.mapWrapper = mapWrapper
+    this.coords = { lat: details.coordinates.latitude, lng: details.coordinates.longitude }
+    this.details = details
+    this.moreDetails = null
+    this.infoWindow = new BusinessInfoWindow(this)
+    this.marker = mapWrapper.addMarker(this.coords)
+    this.marker.addListener("click", function() {
+        this.infoWindow.open()
+    }.bind(this))
 }
 
 module.exports = Business
 
 /***/ },
 /* 7 */,
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
-var Utils = __webpack_require__(1)
-var utils = new Utils()
-
-var BusinessDetailView = function (business) {
-    this.business = business
-    this.details = business.details
-}
-
-BusinessDetailView.prototype.createDetailView = function () {
-    var div = document.createElement('div')
-    div.classList.add('info-window')
-
-    var name = document.createElement('p')
-    name.classList.add('name') 
-    name.classList.add('underline')
-    name.innerText = this.details.name
-    div.appendChild(name)
-
-    var address = document.createElement('p')
-    address.innerText = this.details.location.address1
-    div.appendChild(address)
-
-    if (this.details.image_url) {
-        var imageDiv = document.createElement('div')
-        imageDiv.id = "image-div"
-    
-        var image = document.createElement('img')
-        image.id = "business-image"
-        imageDiv.appendChild(image)
-        image.src = this.details.image_url
-        div.appendChild(imageDiv)
-    }
-
-    var detailsDiv = document.createElement('div')
-    detailsDiv.style.display = "flex"
-    detailsDiv.style.flexDirection = "row"
-    detailsDiv.style.verticalAlign = "middle"
-
-    if (this.details.price) {
-        var price = document.createElement('p')
-        price.innerText = this.details.price
-        price.classList.add("boxed")
-        detailsDiv.appendChild(price)
-    }
-  
-    var rating = document.createElement('p')
-    rating.innerHTML = this.details.rating + "&#8201;&#9733;"
-    rating.classList.add("boxed")
-    detailsDiv.appendChild(rating)
-
-    var distance = document.createElement('p')
-    distance.innerText = utils.formatDistance(this.details.distance)
-    detailsDiv.appendChild(distance)
-
-    div.appendChild(detailsDiv)
-
-  
-    var telephone = document.createElement('p')
-    if (this.details.display_phone !== "" && this.details.display_phone) {
-        telephone.innerText = "Phone: " + this.details.display_phone
-        div.appendChild(telephone)
-    }
-
-    var moreInfo = document.createElement('p')
-    moreInfo.id = "more-info"
-    moreInfo.innerText = 'See opening hours...'
-    div.appendChild(moreInfo)
-
-    moreInfo.addEventListener('click', function () {
-        this.business.getMoreDetails(function () {
-            // create the expanded view in here
-            this.createMoreInfoView(div)
-        }.bind(this))
-    }.bind(this))
-
-    return div
-} 
-
-BusinessDetailView.prototype.createMoreInfoView = function (div) {
-    div = document.querySelector(".info-window")
-    moreInfo = document.querySelector("#more-info")
-    if (this.business.moreDetails.hours) {
-        div.removeChild(moreInfo)
-        var open = document.createElement('p')
-        if (this.business.moreDetails.hours["0"].is_open_now) {
-            open.innerText = "currently open"
-            open.classList.add("currently-open")
-        } else {
-            open.innerText = "currently closed"
-            open.classList.add("currently-closed")
-        }
-        div.appendChild(open)
-
-        var daysMap = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
-
-        var table = document.createElement('table')
-        table.id = "opening-hours-table"
-
-        var days = this.business.moreDetails.hours["0"].open 
-            for (i = 0; i < days.length; i++) {
-                var tr = document.createElement('tr')
-                tr.classList.add('openingHoursTableRows')
-
-                var dayTd = document.createElement('td')
-                dayTd.innerText = daysMap[days[i].day]
-                dayTd.classList.add("day-column")
-                tr.appendChild(dayTd)
-
-                var startTd = document.createElement('td')
-                startTd.innerText = days[i].start
-                tr.appendChild(startTd)
-
-                var toTd = document.createElement('td')
-                toTd.innerHTML = "&ndash;"
-                tr.appendChild(toTd)
-
-                var endTd = document.createElement('td')
-                endTd.innerText = days[i].end
-                tr.appendChild(endTd)
-            
-                table.appendChild(tr)
-            }
-            div.appendChild(table)
-        } else {
-            // var noHours = document.createElement('p')
-            // div.appendChild(noHours)
-            moreInfo.innerText = "Sorry, no information available :("
-        }
-}
-
-module.exports = BusinessDetailView
-
-/***/ },
+/* 8 */,
 /* 9 */,
 /* 10 */,
 /* 11 */
@@ -680,6 +511,181 @@ var initialize = function () {
 }
 
 window.onload = initialize
+
+/***/ },
+/* 12 */,
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+var BusinessInfoWindowContent = __webpack_require__(14)
+
+var BusinessInfoWindow = function (business) {
+    this.business = business
+    this.content = new BusinessInfoWindowContent(this.business)
+    this.infoWindow = new google.maps.InfoWindow()
+    this.infoWindow.setContent(this.content.createContentDiv())
+}
+
+// just a wrapper so we can say business.infoWindow.open()
+// rather than business.infoWindow.infoWindow.open(args)
+// it passes through to mapWrapper, which does the actual opening
+// since the mapWrapper also handles closing any previously opened InfoWindows
+BusinessInfoWindow.prototype.open = function () {
+    this.business.mapWrapper.openInfoWindow(this.business)
+    this.getMoreDetails(this.content.expandContent.bind(this.content))  // !
+}
+
+BusinessInfoWindow.prototype.getMoreDetails = function (callback) {
+    if (!this.moreDetails){
+        var request = new XMLHttpRequest();
+        request.open("GET", "http://localhost:3000/api/businesses/"+ this.business.details.id);
+        request.onload = function(){
+            if ( request.status !== 200 ) return 
+                var jsonString = request.responseText
+                var moreDetails = JSON.parse(jsonString)
+                callback(moreDetails)
+        }
+        request.send()
+    }
+}
+
+module.exports = BusinessInfoWindow
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+var Utils = __webpack_require__(1)
+var utils = new Utils()
+
+var BusinessInfoWindowContent = function (business) {
+    this.business = business
+    this.details = business.details
+    this.div = document.createElement('div')
+}
+
+BusinessInfoWindowContent.prototype.createContentDiv = function () {
+    // var div = document.createElement('div')
+    this.div.classList.add('info-window')
+
+    var name = document.createElement('p')
+    name.classList.add('name') 
+    name.classList.add('underline')
+    name.innerText = this.details.name
+    this.div.appendChild(name)
+
+    var address = document.createElement('p')
+    address.innerText = this.details.location.address1
+    this.div.appendChild(address)
+
+    if (this.details.image_url) {
+        var imageDiv = document.createElement('div')
+        imageDiv.id = "image-div"
+    
+        var image = document.createElement('img')
+        image.id = "business-image"
+        imageDiv.appendChild(image)
+        image.src = this.details.image_url
+        this.div.appendChild(imageDiv)
+    }
+
+    var detailsDiv = document.createElement('div')
+    detailsDiv.style.display = "flex"
+    detailsDiv.style.flexDirection = "row"
+    detailsDiv.style.verticalAlign = "middle"
+
+    if (this.details.price) {
+        var price = document.createElement('p')
+        price.innerText = this.details.price
+        price.classList.add("boxed")
+        detailsDiv.appendChild(price)
+    }
+  
+    var rating = document.createElement('p')
+    rating.innerHTML = this.details.rating + "&#8201;&#9733;"
+    rating.classList.add("boxed")
+    detailsDiv.appendChild(rating)
+
+    var distance = document.createElement('p')
+    distance.innerText = utils.formatDistance(this.details.distance)
+    detailsDiv.appendChild(distance)
+
+    this.div.appendChild(detailsDiv)
+
+    var telephone = document.createElement('p')
+    if (this.details.display_phone !== "" && this.details.display_phone) {
+        telephone.innerText = "Phone: " + this.details.display_phone
+        this.div.appendChild(telephone)
+    }
+
+    var openingHours = document.createElement('p')
+    openingHours.id = "opening-hours"
+    openingHours.classList.add("greyed-out")
+    openingHours.innerText = 'Fetching opening hours...'
+    this.div.appendChild(openingHours)
+
+    return this.div
+} 
+
+BusinessInfoWindowContent.prototype.expandContent = function (moreDetails) {
+    var openingHours = document.querySelector("#opening-hours")
+    if (moreDetails.hours) {
+        openingHours.innerText = "See opening hours..."
+        openingHours.classList.remove("greyed-out")
+        openingHours.classList.add("opening-hours-link")
+        openingHours.addEventListener("click", function () {
+            this.buildOpeningHoursTable(moreDetails)
+            this.div.removeChild(openingHours)
+        }.bind(this))
+    } else {
+        openingHours.innerText = "Sorry, no opening hours available"
+    }
+}
+
+BusinessInfoWindowContent.prototype.buildOpeningHoursTable = function (moreDetails) {
+    var open = document.createElement('p')
+    if (moreDetails.hours["0"].is_open_now) {
+        open.innerText = "currently open"
+        open.classList.add("currently-open")
+    } else {
+        open.innerText = "currently closed"
+        open.classList.add("currently-closed")
+    }
+    this.div.appendChild(open)
+
+    var daysMap = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+
+    var table = document.createElement('table')
+    table.id = "opening-hours-table"
+
+    var days = moreDetails.hours["0"].open 
+        for (i = 0; i < days.length; i++) {
+            var tr = document.createElement('tr')
+            tr.classList.add('openingHoursTableRows')
+
+            var dayTd = document.createElement('td')
+            dayTd.innerText = daysMap[days[i].day]
+            dayTd.classList.add("day-column")
+            tr.appendChild(dayTd)
+
+            var startTd = document.createElement('td')
+            startTd.innerText = days[i].start
+            tr.appendChild(startTd)
+
+            var toTd = document.createElement('td')
+            toTd.innerHTML = "&ndash;"
+            tr.appendChild(toTd)
+
+            var endTd = document.createElement('td')
+            endTd.innerText = days[i].end
+            tr.appendChild(endTd)
+        
+            table.appendChild(tr)
+        }
+        this.div.appendChild(table)
+}
+
+module.exports = BusinessInfoWindowContent
 
 /***/ }
 /******/ ]);
