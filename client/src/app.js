@@ -89,15 +89,9 @@ var initialize = function () {
 
 var burritoInfoList = new BurritoInfoList();
 var defaultView = new DefaultView();
-var whatIsView = new WhatIsView();
-var historyView = new HistoryView();
-var sourcesView = new SourcesView();
 
 burritoInfoList.render();
 defaultView.render();
-whatIsView.render();
-historyView.render();
-sourcesView.render();
 
 
 }
