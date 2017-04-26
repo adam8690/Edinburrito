@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -144,7 +144,7 @@ var BusinessListView = function (container, mapWrapper) {
     this.currentlyOpenInfoWindow = null
     this.currentlyOpenTextArea = null
     this.currentLocation = null 
-    this.notes = JSON.parse(localStorage.getItem("edinburrito")) || {}
+    this.savedInfo = JSON.parse(localStorage.getItem("edinburrito")) || {}
 }
 
 BusinessListView.prototype.highlightCurrentSort = function (sorts) {
@@ -337,7 +337,7 @@ module.exports = BusinessListView
 /* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-var BusinessDetailView = __webpack_require__(8);
+var BusinessDetailView = __webpack_require__(14);
 
 var MapWrapper = function(container, coords, zoom){
   this.currentlyOpenInfoWindow = null
@@ -472,7 +472,101 @@ module.exports = Business
 
 /***/ },
 /* 7 */,
-/* 8 */
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+var MapWrapper = __webpack_require__(5)
+var BusinessListView = __webpack_require__(4)
+var Businesses = __webpack_require__(2)
+var map
+var marker
+
+var initialize = function () {
+    var mapDiv = document.querySelector("#map")
+    var defaultLocation = { lat: 55.953291, lng: -3.200000 } // Edinburgh (George St)
+    var mainMap = new MapWrapper(mapDiv, defaultLocation, 15)
+    var body = document.querySelector("body")
+    var calculateAndDisplayRoute = document.querySelector('#floating-panel')
+    
+    var showCredits = function () {
+        flexContainer.style.opacity = 0.3
+        creditsPopup.style.display = "block"
+        credits.onclick = hideCredits
+        body.onmouseup = hideCredits // a click anywhere will hide the popup
+    }
+
+    var hideCredits = function () {
+        flexContainer.style.opacity = 1
+        creditsPopup.style.display = "none"
+        credits.onclick = showCredits
+        body.onmouseup = null
+    }
+
+    var flexContainer = document.querySelector("#flex-container")
+    var creditsPopup = document.querySelector("#credits-popup")
+    creditsPopup.onclick = hideCredits
+    var credits = document.querySelector("#credits-text")
+    credits.onclick = showCredits
+
+    var search = document.querySelector('#location')
+    search.onkeydown = function (e) {
+        if (e.keyCode === 13) {        // 13 = Enter
+            searchAddress(this.value)
+        }
+    }
+
+    function redraw(coords) {
+        businessListView.currentLocation = coords
+        mainMap.reposition(coords)
+        businesses.populate(coords)
+    }
+
+    function searchAddress(searchString) {
+        var geocoder = new google.maps.Geocoder()
+        geocoder.geocode({ address: searchString }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                var coords = {
+                    lat: results[0].geometry.location.lat(),
+                    lng: results[0].geometry.location.lng()
+                }
+                redraw(coords)
+            }
+        })
+    }
+
+    var whereAmI = document.querySelector('#my-location')
+    var van = document.querySelector("#van")
+    // must reset the animation once it's completed, otherwise cannot be retriggered
+    van.addEventListener("animationend", function () { van.style.animation = "" })
+    whereAmI.onclick = function () {
+        van.style.animation = "van-progress 5s ease-in 0s 1"
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var coords = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            }
+            redraw(coords)
+        })
+    }
+
+
+
+    var businesses = new Businesses(mainMap)    // getting the burrito data
+    var list = document.querySelector("#business-list")  // setup views
+    var businessListView = new BusinessListView(list, mainMap)
+    businesses.done = businessListView.render.bind(businessListView)  //set callback for request
+    businesses.populate(defaultLocation)        // get data from server
+}
+
+window.onload = initialize
+
+/***/ },
+/* 13 */,
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 var Utils = __webpack_require__(1)
@@ -606,97 +700,6 @@ BusinessDetailView.prototype.createMoreInfoView = function (div) {
 }
 
 module.exports = BusinessDetailView
-
-/***/ },
-/* 9 */,
-/* 10 */,
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-var MapWrapper = __webpack_require__(5)
-var BusinessListView = __webpack_require__(4)
-var Businesses = __webpack_require__(2)
-var map
-var marker
-
-var initialize = function () {
-    var mapDiv = document.querySelector("#map")
-    var defaultLocation = { lat: 55.953291, lng: -3.200000 } // Edinburgh (George St)
-    var mainMap = new MapWrapper(mapDiv, defaultLocation, 15)
-    var body = document.querySelector("body")
-    var calculateAndDisplayRoute = document.querySelector('#floating-panel')
-    
-    var showCredits = function () {
-        flexContainer.style.opacity = 0.3
-        creditsPopup.style.display = "block"
-        credits.onclick = hideCredits
-        body.onmouseup = hideCredits // a click anywhere will hide the popup
-    }
-
-    var hideCredits = function () {
-        flexContainer.style.opacity = 1
-        creditsPopup.style.display = "none"
-        credits.onclick = showCredits
-        body.onmouseup = null
-    }
-
-    var flexContainer = document.querySelector("#flex-container")
-    var creditsPopup = document.querySelector("#credits-popup")
-    creditsPopup.onclick = hideCredits
-    var credits = document.querySelector("#credits-text")
-    credits.onclick = showCredits
-
-    var search = document.querySelector('#location')
-    search.onkeydown = function (e) {
-        if (e.keyCode === 13) {        // 13 = Enter
-            searchAddress(this.value)
-        }
-    }
-
-    function redraw(coords) {
-        businessListView.currentLocation = coords
-        mainMap.reposition(coords)
-        businesses.populate(coords)
-    }
-
-    function searchAddress(searchString) {
-        var geocoder = new google.maps.Geocoder()
-        geocoder.geocode({ address: searchString }, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                var coords = {
-                    lat: results[0].geometry.location.lat(),
-                    lng: results[0].geometry.location.lng()
-                }
-                redraw(coords)
-            }
-        })
-    }
-
-    var whereAmI = document.querySelector('#my-location')
-    var van = document.querySelector("#van")
-    // must reset the animation once it's completed, otherwise cannot be retriggered
-    van.addEventListener("animationend", function () { van.style.animation = "" })
-    whereAmI.onclick = function () {
-        van.style.animation = "van-progress 5s ease-in 0s 1"
-        navigator.geolocation.getCurrentPosition(function (position) {
-            var coords = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            }
-            redraw(coords)
-        })
-    }
-
-
-
-    var businesses = new Businesses(mainMap)    // getting the burrito data
-    var list = document.querySelector("#business-list")  // setup views
-    var businessListView = new BusinessListView(list, mainMap)
-    businesses.done = businessListView.render.bind(businessListView)  //set callback for request
-    businesses.populate(defaultLocation)        // get data from server
-}
-
-window.onload = initialize
 
 /***/ }
 /******/ ]);

@@ -9,7 +9,7 @@ var BusinessListView = function (container, mapWrapper) {
     this.currentlyOpenInfoWindow = null
     this.currentlyOpenTextArea = null
     this.currentLocation = null 
-    this.notes = JSON.parse(localStorage.getItem("edinburrito")) || {}
+    this.savedInfo = JSON.parse(localStorage.getItem("edinburrito")) || {}
 }
 
 BusinessListView.prototype.highlightCurrentSort = function (sorts) {
