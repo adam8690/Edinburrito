@@ -64,6 +64,8 @@ BusinessDetailView.prototype.createDetailView = function () {
     var moreInfo = document.createElement('p')
     moreInfo.id = "more-info"
     moreInfo.innerText = 'See opening hours...'
+    div.appendChild(moreInfo)
+
     moreInfo.addEventListener('click', function () {
         this.business.getMoreDetails(function () {
             // create the expanded view in here
@@ -71,18 +73,11 @@ BusinessDetailView.prototype.createDetailView = function () {
         }.bind(this))
     }.bind(this))
 
-    
-    div.appendChild(moreInfo)
-
-    // this.business.getMoreDetails(function () {
-    //     // create the expanded view in here
-    //     this.createMoreInfoView(div)
-    // }.bind(this))
-
     return div
 } 
 
 BusinessDetailView.prototype.createMoreInfoView = function (div) {
+    div = document.querySelector(".info-window")
     moreInfo = document.querySelector("#more-info")
     if (this.business.moreDetails.hours) {
         div.removeChild(moreInfo)
