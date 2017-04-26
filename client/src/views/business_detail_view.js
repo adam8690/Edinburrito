@@ -70,9 +70,16 @@ BusinessDetailView.prototype.createDetailView = function () {
             this.createMoreInfoView(div)
         }.bind(this))
     }.bind(this))
+
+    
     div.appendChild(moreInfo)
 
-  return div
+    // this.business.getMoreDetails(function () {
+    //     // create the expanded view in here
+    //     this.createMoreInfoView(div)
+    // }.bind(this))
+
+    return div
 } 
 
 BusinessDetailView.prototype.createMoreInfoView = function (div) {
