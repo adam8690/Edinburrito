@@ -121,7 +121,7 @@ tr.currently-closed td {
     border-bottom: 2px solid hotpink;
 }
 
-tbody tr:hover:not(.selected) {
+ td.name:hover:not(.selected) {
     color: dodgerblue;
     cursor: pointer;
 }
@@ -185,6 +185,15 @@ button {
 }
 #credits-text {
     cursor: pointer;
+}
+
+.star-on {
+    color: yellow;
+    text-shadow: 0px 0px 3px hotpink;
+}
+
+.star-off {
+    color: lightgrey;
 }
 
 /* CREDITS POP-UP WINDOW */

@@ -144,7 +144,7 @@ var BusinessListView = function (container, mapWrapper) {
     this.currentlyOpenInfoWindow = null
     this.currentlyOpenTextArea = null
     this.currentLocation = null 
-    this.notes = JSON.parse(localStorage.getItem("edinburrito")) || {}
+    this.savedInfo = JSON.parse(localStorage.getItem("edinburrito")) || {}
 }
 
 BusinessListView.prototype.highlightCurrentSort = function (sorts) {
@@ -256,19 +256,53 @@ BusinessListView.prototype.makeTableRow = function (business) {
     distanceTd.innerHTML = '<p>' + utils.formatDistance(business.details.distance) + '</p>'
     tr.appendChild(distanceTd)
 
+    var faveTd = document.createElement("td")
+    faveTd.classList.add("fave")
+    var faved = false
+    if (business.details.id in this.savedInfo === true) {
+        if ("favourite" in this.savedInfo[business.details.id] === true) {
+            faved = this.savedInfo[business.details.id].favourite
+        }
+    }
+    if (faved) {
+        faveTd.classList.add("star-on")
+        faveTd.classList.remove("star-off")
+    } else {
+        faveTd.classList.remove("star-on")
+        faveTd.classList.add("star-off")
+    }
 
+    faveTd.innerHTML = "&#9733;"
+    tr.appendChild(faveTd)
+    faveTd.onclick = function () {
+        faved = !faved
+        if (faved) {
+            faveTd.classList.add("star-on")
+            faveTd.classList.remove("star-off")
+        } else {
+            faveTd.classList.remove("star-on")
+            faveTd.classList.add("star-off")
+        }
+        if (business.details.id in this.savedInfo === false) {
+            this.savedInfo[business.details.id] = {}
+        }
+        this.savedInfo[business.details.id].favourite = faved
+        localStorage.setItem("edinburrito", JSON.stringify(this.savedInfo))
+    }.bind(this) 
 
-
-    tr.onclick = function () {
+    nameTd.onclick = function () {
         // closing previously opened one
         // also save the info at this point (? - there's probably a better way) USE ONBLUR!
         if (this.currentlyOpenTextArea) {
-            this.notes[this.currentlyOpenTextArea.id] = this.currentlyOpenTextArea.textarea.value
-            localStorage.setItem("edinburrito", JSON.stringify(this.notes))
+            if (this.currentlyOpenTextArea.id in this.savedInfo === false) {
+                this.savedInfo[this.currentlyOpenTextArea.id] = {}
+            } 
+            this.savedInfo[this.currentlyOpenTextArea.id]["notes"] = this.currentlyOpenTextArea.textarea.value
+            localStorage.setItem("edinburrito", JSON.stringify(this.savedInfo))
             this.currentlyOpenTextArea.row.remove()
         }
 
-        this.select(tr, business)  
+        this.select(nameTd, business)  
         this.mapWrapper.googleMap.setCenter(business.coords)
         this.mapWrapper.googleMap.setZoom(16)
         if (this.currentLocation) { // you need to have geolocated first
@@ -279,14 +313,14 @@ BusinessListView.prototype.makeTableRow = function (business) {
         var infoTr = document.createElement("tr")
 
         var infoTd = document.createElement("td")
-        infoTd.setAttribute("colspan", "4")
+        infoTd.setAttribute("colspan", "5")
         var textarea = document.createElement("textarea")
         textarea.id = "notes"
 
         // add review from localStorage if there is one
         // (set placeholder text if not)
-        if (this.notes[business.details.id]) {
-            textarea.innerText = this.notes[business.details.id]
+        if (this.savedInfo[business.details.id] && this.savedInfo[business.details.id].notes) {
+            textarea.innerText = this.savedInfo[business.details.id].notes
         } else {
             textarea.setAttribute("placeholder", "your notes here")
         }
@@ -294,6 +328,7 @@ BusinessListView.prototype.makeTableRow = function (business) {
         // now add the elements
         infoTd.appendChild(textarea)
         infoTr.appendChild(infoTd)
+       
         tr.parentNode.insertBefore(infoTr, tr.nextSibling) // !
         this.currentlyOpenTextArea = { row: infoTr, textarea: textarea, id: business.details.id }  // so it can be closed later
     }.bind(this)
@@ -305,12 +340,12 @@ BusinessListView.prototype.makeTableRow = function (business) {
     return tr
 }
 
-BusinessListView.prototype.select = function (tr, business) {
+BusinessListView.prototype.select = function (td, business) {
     if (this.currentlySelected) {
         this.currentlySelected.classList.remove("selected")
     }
-    tr.classList.add("selected")
-    this.currentlySelected = tr
+    td.classList.add("selected")
+    this.currentlySelected = td
     this.mapWrapper.openInfoWindow(business)
 }
 
