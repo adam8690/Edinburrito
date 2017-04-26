@@ -225,7 +225,7 @@ button {
     left: -100px;
     bottom: 0px;
 }
-
+/*start of eductaional section css*/
 .main-container {
     display: flex;
     width: 100%;
@@ -257,4 +257,16 @@ button {
     /*border-bottom: 1px solid #2874A6;*/
     padding: .5em;
     overflow: scroll;
+}
+.listItem:hover {
+    cursor: pointer;
+    color: hotpink;
+}
+h2 {
+    width: 100%;
+    text-transform: uppercase;
+    font-size: 1.5em;
+    letter-spacing: 0.05em;
+    font-weight: bold;
+    margin: 0;
 }
