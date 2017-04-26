@@ -1,12 +1,12 @@
 var Utils = require('../models/utils')
 var utils = new Utils()
 
-var BusinessDetailView = function (business) {
+var BusinessInfoWindowContent = function (business) {
     this.business = business
     this.details = business.details
 }
 
-BusinessDetailView.prototype.createDetailView = function () {
+BusinessInfoWindowContent.prototype.createContentDiv = function () {
     var div = document.createElement('div')
     div.classList.add('info-window')
 
@@ -54,7 +54,6 @@ BusinessDetailView.prototype.createDetailView = function () {
 
     div.appendChild(detailsDiv)
 
-  
     var telephone = document.createElement('p')
     if (this.details.display_phone !== "" && this.details.display_phone) {
         telephone.innerText = "Phone: " + this.details.display_phone
@@ -76,7 +75,7 @@ BusinessDetailView.prototype.createDetailView = function () {
     return div
 } 
 
-BusinessDetailView.prototype.createMoreInfoView = function (div) {
+BusinessInfoWindowContent.prototype.createMoreInfoView = function (div) {
     div = document.querySelector(".info-window")
     moreInfo = document.querySelector("#more-info")
     if (this.business.moreDetails.hours) {
@@ -128,4 +127,4 @@ BusinessDetailView.prototype.createMoreInfoView = function (div) {
         }
 }
 
-module.exports = BusinessDetailView
+module.exports = BusinessInfoWindowContent
