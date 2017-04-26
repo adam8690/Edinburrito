@@ -234,6 +234,8 @@ BusinessListView.prototype.sortedBy = function (rows, key) {
 BusinessListView.prototype.makeTableRow = function (business) {
     var tr = document.createElement("tr")
 
+  
+
     var nameTd = document.createElement("td")
     nameTd.classList.add("name")
     nameTd.innerHTML = '<p>' + business.details.name + '</p>'
@@ -257,13 +259,22 @@ BusinessListView.prototype.makeTableRow = function (business) {
     tr.appendChild(distanceTd)
 
     var faveTd = document.createElement("td")
-    faveTd.claddList.add("fave")
-    rating
+    faveTd.classList.add("fave")
+    faveTd.innerHTML = '<p class="boxed">' + "HELLO"  + '</p>'
+    faveTd.addEventListener('click', function(event){
+        console.log(event)
+    })
+    tr.appendChild(faveTd)
+    
+        faveTd.onclick = function (){
+            console.log('has been clicked')
+            faveTd.innerHTML = 'Favourited'
+        }
 
 
 
 
-    tr.onclick = function () {
+    nameTd.onclick = function () {
         // closing previously opened one
         // also save the info at this point (? - there's probably a better way) USE ONBLUR!
         if (this.currentlyOpenTextArea) {
@@ -272,7 +283,7 @@ BusinessListView.prototype.makeTableRow = function (business) {
             this.currentlyOpenTextArea.row.remove()
         }
 
-        this.select(tr, business)  
+        this.select(nameTd, business)  
         this.mapWrapper.googleMap.setCenter(business.coords)
         this.mapWrapper.googleMap.setZoom(16)
         if (this.currentLocation) { // you need to have geolocated first
@@ -283,7 +294,7 @@ BusinessListView.prototype.makeTableRow = function (business) {
         var infoTr = document.createElement("tr")
 
         var infoTd = document.createElement("td")
-        infoTd.setAttribute("colspan", "4")
+        infoTd.setAttribute("colspan", "5")
         var textarea = document.createElement("textarea")
         textarea.id = "notes"
 
@@ -298,6 +309,7 @@ BusinessListView.prototype.makeTableRow = function (business) {
         // now add the elements
         infoTd.appendChild(textarea)
         infoTr.appendChild(infoTd)
+       
         tr.parentNode.insertBefore(infoTr, tr.nextSibling) // !
         this.currentlyOpenTextArea = { row: infoTr, textarea: textarea, id: business.details.id }  // so it can be closed later
     }.bind(this)
@@ -309,12 +321,12 @@ BusinessListView.prototype.makeTableRow = function (business) {
     return tr
 }
 
-BusinessListView.prototype.select = function (tr, business) {
+BusinessListView.prototype.select = function (td, business) {
     if (this.currentlySelected) {
         this.currentlySelected.classList.remove("selected")
     }
-    tr.classList.add("selected")
-    this.currentlySelected = tr
+    td.classList.add("selected")
+    this.currentlySelected = td
     this.mapWrapper.openInfoWindow(business)
 }
 

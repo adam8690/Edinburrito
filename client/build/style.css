@@ -121,7 +121,7 @@ tr.currently-closed td {
     border-bottom: 2px solid hotpink;
 }
 
-tbody tr:hover:not(.selected) {
+ td.name:hover:not(.selected) {
     color: dodgerblue;
     cursor: pointer;
 }
