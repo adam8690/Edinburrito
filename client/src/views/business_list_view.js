@@ -134,6 +134,7 @@ BusinessListView.prototype.makeTableRow = function (business) {
         faveTd.onclick = function (){
             console.log('has been clicked')
             faveTd.innerHTML = 'Favourited'
+            
         }
 
 
