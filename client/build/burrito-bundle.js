@@ -63,58 +63,29 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 12);
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */,
-/* 1 */,
-/* 2 */,
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-var DefaultView = __webpack_require__(12);
-var BurritoInfoList = __webpack_require__(9);
-
-var initialize = function(){
-
-  var defaultView = new DefaultView();
-  var burritoInfoList = new BurritoInfoList();
-
-  burritoInfoList.render();
-  defaultView.render();
-  
-}
-
-
-
-
-window.onload = initialize
-
-/***/ },
-/* 8 */
+/* 0 */
 /***/ function(module, exports) {
 
-var WhatIsView = function(){
+var DefaultView = function(){
 
 }
 
-WhatIsView.prototype.render = function(){
+DefaultView.prototype.render = function(){
 
   div = document.querySelector('#top-right');
   div.innerHTML = ""
   
   var h2 = document.createElement('h2');
-  h2.innerText = "What is a Burriiiiiito anyway?"
+  h2.innerText = "Instructions"
   div.appendChild(h2);
 
   var descriptionP = document.createElement('p');
   var br = document.createElement('br');
-  descriptionP.innerText = "A burrito is a type of Mexican and Tex-Mex food, consisting of a large wheat flour tortilla with a filling, wrapped into a closed-ended cylinder, in contrast to a taco, where the tortilla is simply folded around the filling. The flour tortilla is sometimes lightly grilled or steamed to soften it, make it more pliable and allow it to adhere to itself when wrapped. In Mexico, meat and refried beans are sometimes the only fillings. In the United States, burrito fillings may include a combination of ingredients such as Mexican-style rice or plain rice, beans or refried beans, lettuce, salsa, meat, guacamole, cheese, sour cream and various vegetables. Burrito size varies."
+  descriptionP.innerText = "Hello, welcome to the educational section of the site where you can learn all about burritos! Click on an option from the left column to learn more!"
 
   div.appendChild(br);
   div.appendChild(descriptionP);
@@ -122,16 +93,18 @@ WhatIsView.prototype.render = function(){
 
 }
 
-module.exports = WhatIsView;
+module.exports = DefaultView;
 
 /***/ },
-/* 9 */
+/* 1 */,
+/* 2 */,
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-var DefaultView = __webpack_require__(12)
-var WhatIsView = __webpack_require__(8)
-var HistoryView = __webpack_require__(10)
-var SourcesView = __webpack_require__(11)
+var DefaultView = __webpack_require__(0)
+var WhatIsView = __webpack_require__(10)
+var HistoryView = __webpack_require__(7)
+var SourcesView = __webpack_require__(9)
 
 var BurritoInfoList = function(){
   this.whatIsView = new WhatIsView();
@@ -173,7 +146,10 @@ BurritoInfoList.prototype.render = function(){
 module.exports = BurritoInfoList;
 
 /***/ },
-/* 10 */
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */
 /***/ function(module, exports) {
 
 var HistoryView = function(){
@@ -202,7 +178,8 @@ HistoryView.prototype.render = function(){
 module.exports = HistoryView;
 
 /***/ },
-/* 11 */
+/* 8 */,
+/* 9 */
 /***/ function(module, exports) {
 
 var Sources = function(){
@@ -239,25 +216,25 @@ Sources.prototype.render = function(){
 module.exports = Sources;
 
 /***/ },
-/* 12 */
+/* 10 */
 /***/ function(module, exports) {
 
-var DefaultView = function(){
+var WhatIsView = function(){
 
 }
 
-DefaultView.prototype.render = function(){
+WhatIsView.prototype.render = function(){
 
   div = document.querySelector('#top-right');
   div.innerHTML = ""
   
   var h2 = document.createElement('h2');
-  h2.innerText = "Instructions"
+  h2.innerText = "What is a Burriiiiiito anyway?"
   div.appendChild(h2);
 
   var descriptionP = document.createElement('p');
   var br = document.createElement('br');
-  descriptionP.innerText = "Hello, welcome to the educational section of the site where you can learn all about burritos! Click on an option from the left column to learn more!"
+  descriptionP.innerText = "A burrito is a type of Mexican and Tex-Mex food, consisting of a large wheat flour tortilla with a filling, wrapped into a closed-ended cylinder, in contrast to a taco, where the tortilla is simply folded around the filling. The flour tortilla is sometimes lightly grilled or steamed to soften it, make it more pliable and allow it to adhere to itself when wrapped. In Mexico, meat and refried beans are sometimes the only fillings. In the United States, burrito fillings may include a combination of ingredients such as Mexican-style rice or plain rice, beans or refried beans, lettuce, salsa, meat, guacamole, cheese, sour cream and various vegetables. Burrito size varies."
 
   div.appendChild(br);
   div.appendChild(descriptionP);
@@ -265,7 +242,30 @@ DefaultView.prototype.render = function(){
 
 }
 
-module.exports = DefaultView;
+module.exports = WhatIsView;
+
+/***/ },
+/* 11 */,
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+var DefaultView = __webpack_require__(0);
+var BurritoInfoList = __webpack_require__(3);
+
+var initialize = function(){
+
+  var defaultView = new DefaultView();
+  var burritoInfoList = new BurritoInfoList();
+
+  burritoInfoList.render();
+  defaultView.render();
+  
+}
+
+
+
+
+window.onload = initialize
 
 /***/ }
 /******/ ]);

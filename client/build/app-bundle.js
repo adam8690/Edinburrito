@@ -63,11 +63,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */
+/* 0 */,
+/* 1 */
 /***/ function(module, exports) {
 
 var Utils = function(){
@@ -87,10 +88,10 @@ Utils.prototype.formatDistance = function (distance) {
 module.exports = Utils;
 
 /***/ },
-/* 1 */
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-var Business = __webpack_require__ (4)
+var Business = __webpack_require__ (6)
 
 var Businesses = function (mapWrapper) {
     this.mapWrapper = mapWrapper 
@@ -116,6 +117,7 @@ Businesses.prototype = {
         }.bind(this)
         var payload = JSON.stringify({
             term: "burrito",
+            locale: "en_GB",
             latitude: latLng.lat,
             longitude: latLng.lng,
             limit: 50
@@ -127,10 +129,11 @@ Businesses.prototype = {
 module.exports = Businesses
 
 /***/ },
-/* 2 */
+/* 3 */,
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-var Utils = __webpack_require__(0);
+var Utils = __webpack_require__(1);
 var utils = new Utils();
 
 var BusinessListView = function (container, mapWrapper) {
@@ -253,6 +256,9 @@ BusinessListView.prototype.makeTableRow = function (business) {
     distanceTd.innerHTML = '<p>' + utils.formatDistance(business.details.distance) + '</p>'
     tr.appendChild(distanceTd)
 
+
+
+
     tr.onclick = function () {
         // closing previously opened one
         // also save the info at this point (? - there's probably a better way) USE ONBLUR!
@@ -295,7 +301,7 @@ BusinessListView.prototype.makeTableRow = function (business) {
     if (business.details.is_closed === "true") {
         tr.classList.add("currently-closed")  // TODO: see why this isn't working
     }
-
+    
     return tr
 }
 
@@ -311,10 +317,10 @@ BusinessListView.prototype.select = function (tr, business) {
 module.exports = BusinessListView
 
 /***/ },
-/* 3 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-var BusinessDetailView = __webpack_require__(5);
+var BusinessDetailView = __webpack_require__(8);
 
 var MapWrapper = function(container, coords, zoom){
   this.currentlyOpenInfoWindow = null
@@ -348,7 +354,7 @@ MapWrapper.prototype = {
       position: coords,
       map: this.googleMap,
       animation: google.maps.Animation.DROP,
-      icon: '/images/267881.png' 
+      icon: '/images/burrito.png' 
     });
     this.markers.push(marker)
     return marker;
@@ -359,7 +365,7 @@ MapWrapper.prototype = {
       position: coords,
       map: this.googleMap,
       animation: google.maps.Animation.DROP,
-      icon: '/images/Daveault1.png'
+      icon: '/images/minion.png'
     })
     this.markers.push(marker)
     return marker
@@ -382,7 +388,7 @@ MapWrapper.prototype = {
   addInfoWindow: function(business, marker) {
     // var marker = this.addMarker(coords);
     detailsView = new BusinessDetailView(business);
-    content = detailsView.createDetailView()    
+    content = detailsView.createDetailView()
 
     var infoWindow = new google.maps.InfoWindow();
     infoWindow.setContent(content);
@@ -401,6 +407,7 @@ MapWrapper.prototype = {
         this.googleMap.setCenter(coords);
         this.googleMap.setZoom(16);
         this.addMyLocationMarker(coords)
+       
     }
 
 }
@@ -408,7 +415,7 @@ MapWrapper.prototype = {
 module.exports = MapWrapper 
 
 /***/ },
-/* 4 */
+/* 6 */
 /***/ function(module, exports) {
 
 var Business = function(details, mapWrapper){
@@ -447,148 +454,151 @@ Business.prototype.getMoreDetails = function (callback) {
 module.exports = Business
 
 /***/ },
-/* 5 */
+/* 7 */,
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-var Utils = __webpack_require__(0);
-var utils = new Utils();
+var Utils = __webpack_require__(1)
+var utils = new Utils()
 
-var BusinessDetailView = function(business){
-this.business = business;
-this.details = business.details;
+var BusinessDetailView = function (business) {
+    this.business = business
+    this.details = business.details
 }
 
-BusinessDetailView.prototype.createDetailView = function(){
-  
+BusinessDetailView.prototype.createDetailView = function () {
     var div = document.createElement('div')
-    div.classList.add('infoWindow');
+    div.classList.add('info-window')
 
-    var nameH1 = document.createElement('p');
-    nameH1.classList.add('name');
-    nameH1.innerText = this.details.name;
+    var name = document.createElement('p')
+    name.classList.add('name') 
+    name.classList.add('underline')
+    name.innerText = this.details.name
+    div.appendChild(name)
 
-    var address = document.createElement('p');
-    address.innerText = this.details.location.address1;
+    var address = document.createElement('p')
+    address.innerText = this.details.location.address1
+    div.appendChild(address)
 
-    var imageDiv = document.createElement('div');
-    imageDiv.id = "image_div"
+    if (this.details.image_url) {
+        var imageDiv = document.createElement('div')
+        imageDiv.id = "image-div"
     
-    var image = document.createElement('img');
-    image.id = "image"
-    image.classList.add("businessImage")
-    imageDiv.appendChild(image);
-    if (this.details.image_url){
-      image.src = this.details.image_url;
+        var image = document.createElement('img')
+        image.id = "business-image"
+        imageDiv.appendChild(image)
+        image.src = this.details.image_url
+        div.appendChild(imageDiv)
     }
-    else image.innerHTML = "" 
-  
-  var rating = document.createElement('p');
-  rating.innerText = "Rating: " + this.details.rating + "★"
 
-  var price = document.createElement('p');
-  if(this.details.price){
-    price.innerText = "Price: " + this.details.price
+    var detailsDiv = document.createElement('div')
+    detailsDiv.style.display = "flex"
+    detailsDiv.style.flexDirection = "row"
+    detailsDiv.style.verticalAlign = "middle"
+
+    if (this.details.price) {
+        var price = document.createElement('p')
+        price.innerText = this.details.price
+        price.classList.add("boxed")
+        detailsDiv.appendChild(price)
     }
-  else price.innerText = "";
+  
+    var rating = document.createElement('p')
+    rating.innerHTML = this.details.rating + "&#8201;&#9733;"
+    rating.classList.add("boxed")
+    detailsDiv.appendChild(rating)
 
+    var distance = document.createElement('p')
+    distance.innerText = utils.formatDistance(this.details.distance)
+    detailsDiv.appendChild(distance)
 
-  var distance = document.createElement('p');
-  distance.innerText = "Distance: " + utils.formatDistance(this.details.distance)
+    div.appendChild(detailsDiv)
 
   
-  var telephone = document.createElement('p');
-  if(this.details.display_phone !== "" && this.details.display_phone){
-    telephone.innerText = "Telephone: " + this.details.display_phone;
-  }
-  else {
-    telephone.innerText = "";
-  }
+    var telephone = document.createElement('p')
+    if (this.details.display_phone !== "" && this.details.display_phone) {
+        telephone.innerText = "Phone: " + this.details.display_phone
+        div.appendChild(telephone)
+    }
 
+    var moreInfo = document.createElement('p')
+    moreInfo.id = "more-info"
+    moreInfo.innerText = 'See opening hours...'
+    div.appendChild(moreInfo)
 
-  var moreInfo = document.createElement('p');
-  moreInfo.classList.add("moreInfo")
-  moreInfo.innerText = 'See opening hours...';
-  moreInfo.addEventListener('click', function () {
-    this.business.getMoreDetails(function () {
-      // create the expanded view in here.
-      div.removeChild(moreInfo);
-      this.createMoreInfoView(div)
-    }.bind(this));
-  }.bind(this));
+    moreInfo.addEventListener('click', function () {
+        this.business.getMoreDetails(function () {
+            // create the expanded view in here
+            this.createMoreInfoView(div)
+        }.bind(this))
+    }.bind(this))
 
-  div.appendChild(nameH1);
-  div.appendChild(address);
-  if(this.details.image_url) {div.appendChild(imageDiv);}
-  div.appendChild(rating);
-  div.appendChild(price);
-  div.appendChild(distance);
-  div.appendChild(telephone);
-  div.appendChild(moreInfo);
-  return div;
+    return div
 } 
 
 BusinessDetailView.prototype.createMoreInfoView = function (div) {
-  if (this.business.moreDetails.hours) {
-    console.log(this.business.moreDetails.hours["0"])
-    var open = document.createElement('p')
-    if (this.business.moreDetails.hours["0"].is_open_now) {
-      open.innerText = "Open"
-      open.classList.add("currentlyOpen")
-    }
-    else {
-      open.innerText = "Closed"
-      open.classList.add("currentlyClosed")
-    }
-    div.appendChild(open)
+    div = document.querySelector(".info-window")
+    moreInfo = document.querySelector("#more-info")
+    if (this.business.moreDetails.hours) {
+        div.removeChild(moreInfo)
+        var open = document.createElement('p')
+        if (this.business.moreDetails.hours["0"].is_open_now) {
+            open.innerText = "currently open"
+            open.classList.add("currently-open")
+        } else {
+            open.innerText = "currently closed"
+            open.classList.add("currently-closed")
+        }
+        div.appendChild(open)
 
-    var daysMap = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+        var daysMap = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
-    var openingHoursTable = document.createElement('table');
-    var openingHoursTableHeading = document.createElement('th');
-    openingHoursTableHeading.classList.add('openingHoursTableTitle')
-    openingHoursTableHeading.innerText = "Opening Hours";
-    div.appendChild(openingHoursTable);
-    openingHoursTable.appendChild(openingHoursTableHeading);
-    openingHoursTable.classList.add('openingHoursTable');
+        var table = document.createElement('table')
+        table.id = "opening-hours-table"
 
-    var days = this.business.moreDetails.hours["0"].open 
-      for(i = 0; i < days.length; i++){
-        var tableRow = document.createElement('tr');
-        tableRow.classList.add('openingHoursTableRows');
-        var tableDataDay = document.createElement('td');
-        tableDataDay.innerText = daysMap[days[i].day];
-        var tableDataStart = document.createElement('td');
-        tableDataStart.innerText = days[i].start;
-        var tableDataTo = document.createElement('td');
-        tableDataTo.innerText = "to";
-        var tableDataEnd = document.createElement('td');
-        tableDataEnd.innerText = days[i].end;
-        
-        openingHoursTable.appendChild(tableRow);
-        tableRow.appendChild(tableDataDay);
-        tableRow.appendChild(tableDataStart);
-        tableRow.appendChild(tableDataTo);
-        tableRow.appendChild(tableDataEnd);
-      }
-  }
-  else {
-    var noHours = document.createElement('p');
-    noHours.innerText = "Sorry, no opening hours information available :(";
-    noHours.classList.add('openingHoursTitle')
-    div.appendChild(noHours);
-  }
+        var days = this.business.moreDetails.hours["0"].open 
+            for (i = 0; i < days.length; i++) {
+                var tr = document.createElement('tr')
+                tr.classList.add('openingHoursTableRows')
+
+                var dayTd = document.createElement('td')
+                dayTd.innerText = daysMap[days[i].day]
+                dayTd.classList.add("day-column")
+                tr.appendChild(dayTd)
+
+                var startTd = document.createElement('td')
+                startTd.innerText = days[i].start
+                tr.appendChild(startTd)
+
+                var toTd = document.createElement('td')
+                toTd.innerHTML = "&ndash;"
+                tr.appendChild(toTd)
+
+                var endTd = document.createElement('td')
+                endTd.innerText = days[i].end
+                tr.appendChild(endTd)
+            
+                table.appendChild(tr)
+            }
+            div.appendChild(table)
+        } else {
+            // var noHours = document.createElement('p')
+            // div.appendChild(noHours)
+            moreInfo.innerText = "Sorry, no information available :("
+        }
 }
-
 
 module.exports = BusinessDetailView
 
 /***/ },
-/* 6 */
+/* 9 */,
+/* 10 */,
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
-var MapWrapper = __webpack_require__(3)
-var BusinessListView = __webpack_require__(2)
-var Businesses = __webpack_require__(1)
+var MapWrapper = __webpack_require__(5)
+var BusinessListView = __webpack_require__(4)
+var Businesses = __webpack_require__(2)
 var map
 var marker
 
@@ -600,20 +610,20 @@ var initialize = function () {
     var calculateAndDisplayRoute = document.querySelector('#floating-panel')
     
     var showCredits = function () {
-        flexGrid.style.opacity = 0.3
+        flexContainer.style.opacity = 0.3
         creditsPopup.style.display = "block"
         credits.onclick = hideCredits
         body.onmouseup = hideCredits // a click anywhere will hide the popup
     }
 
     var hideCredits = function () {
-        flexGrid.style.opacity = 1
+        flexContainer.style.opacity = 1
         creditsPopup.style.display = "none"
         credits.onclick = showCredits
         body.onmouseup = null
     }
 
-    var flexGrid = document.querySelector(".flex-grid")
+    var flexContainer = document.querySelector("#flex-container")
     var creditsPopup = document.querySelector("#credits-popup")
     creditsPopup.onclick = hideCredits
     var credits = document.querySelector("#credits-text")
@@ -645,44 +655,31 @@ var initialize = function () {
         })
     }
 
-    function myMove() {
-      var elem = document.getElementById("animate");   
-      var pos = 0;
-      var id = setInterval(frame, 3);
-      function frame() {
-        if (pos == 300) {
-          clearInterval(id);
-        } else {
-          pos++; 
-          elem.style.top = pos - 'px'; 
-          elem.style.left = pos + 'px'; 
-        }
-      }
-    }
-
     var whereAmI = document.querySelector('#my-location')
+    var van = document.querySelector("#van")
+    // must reset the animation once it's completed, otherwise cannot be retriggered
+    van.addEventListener("animationend", function () { van.style.animation = "" })
     whereAmI.onclick = function () {
+        van.style.animation = "van-progress 5s ease-in 0s 1"
         navigator.geolocation.getCurrentPosition(function (position) {
             var coords = {
                 lat: position.coords.latitude,
-                lng: position.coords.longitude }
+                lng: position.coords.longitude
+            }
             redraw(coords)
         })
     }
 
+
+
     var businesses = new Businesses(mainMap)    // getting the burrito data
-    var list = document.querySelector("#list")  // setup views
+    var list = document.querySelector("#business-list")  // setup views
     var businessListView = new BusinessListView(list, mainMap)
     businesses.done = businessListView.render.bind(businessListView)  //set callback for request
     businesses.populate(defaultLocation)        // get data from server
-
-
 }
 
-
-
 window.onload = initialize
-
 
 /***/ }
 /******/ ]);
