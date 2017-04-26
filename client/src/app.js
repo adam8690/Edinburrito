@@ -3,6 +3,11 @@ var BusinessListView = require('./views/business_list_view.js')
 var Businesses = require('./models/businesses.js')
 var map
 var marker
+var BurritoInfoList = require('./views/burrito_info_list.js')
+var DefaultView = require('./views/default_view.js');
+var WhatIsView = require('./views/what_is_burrito.js');
+var HistoryView = require('./views/burrito_history_view.js');
+var SourcesView = require('./views/sources_view.js');
 
 var initialize = function () {
     var mapDiv = document.querySelector("#map")
@@ -79,6 +84,16 @@ var initialize = function () {
     var businessListView = new BusinessListView(list, mainMap)
     businesses.done = businessListView.render.bind(businessListView)  //set callback for request
     businesses.populate(defaultLocation)        // get data from server
+
+// render educational views!
+
+var burritoInfoList = new BurritoInfoList();
+var defaultView = new DefaultView();
+
+burritoInfoList.render();
+defaultView.render();
+
+
 }
 
 window.onload = initialize
