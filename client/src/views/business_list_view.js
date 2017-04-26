@@ -9,7 +9,7 @@ var BusinessListView = function (container, mapWrapper) {
     this.currentlyOpenInfoWindow = null
     this.currentlyOpenTextArea = null
     this.currentLocation = null 
-    this.notes = JSON.parse(localStorage.getItem("edinburrito")) || {}
+    this.savedInfo = JSON.parse(localStorage.getItem("edinburrito")) || {}
 }
 
 BusinessListView.prototype.highlightCurrentSort = function (sorts) {
@@ -105,7 +105,7 @@ BusinessListView.prototype.makeTableRow = function (business) {
     tr.appendChild(nameTd)
 
     var priceTd = document.createElement("td")
-    priceTd.classList.add("price")
+    priceTd.classList.add("price")x
     if (business.details.price) {
         priceTd.innerHTML = '<p class="boxed">' + business.details.price + '</p>'
     }
@@ -120,10 +120,6 @@ BusinessListView.prototype.makeTableRow = function (business) {
     distanceTd.classList.add("distance")
     distanceTd.innerHTML = '<p>' + utils.formatDistance(business.details.distance) + '</p>'
     tr.appendChild(distanceTd)
-
-    var faveTd = document.createElement("td")
-    faveTd.claddList.add("fave")
-    rating
 
 
 
