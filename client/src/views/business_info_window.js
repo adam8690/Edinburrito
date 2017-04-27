@@ -17,7 +17,7 @@ BusinessInfoWindow.prototype.open = function () {
 }
 
 BusinessInfoWindow.prototype.getMoreDetails = function (callback) {
-    if (!this.moreDetails){
+    if (!this.business.moreDetails){
         var request = new XMLHttpRequest();
         request.open("GET", "http://localhost:3000/api/businesses/"+ this.business.details.id);
         request.onload = function(){
