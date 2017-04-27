@@ -17,15 +17,15 @@ BusinessInfoWindow.prototype.open = function () {
 }
 
 BusinessInfoWindow.prototype.getMoreDetails = function (callback) {
-    if (!this.business.moreDetails){
+    if (this.business.moreDetails === null) {
         var request = new XMLHttpRequest();
         request.open("GET", "http://localhost:3000/api/businesses/"+ this.business.details.id);
         request.onload = function(){
             if ( request.status !== 200 ) return 
                 var jsonString = request.responseText
-                var moreDetails = JSON.parse(jsonString)
-                callback(moreDetails)
-        }
+                this.business.moreDetails = JSON.parse(jsonString)
+                callback(this.business.moreDetails)
+        }.bind(this)
         request.send()
     }
 }

@@ -77,8 +77,8 @@ BusinessInfoWindowContent.prototype.expandContent = function (moreDetails) {
         openingHours.classList.remove("greyed-out")
         openingHours.classList.add("opening-hours-link")
         openingHours.addEventListener("click", function () {
-            this.buildOpeningHoursTable(moreDetails)
             this.div.removeChild(openingHours)
+            this.buildOpeningHoursTable(moreDetails)
         }.bind(this))
     } else {
         openingHours.innerText = "Sorry, no opening hours available"
